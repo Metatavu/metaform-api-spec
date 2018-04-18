@@ -251,6 +251,8 @@ definitions:
   MetaformField:
     type: "object"
     properties: 
+      visible-if:
+        $ref: '#/definitions/MetaformVisibleIf'
       name: 
         type: "string"
       type: 
@@ -263,6 +265,27 @@ definitions:
         type: "string"
       placeholder: 
         type: "string"
+  MetaformVisibleIf:
+    type: "object"
+    description: Rule that defines whether specified object is visible
+    properties:
+      field: 
+        type: "string"
+        description: Field where the visible if rule is relative to
+      equals:
+        type: "string"
+        description: Value must be equal to this value
+      not-equals:
+        type: "string"
+        description: Value must be not equal to this value
+      and:
+        type: "array"
+        items: 
+          $ref: '#/definitions/MetaformVisibleIf'
+      or:
+        type: "array"
+        items: 
+          $ref: '#/definitions/MetaformVisibleIf'
   InternalServerError:
     type: object
     properties:
