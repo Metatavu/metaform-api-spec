@@ -1,0 +1,305 @@
+swagger: '2.0'
+info:
+  title: Metaform REST API
+  description: REST API for Metaform
+  version: 0.0.1
+schemes:
+  - https
+basePath: /
+consumes:
+  - application/json;charset=utf-8
+produces:
+  - application/json;charset=utf-8
+securityDefinitions:
+  bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - bearer: []
+paths:
+  '/organizations/{organizationId}/metaforms':
+    get:
+      operationId: listMetaforms
+      summary: Lists Metaforms 
+      description: Lists Metaforms from the organization. Logged user must have proper 
+        permissions to organization, otherwise forbidden is returned instead.
+      tags:
+        - Metaforms
+      parameters:
+        - name: organizationId
+          required: true
+          in: path
+          description: Organization id
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A metaform
+          schema:
+            $ref: '#/definitions/Metaform'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/organizations/{organizationId}/metaforms/{metaformId}':
+    get:
+      operationId: findMetaform
+      summary: Finds single Metaform 
+      description: Finds a single Metaform
+      tags:
+        - Metaforms
+      parameters:
+        - name: organizationId
+          required: true
+          in: path
+          description: Organization id
+          type: string
+          format: uuid
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A metaform
+          schema:
+            $ref: '#/definitions/Metaform'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/organizations/{organizationId}/metaforms/{metaformId}/replies':
+    get:
+      operationId: listReplies
+      summary: Lists form replies 
+      description: Lists form replies
+      tags:
+        - Replies
+      parameters:
+        - name: organizationId
+          required: true
+          in: path
+          description: Organization id
+          type: string
+          format: uuid
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: userId
+          in: query
+          description: 
+            Filter results by user id. Defaults to logged user. If this parameter is 
+            not specified all replies are returned, this requires logged user to have
+            proper permission to do so
+          type: integer
+          format: uuid
+      responses:
+        '200':
+          description: A reply
+          schema:
+            $ref: '#/definitions/Reply'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/organizations/{organizationId}/metaforms/{metaformId}/replies/{replyId}':
+    get:
+      operationId: findReply
+      summary: Find a single reply
+      description: Finds single reply by id
+      tags:
+        - Replies
+      parameters:
+        - name: organizationId
+          required: true
+          in: path
+          description: Organization id
+          type: string
+          format: uuid
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: replyId
+          required: true
+          in: path
+          description: Reply id
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A reply
+          schema:
+            $ref: '#/definitions/Reply'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+    put:
+      operationId: updateReply
+      summary: Updates reply
+      description: Updates reply
+      tags:
+        - Replies
+      parameters:
+        - name: organizationId
+          required: true
+          in: path
+          description: Organization id
+          type: string
+          format: uuid
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: replyId
+          required: true
+          in: path
+          description: Reply id
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Reply'
+      responses:
+        '201':
+          description: Empty response indicating a succesfull update
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+definitions:
+  Reply:
+    required:
+      - values
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+      values:
+        type: object
+  Metaform:
+    type: object
+    properties:
+      title: 
+        type: "string"
+      sections: 
+        type: "array"
+        items: 
+          $ref: '#/definitions/MetaformSection'
+  MetaformSection:
+    type: "object"
+    properties: 
+      fields: 
+        type: "array"
+        items: 
+          $ref: '#/definitions/MetaformField'
+  MetaformField:
+    type: "object"
+    properties: 
+      name: 
+        type: "string"
+      type: 
+        type: "string"
+      title: 
+        type: "string"
+      required: 
+        type: "boolean"
+      contexts: 
+        type: "string"
+      placeholder: 
+        type: "string"
+  InternalServerError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  Forbidden:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  BadRequest:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  NotImplemented:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  NotFound:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
