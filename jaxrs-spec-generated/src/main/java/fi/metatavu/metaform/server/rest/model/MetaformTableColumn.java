@@ -1,5 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
+import fi.metatavu.metaform.server.rest.model.MetaformTableColumnType;
 import fi.metatavu.metaform.server.rest.model.MetaformTableColumnValues;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -11,38 +12,7 @@ import java.util.Objects;
 
 public class MetaformTableColumn   {
   
-
-public enum TypeEnum {
-
-    HIDDEN(String.valueOf("hidden")), TEXT(String.valueOf("text")), AUTOCOMPLETE(String.valueOf("autocomplete")), NUMBER(String.valueOf("number")), ENUM(String.valueOf("enum")), DATE(String.valueOf("date")), TIME(String.valueOf("time")), HTML(String.valueOf("html")), BUTTON(String.valueOf("button"));
-
-
-    private String value;
-
-    TypeEnum (String v) {
-        value = v;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String v) {
-        for (TypeEnum b : TypeEnum.values()) {
-            if (String.valueOf(b.value).equals(v)) {
-                return b;
-            }
-        }
-        return null;
-    }
-}
-
-  private @Valid TypeEnum type = null;
+  private @Valid MetaformTableColumnType type = null;
   private @Valid String title = null;
   private @Valid Boolean calculateSum = null;
   private @Valid String sumPostfix = null;
@@ -57,17 +27,17 @@ public enum TypeEnum {
 
   /**
    **/
-  public MetaformTableColumn type(TypeEnum type) {
+  public MetaformTableColumn type(MetaformTableColumnType type) {
     this.type = type;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public TypeEnum getType() {
+  public MetaformTableColumnType getType() {
     return type;
   }
-  public void setType(TypeEnum type) {
+  public void setType(MetaformTableColumnType type) {
     this.type = type;
   }
 

@@ -1,6 +1,7 @@
 package fi.metatavu.metaform.server.rest.model;
 
 import fi.metatavu.metaform.server.rest.model.MetaformFieldOption;
+import fi.metatavu.metaform.server.rest.model.MetaformFieldType;
 import fi.metatavu.metaform.server.rest.model.MetaformTableColumn;
 import fi.metatavu.metaform.server.rest.model.MetaformVisibleIf;
 import java.util.ArrayList;
@@ -17,38 +18,7 @@ public class MetaformField   {
   
   private @Valid MetaformVisibleIf visibleIf = null;
   private @Valid String name = null;
-
-public enum TypeEnum {
-
-    TEXT(String.valueOf("text")), HIDDEN(String.valueOf("hidden")), EMAIL(String.valueOf("email")), NUMBER(String.valueOf("number")), MEMO(String.valueOf("memo")), BOOLEAN(String.valueOf("boolean")), RADIO(String.valueOf("radio")), CHECKLIST(String.valueOf("checklist")), DATE(String.valueOf("date")), TIME(String.valueOf("time")), DATE_TIME(String.valueOf("date-time")), FILES(String.valueOf("files")), TABLE(String.valueOf("table")), LOGO(String.valueOf("logo")), SMALL_TEXT(String.valueOf("small-text")), HTML(String.valueOf("html")), SUBMIT(String.valueOf("submit")), SELECT(String.valueOf("select")), AUTOCOMPLETE(String.valueOf("autocomplete")), AUTOCOMPLETE_MULTIPLE(String.valueOf("autocomplete-multiple"));
-
-
-    private String value;
-
-    TypeEnum (String v) {
-        value = v;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String v) {
-        for (TypeEnum b : TypeEnum.values()) {
-            if (String.valueOf(b.value).equals(v)) {
-                return b;
-            }
-        }
-        return null;
-    }
-}
-
-  private @Valid TypeEnum type = null;
+  private @Valid MetaformFieldType type = null;
   private @Valid String title = null;
   private @Valid Boolean required = null;
   private @Valid String contexts = null;
@@ -110,7 +80,7 @@ public enum TypeEnum {
 
   /**
    **/
-  public MetaformField type(TypeEnum type) {
+  public MetaformField type(MetaformFieldType type) {
     this.type = type;
     return this;
   }
@@ -118,10 +88,10 @@ public enum TypeEnum {
   
   @ApiModelProperty(required = true, value = "")
   @NotNull
-  public TypeEnum getType() {
+  public MetaformFieldType getType() {
     return type;
   }
-  public void setType(TypeEnum type) {
+  public void setType(MetaformFieldType type) {
     this.type = type;
   }
 

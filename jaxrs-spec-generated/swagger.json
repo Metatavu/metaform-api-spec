@@ -665,8 +665,7 @@
           "description" : "Field name"
         },
         "type" : {
-          "type" : "string",
-          "enum" : [ "text", "hidden", "email", "number", "memo", "boolean", "radio", "checklist", "date", "time", "date-time", "files", "table", "logo", "small-text", "html", "submit", "select", "autocomplete", "autocomplete-multiple" ]
+          "$ref" : "#/definitions/MetaformFieldType"
         },
         "title" : {
           "type" : "string"
@@ -772,12 +771,15 @@
         }
       }
     },
+    "MetaformFieldType" : {
+      "type" : "string",
+      "enum" : [ "text", "hidden", "email", "number", "memo", "boolean", "radio", "checklist", "date", "time", "date-time", "files", "table", "logo", "small-text", "html", "submit", "select", "autocomplete", "autocomplete-multiple" ]
+    },
     "MetaformTableColumn" : {
       "type" : "object",
       "properties" : {
         "type" : {
-          "type" : "string",
-          "enum" : [ "hidden", "text", "autocomplete", "number", "enum", "date", "time", "html", "button" ]
+          "$ref" : "#/definitions/MetaformTableColumnType"
         },
         "title" : {
           "type" : "string",
@@ -837,6 +839,10 @@
           }
         }
       }
+    },
+    "MetaformTableColumnType" : {
+      "type" : "string",
+      "enum" : [ "hidden", "text", "autocomplete", "number", "enum", "date", "time", "html", "button" ]
     },
     "MetaformFieldOption" : {
       "type" : "object",
