@@ -25,10 +25,25 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-23T14:44:28.821+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-23T19:00:36.621+03:00")
 
 
 public interface RealmsApi  {
+
+    @POST
+    @Path("/{realmId}/metaforms")
+    @Consumes({ "application/json;charset&#x3D;utf-8" })
+    @Produces({ "application/json;charset&#x3D;utf-8" })
+    @ApiOperation(value = "create new Metaform", notes = "Creates new Metaform", response = Metaform.class, authorizations = {
+        @Authorization(value = "bearer")
+    }, tags={ "Metaforms",  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Created Metaform", response = Metaform.class),
+        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
+        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
+        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
+    public Response createMetaform(@PathParam("realmId") @ApiParam("realm id") String realmId,@Valid Metaform payload) throws Exception;
 
     @POST
     @Path("/{realmId}/metaforms/{metaformId}/replies")
@@ -133,6 +148,21 @@ public interface RealmsApi  {
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
     public Response listReplies(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@QueryParam("userId")   @ApiParam("Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so")  UUID userId) throws Exception;
+
+    @PUT
+    @Path("/{realmId}/metaforms/{metaformId}")
+    @Consumes({ "application/json;charset&#x3D;utf-8" })
+    @Produces({ "application/json;charset&#x3D;utf-8" })
+    @ApiOperation(value = "Updates Metaform", notes = "Updates a Metaform", response = Metaform.class, authorizations = {
+        @Authorization(value = "bearer")
+    }, tags={ "Metaforms",  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Updated Metaform", response = Metaform.class),
+        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
+        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
+        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
+    public Response updateMetaform(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Metaform payload) throws Exception;
 
     @PUT
     @Path("/{realmId}/metaforms/{metaformId}/replies/{replyId}")

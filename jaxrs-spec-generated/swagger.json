@@ -55,6 +55,59 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Metaforms" ],
+        "summary" : "create new Metaform",
+        "description" : "Creates new Metaform",
+        "operationId" : "createMetaform",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Metaform"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Created Metaform",
+            "schema" : {
+              "$ref" : "#/definitions/Metaform"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
       }
     },
     "/realms/{realmId}/metaforms/{metaformId}" : {
@@ -80,6 +133,66 @@
         "responses" : {
           "200" : {
             "description" : "A metaform",
+            "schema" : {
+              "$ref" : "#/definitions/Metaform"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Metaforms" ],
+        "summary" : "Updates Metaform",
+        "description" : "Updates a Metaform",
+        "operationId" : "updateMetaform",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Metaform"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Updated Metaform",
             "schema" : {
               "$ref" : "#/definitions/Metaform"
             }
