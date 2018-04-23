@@ -1,0 +1,835 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "REST API for Metaform",
+    "version" : "0.0.1",
+    "title" : "Metaform REST API"
+  },
+  "basePath" : "/",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json;charset=utf-8" ],
+  "produces" : [ "application/json;charset=utf-8" ],
+  "security" : [ {
+    "bearer" : [ ]
+  } ],
+  "paths" : {
+    "/realms/{realmId}/metaforms" : {
+      "get" : {
+        "tags" : [ "Metaforms" ],
+        "summary" : "Lists Metaforms",
+        "description" : "Lists Metaforms from the realm. User receives only metaforms where he/she has permission to.",
+        "operationId" : "listMetaforms",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of metaforms",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Metaform"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}" : {
+      "get" : {
+        "tags" : [ "Metaforms" ],
+        "summary" : "Finds single Metaform",
+        "description" : "Finds a single Metaform",
+        "operationId" : "findMetaform",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A metaform",
+            "schema" : {
+              "$ref" : "#/definitions/Metaform"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/replies" : {
+      "get" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Lists form replies",
+        "description" : "Lists form replies",
+        "operationId" : "listReplies",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "userId",
+          "in" : "query",
+          "description" : "Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so",
+          "required" : false,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A reply",
+            "schema" : {
+              "$ref" : "#/definitions/Reply"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Replies" ],
+        "summary" : "create new form reply",
+        "description" : "Creates new form reply",
+        "operationId" : "createReply",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Reply"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Empty response indicating a succesful update"
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/export" : {
+      "get" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Exports metaform data",
+        "description" : "Exports metaform data",
+        "operationId" : "export",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Export results in specified format (XLSX)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Exported Metaform",
+            "schema" : {
+              "type" : "string",
+              "format" : "binary"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}" : {
+      "get" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Find a single reply",
+        "description" : "Finds single reply by id",
+        "operationId" : "findReply",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "replyId",
+          "in" : "path",
+          "description" : "Reply id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A reply",
+            "schema" : {
+              "$ref" : "#/definitions/Reply"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Updates reply",
+        "description" : "Updates reply",
+        "operationId" : "updateReply",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "replyId",
+          "in" : "path",
+          "description" : "Reply id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Reply"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Empty response indicating a succesful update"
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta" : {
+      "get" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Returns reply meta",
+        "description" : "Returns meta data from the reply",
+        "operationId" : "findReplyMeta",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "replyId",
+          "in" : "path",
+          "description" : "Reply id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A reply meta",
+            "schema" : {
+              "$ref" : "#/definitions/ReplyMeta"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "bearer" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "Reply" : {
+      "type" : "object"
+    },
+    "ReplyMeta" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "createdAt" : {
+          "type" : "string",
+          "format" : "datetime"
+        },
+        "modifiedAt" : {
+          "type" : "string",
+          "format" : "datetime"
+        }
+      }
+    },
+    "Metaform" : {
+      "type" : "object",
+      "properties" : {
+        "replyStrategy" : {
+          "type" : "string",
+          "enum" : [ "PUBLIC", "PRIVATE" ]
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "sections" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MetaformSection"
+          }
+        }
+      }
+    },
+    "MetaformSection" : {
+      "type" : "object",
+      "properties" : {
+        "visible-if" : {
+          "$ref" : "#/definitions/MetaformVisibleIf"
+        },
+        "fields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MetaformField"
+          }
+        }
+      }
+    },
+    "MetaformField" : {
+      "type" : "object",
+      "required" : [ "name", "type" ],
+      "properties" : {
+        "visible-if" : {
+          "$ref" : "#/definitions/MetaformVisibleIf"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Field name"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : [ "text", "hidden", "email", "number", "memo", "boolean", "radio", "checklist", "date", "time", "date-time", "files", "table", "logo", "small-text", "html", "submit", "select", "autocomplete", "autocomplete-multiple" ]
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "required" : {
+          "type" : "boolean"
+        },
+        "contexts" : {
+          "type" : "string"
+        },
+        "placeholder" : {
+          "type" : "string"
+        },
+        "class" : {
+          "type" : "string"
+        },
+        "readonly" : {
+          "type" : "boolean"
+        },
+        "help" : {
+          "type" : "string"
+        },
+        "default" : {
+          "type" : "string",
+          "description" : "a default value for a field"
+        },
+        "min" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Minimum value for a field. Only for number fields"
+        },
+        "max" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum value for a field. Only for number fields"
+        },
+        "step" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Value step for a field. Only for number fields"
+        },
+        "checked" : {
+          "type" : "boolean",
+          "description" : "Whether checkbox should be checked by default. Only for checkbox fields"
+        },
+        "printable" : {
+          "type" : "boolean",
+          "description" : "Defines whether field is printable or not. Only for table fields"
+        },
+        "options" : {
+          "type" : "array",
+          "description" : "Options for radio, checklist, select fields",
+          "items" : {
+            "$ref" : "#/definitions/MetaformFieldOption"
+          }
+        },
+        "source-url" : {
+          "type" : "string",
+          "format" : "url",
+          "description" : "Source url for autocomplete and autocomplete-multiple fields"
+        },
+        "upload-url" : {
+          "type" : "string",
+          "format" : "url",
+          "description" : "Upload url for files field."
+        },
+        "single-file" : {
+          "type" : "boolean",
+          "description" : "Defines whether file fields allow multiple files or just one"
+        },
+        "only-images" : {
+          "type" : "boolean",
+          "description" : "Defines whether file fields allow only images"
+        },
+        "max-file-size" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Maximum upload size for image filds"
+        },
+        "draggable" : {
+          "type" : "boolean",
+          "description" : "Defines whether table rows should be draggable."
+        },
+        "columns" : {
+          "type" : "array",
+          "description" : "Columns for table fields",
+          "items" : {
+            "$ref" : "#/definitions/MetaformTableColumn"
+          }
+        },
+        "src" : {
+          "type" : "string",
+          "format" : "url",
+          "description" : "Url for logo field."
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "Text for small field."
+        },
+        "html" : {
+          "type" : "string",
+          "description" : "Html code for html field."
+        }
+      }
+    },
+    "MetaformTableColumn" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "enum" : [ "hidden", "text", "autocomplete", "number", "enum", "date", "time", "html", "button" ]
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Column title"
+        },
+        "calculate-sum" : {
+          "type" : "boolean",
+          "description" : "Defines column should automatically calculate sum"
+        },
+        "sum-postfix" : {
+          "type" : "string",
+          "description" : "Postfix for calculated sum"
+        },
+        "column-width" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Defines column width"
+        },
+        "placeholder" : {
+          "type" : "string",
+          "description" : "Placeholder for column field"
+        },
+        "readonly" : {
+          "type" : "boolean",
+          "description" : "Defines column as readonly"
+        },
+        "required" : {
+          "type" : "boolean",
+          "description" : "Defines column as requires"
+        },
+        "source-url" : {
+          "type" : "string",
+          "format" : "url",
+          "description" : "Defines source url for autocomplete columns"
+        },
+        "html" : {
+          "type" : "string",
+          "description" : "Html code for html columns"
+        },
+        "action" : {
+          "type" : "string",
+          "description" : "Action for button columns"
+        },
+        "values" : {
+          "type" : "object",
+          "description" : "Values for enum columns",
+          "properties" : {
+            "value" : {
+              "type" : "string"
+            },
+            "other" : {
+              "type" : "string"
+            },
+            "text" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "MetaformFieldOption" : {
+      "type" : "object",
+      "required" : [ "name", "text" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "Option name"
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "Option text"
+        },
+        "checked" : {
+          "type" : "boolean",
+          "description" : "Defines whether option should be checked by default."
+        }
+      },
+      "description" : "Option object for Metaform field"
+    },
+    "MetaformVisibleIf" : {
+      "type" : "object",
+      "properties" : {
+        "field" : {
+          "type" : "string",
+          "description" : "Field where the visible if rule is relative to"
+        },
+        "equals" : {
+          "type" : "string",
+          "description" : "Value must be equal to this value. If value is specified \"true\" field must have any value selected"
+        },
+        "not-equals" : {
+          "type" : "string",
+          "description" : "Value must be not equal to this value."
+        },
+        "and" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MetaformVisibleIf"
+          }
+        },
+        "or" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MetaformVisibleIf"
+          }
+        }
+      },
+      "description" : "Rule that defines whether specified object is visible"
+    },
+    "InternalServerError" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Forbidden" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "BadRequest" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "NotImplemented" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "NotFound" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
