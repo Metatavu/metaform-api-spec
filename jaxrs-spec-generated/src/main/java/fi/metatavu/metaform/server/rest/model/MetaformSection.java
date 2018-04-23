@@ -14,8 +14,25 @@ import java.util.Objects;
 
 public class MetaformSection   {
   
+  private @Valid String title = null;
   private @Valid MetaformVisibleIf visibleIf = null;
   private @Valid List<MetaformField> fields = new ArrayList<MetaformField>();
+
+  /**
+   **/
+  public MetaformSection title(String title) {
+    this.title = title;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
   /**
    **/
@@ -59,13 +76,14 @@ public class MetaformSection   {
       return false;
     }
     MetaformSection metaformSection = (MetaformSection) o;
-    return Objects.equals(visibleIf, metaformSection.visibleIf) &&
+    return Objects.equals(title, metaformSection.title) &&
+        Objects.equals(visibleIf, metaformSection.visibleIf) &&
         Objects.equals(fields, metaformSection.fields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, fields);
+    return Objects.hash(title, visibleIf, fields);
   }
 
   @Override
@@ -73,6 +91,7 @@ public class MetaformSection   {
     StringBuilder sb = new StringBuilder();
     sb.append("class MetaformSection {\n");
     
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    visibleIf: ").append(toIndentedString(visibleIf)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
     sb.append("}");

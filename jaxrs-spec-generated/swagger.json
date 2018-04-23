@@ -639,6 +639,9 @@
     "MetaformSection" : {
       "type" : "object",
       "properties" : {
+        "title" : {
+          "type" : "string"
+        },
         "visible-if" : {
           "$ref" : "#/definitions/MetaformVisibleIf"
         },
