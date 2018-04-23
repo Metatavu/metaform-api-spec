@@ -18,26 +18,26 @@ securityDefinitions:
 security:
   - bearer: []
 paths:
-  '/organizations/{organizationId}/metaforms':
+  '/realms/{realmId}/metaforms':
     get:
       operationId: listMetaforms
       summary: Lists Metaforms 
-      description: Lists Metaforms from the organization. Logged user must have proper 
-        permissions to organization, otherwise forbidden is returned instead.
+      description: Lists Metaforms from the realm. User receives only metaforms where he/she has permission to. 
       tags:
         - Metaforms
       parameters:
-        - name: organizationId
+        - name: realmId
           required: true
           in: path
-          description: Organization id
+          description: realm id
           type: string
-          format: uuid
       responses:
         '200':
-          description: A metaform
+          description: A list of metaforms
           schema:
-            $ref: '#/definitions/Metaform'
+            type: "array"
+            items: 
+              $ref: '#/definitions/Metaform'
         '400':
           description: Invalid request was sent to the server
           schema:
@@ -50,7 +50,47 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
-  '/organizations/{organizationId}/metaforms/{metaformId}':
+    post:
+      operationId: createMetaform
+      summary: create new Metaform 
+      description: Creates new Metaform
+      tags:
+        - Metaforms
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: payload
+          in: body
+          description: Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Metaform'
+      responses:
+        '200':
+          description: Created Metaform
+          schema:
+            $ref: '#/definitions/Metaform'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+
+  '/realms/{realmId}/metaforms/{metaformId}':
     get:
       operationId: findMetaform
       summary: Finds single Metaform 
@@ -58,12 +98,11 @@ paths:
       tags:
         - Metaforms
       parameters:
-        - name: organizationId
+        - name: realmId
           required: true
           in: path
-          description: Organization id
+          description: realm id
           type: string
-          format: uuid
         - name: metaformId
           required: true
           in: path
@@ -83,11 +122,60 @@ paths:
           description: Attempted to make a call with unauthorized client
           schema:
             $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
         '500':
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
-  '/organizations/{organizationId}/metaforms/{metaformId}/replies':
+    put:
+      operationId: updateMetaform
+      summary: Updates Metaform 
+      description: Updates a Metaform
+      tags:
+        - Metaforms
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Metaform'
+      responses:
+        '200':
+          description: Updated Metaform
+          schema:
+            $ref: '#/definitions/Metaform'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/realms/{realmId}/metaforms/{metaformId}/replies':
     get:
       operationId: listReplies
       summary: Lists form replies 
@@ -95,12 +183,11 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: organizationId
+        - name: realmId
           required: true
           in: path
-          description: Organization id
+          description: realm id
           type: string
-          format: uuid
         - name: metaformId
           required: true
           in: path
@@ -109,11 +196,8 @@ paths:
           format: uuid
         - name: userId
           in: query
-          description: 
-            Filter results by user id. Defaults to logged user. If this parameter is 
-            not specified all replies are returned, this requires logged user to have
-            proper permission to do so
-          type: integer
+          description: Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so
+          type: string
           format: uuid
       responses:
         '200':
@@ -128,11 +212,105 @@ paths:
           description: Attempted to make a call with unauthorized client
           schema:
             $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
         '500':
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
-  '/organizations/{organizationId}/metaforms/{metaformId}/replies/{replyId}':
+    post:
+      operationId: createReply
+      summary: create new form reply 
+      description: Creates new form reply
+      tags:
+        - Replies
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Reply'
+      responses:
+        '201':
+          description: Empty response indicating a succesful update
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+            
+  '/realms/{realmId}/metaforms/{metaformId}/export':
+    get:
+      operationId: export
+      summary: Exports metaform data 
+      description: Exports metaform data
+      tags:
+        - Replies
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: format
+          in: query
+          description: Export results in specified format (XLSX)
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Exported Metaform
+          schema:
+            type: string
+            format: binary
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}':
     get:
       operationId: findReply
       summary: Find a single reply
@@ -140,12 +318,11 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: organizationId
+        - name: realmId
           required: true
           in: path
-          description: Organization id
+          description: realm id
           type: string
-          format: uuid
         - name: metaformId
           required: true
           in: path
@@ -171,6 +348,10 @@ paths:
           description: Attempted to make a call with unauthorized client
           schema:
             $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
         '500':
           description: Internal server error
           schema:
@@ -182,12 +363,11 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: organizationId
+        - name: realmId
           required: true
           in: path
-          description: Organization id
+          description: realm id
           type: string
-          format: uuid
         - name: metaformId
           required: true
           in: path
@@ -207,8 +387,8 @@ paths:
           schema:
             $ref: '#/definitions/Reply'
       responses:
-        '201':
-          description: Empty response indicating a succesfull update
+        '204':
+          description: Empty response indicating a succesful update
         '400':
           description: Invalid request was sent to the server
           schema:
@@ -217,25 +397,86 @@ paths:
           description: Attempted to make a call with unauthorized client
           schema:
             $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
         '500':
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
+  '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta':
+    get:
+      operationId: findReplyMeta
+      summary: Returns reply meta
+      description: Returns meta data from the reply
+      tags:
+        - Replies
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+        - name: replyId
+          required: true
+          in: path
+          description: Reply id
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A reply meta
+          schema:
+            $ref: '#/definitions/ReplyMeta'
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+            
 definitions:
   Reply:
-    required:
-      - values
+    type: object
+        
+  ReplyMeta:
     type: object
     properties:
       userId:
-        type: string
-        format: uuid
-      values:
-        type: object
-        
+        type: "string"
+        format: "uuid"
+      createdAt:
+        type: "string"
+        format: "datetime"
+      modifiedAt:
+        type: "string"
+        format: "datetime"
+
   Metaform:
     type: object
     properties:
+      replyStrategy:
+        type: "string"
+        enum:
+          - PUBLIC
+          - PRIVATE
       title: 
         type: "string"
       sections: 
@@ -448,10 +689,10 @@ definitions:
         description: Field where the visible if rule is relative to
       equals:
         type: "string"
-        description: Value must be equal to this value
+        description: Value must be equal to this value. If value is specified "true" field must have any value selected
       not-equals:
         type: "string"
-        description: Value must be not equal to this value
+        description: Value must be not equal to this value.
       and:
         type: "array"
         items: 
@@ -469,6 +710,7 @@ definitions:
         format: int32
       message:
         type: string
+        
   Forbidden:
     type: object
     properties:
@@ -477,6 +719,7 @@ definitions:
         format: int32
       message:
         type: string
+        
   BadRequest:
     type: object
     properties:
@@ -485,6 +728,7 @@ definitions:
         format: int32
       message:
         type: string
+        
   NotImplemented:
     type: object
     properties:
@@ -493,6 +737,7 @@ definitions:
         format: int32
       message:
         type: string
+        
   NotFound:
     type: object
     properties:

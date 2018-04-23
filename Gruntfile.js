@@ -31,7 +31,7 @@ module.exports = function(grunt) {
           '--api-package fi.metatavu.metaform.server.rest ' +
           '--model-package fi.metatavu.metaform.server.rest.model ' +
           '--group-id fi.metatavu.metaform ' +
-          '--artifact-id metaform-spec ' +
+          '--artifact-id metaform-api-spec ' +
           '--artifact-version `cat jaxrs-spec-generated/pom.xml.before|grep version -m 1|sed -e \'s/.*<version>//\'|sed -e \'s/<.*//\'` ' +
           '--template-dir jaxrs-spec-templates ' +
           '--additional-properties dateLibrary=java8,useBeanValidation=true,sourceFolder=src/main/java,interfaceOnly=true ' +
