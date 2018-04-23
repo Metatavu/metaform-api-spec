@@ -507,29 +507,8 @@ definitions:
       name: 
         type: "string"
         description: Field name
-      type: 
-        type: "string"
-        enum:
-          - text
-          - hidden
-          - email
-          - number
-          - memo
-          - boolean
-          - radio
-          - checklist
-          - date
-          - time
-          - date-time
-          - files
-          - table
-          - logo
-          - small-text
-          - html
-          - submit
-          - select
-          - autocomplete
-          - autocomplete-multiple        
+      type:
+        $ref: '#/definitions/MetaformFieldType'
       title: 
         type: "string"
       required: 
@@ -607,21 +586,35 @@ definitions:
         type: "string"
         description: Html code for html field.
 
+  MetaformFieldType:
+    type: "string"
+    enum:
+      - text
+      - hidden
+      - email
+      - number
+      - memo
+      - boolean
+      - radio
+      - checklist
+      - date
+      - time
+      - date-time
+      - files
+      - table
+      - logo
+      - small-text
+      - html
+      - submit
+      - select
+      - autocomplete
+      - autocomplete-multiple 
+
   MetaformTableColumn:
     type: "object"
     properties:
       type:
-        type: "string"
-        enum:
-          - hidden
-          - text
-          - autocomplete
-          - number
-          - enum
-          - date
-          - time
-          - html
-          - button
+        $ref: '#/definitions/MetaformTableColumnType'
       title:
         type: "string"
         description: Column title
@@ -664,6 +657,19 @@ definitions:
             type: "string"
           text:
             type: "string"
+
+  MetaformTableColumnType:
+    type: "string"
+    enum:
+      - hidden
+      - text
+      - autocomplete
+      - number
+      - enum
+      - date
+      - time
+      - html
+      - button
         
   MetaformFieldOption:
     type: "object"
