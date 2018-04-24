@@ -459,6 +459,9 @@ definitions:
       id:
         type: "string"
         format: "uuid"
+      userId:
+        type: "string"
+        format: "uuid"
       data:
         $ref: '#/definitions/ReplyData'
           
@@ -470,9 +473,6 @@ definitions:
   ReplyMeta:
     type: object
     properties:
-      userId:
-        type: "string"
-        format: "uuid"
       createdAt:
         type: "string"
         format: "date-time"
