@@ -16,33 +16,33 @@ import java.util.Objects;
 
 public class MetaformField   {
   
-  private @Valid MetaformVisibleIf visibleIf = null;
-  private @Valid String name = null;
-  private @Valid MetaformFieldType type = null;
-  private @Valid String title = null;
-  private @Valid Boolean required = null;
-  private @Valid String contexts = null;
-  private @Valid String placeholder = null;
-  private @Valid String propertyClass = null;
-  private @Valid Boolean readonly = null;
-  private @Valid String help = null;
-  private @Valid String _default = null;
-  private @Valid Integer min = null;
-  private @Valid Integer max = null;
-  private @Valid Integer step = null;
-  private @Valid Boolean checked = null;
-  private @Valid Boolean printable = null;
-  private @Valid List<MetaformFieldOption> options = new ArrayList<MetaformFieldOption>();
-  private @Valid String sourceUrl = null;
-  private @Valid String uploadUrl = null;
-  private @Valid Boolean singleFile = null;
-  private @Valid Boolean onlyImages = null;
-  private @Valid Long maxFileSize = null;
-  private @Valid Boolean draggable = null;
-  private @Valid List<MetaformTableColumn> columns = new ArrayList<MetaformTableColumn>();
-  private @Valid String src = null;
-  private @Valid String text = null;
-  private @Valid String html = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("visible-if") MetaformVisibleIf visibleIf = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") MetaformFieldType type = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("required") Boolean required = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("contexts") String contexts = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("placeholder") String placeholder = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("class") String propertyClass = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("readonly") Boolean readonly = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("help") String help = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("default") String _default = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("min") Integer min = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("max") Integer max = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("step") Integer step = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("checked") Boolean checked = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("printable") Boolean printable = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("options") List<MetaformFieldOption> options = new ArrayList<MetaformFieldOption>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("source-url") String sourceUrl = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("upload-url") String uploadUrl = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("single-file") Boolean singleFile = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("only-images") Boolean onlyImages = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("max-file-size") Long maxFileSize = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("draggable") Boolean draggable = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("columns") List<MetaformTableColumn> columns = new ArrayList<MetaformTableColumn>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("src") String src = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("text") String text = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("html") String html = null;
 
   /**
    **/
@@ -69,8 +69,7 @@ public class MetaformField   {
   }
 
   
-  @ApiModelProperty(required = true, value = "Field name")
-  @NotNull
+  @ApiModelProperty(value = "Field name")
   public String getName() {
     return name;
   }

@@ -3,6 +3,7 @@ package fi.metatavu.metaform.server.rest.model;
 import fi.metatavu.metaform.server.rest.model.MetaformSection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 public class Metaform   {
   
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
 
 public enum ReplyStrategyEnum {
 
@@ -44,9 +46,25 @@ public enum ReplyStrategyEnum {
     }
 }
 
-  private @Valid ReplyStrategyEnum replyStrategy = null;
-  private @Valid String title = null;
-  private @Valid List<MetaformSection> sections = new ArrayList<MetaformSection>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("replyStrategy") ReplyStrategyEnum replyStrategy = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sections") List<MetaformSection> sections = new ArrayList<MetaformSection>();
+
+  /**
+   **/
+  public Metaform id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public UUID getId() {
+    return id;
+  }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
   /**
    **/
@@ -106,14 +124,15 @@ public enum ReplyStrategyEnum {
       return false;
     }
     Metaform metaform = (Metaform) o;
-    return Objects.equals(replyStrategy, metaform.replyStrategy) &&
+    return Objects.equals(id, metaform.id) &&
+        Objects.equals(replyStrategy, metaform.replyStrategy) &&
         Objects.equals(title, metaform.title) &&
         Objects.equals(sections, metaform.sections);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(replyStrategy, title, sections);
+    return Objects.hash(id, replyStrategy, title, sections);
   }
 
   @Override
@@ -121,6 +140,7 @@ public enum ReplyStrategyEnum {
     StringBuilder sb = new StringBuilder();
     sb.append("class Metaform {\n");
     
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");

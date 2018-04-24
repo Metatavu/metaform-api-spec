@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class MetaformSection   {
   
-  private @Valid String title = null;
-  private @Valid MetaformVisibleIf visibleIf = null;
-  private @Valid List<MetaformField> fields = new ArrayList<MetaformField>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("visible-if") MetaformVisibleIf visibleIf = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("fields") List<MetaformField> fields = new ArrayList<MetaformField>();
 
   /**
    **/

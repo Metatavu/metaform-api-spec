@@ -12,18 +12,18 @@ import java.util.Objects;
 
 public class MetaformTableColumn   {
   
-  private @Valid MetaformTableColumnType type = null;
-  private @Valid String title = null;
-  private @Valid Boolean calculateSum = null;
-  private @Valid String sumPostfix = null;
-  private @Valid Integer columnWidth = null;
-  private @Valid String placeholder = null;
-  private @Valid Boolean readonly = null;
-  private @Valid Boolean required = null;
-  private @Valid String sourceUrl = null;
-  private @Valid String html = null;
-  private @Valid String action = null;
-  private @Valid MetaformTableColumnValues values = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") MetaformTableColumnType type = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("calculate-sum") Boolean calculateSum = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sum-postfix") String sumPostfix = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("column-width") Integer columnWidth = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("placeholder") String placeholder = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("readonly") Boolean readonly = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("required") Boolean required = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("source-url") String sourceUrl = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("html") String html = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("action") String action = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("values") MetaformTableColumnValues values = null;
 
   /**
    **/

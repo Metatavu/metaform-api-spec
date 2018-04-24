@@ -17,11 +17,11 @@ import java.util.Objects;
 
 public class MetaformVisibleIf   {
   
-  private @Valid String field = null;
-  private @Valid String equals = null;
-  private @Valid String notEquals = null;
-  private @Valid List<MetaformVisibleIf> and = new ArrayList<MetaformVisibleIf>();
-  private @Valid List<MetaformVisibleIf> or = new ArrayList<MetaformVisibleIf>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("field") String field = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("equals") String equals = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("not-equals") String notEquals = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("and") List<MetaformVisibleIf> and = new ArrayList<MetaformVisibleIf>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("or") List<MetaformVisibleIf> or = new ArrayList<MetaformVisibleIf>();
 
   /**
    * Field where the visible if rule is relative to

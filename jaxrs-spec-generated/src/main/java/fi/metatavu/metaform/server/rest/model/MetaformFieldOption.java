@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class MetaformFieldOption   {
   
-  private @Valid String name = null;
-  private @Valid String text = null;
-  private @Valid Boolean checked = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("text") String text = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("checked") Boolean checked = null;
 
   /**
    * Option name

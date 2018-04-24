@@ -599,7 +599,23 @@
   },
   "definitions" : {
     "Reply" : {
-      "type" : "object"
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "data" : {
+          "$ref" : "#/definitions/ReplyData"
+        }
+      }
+    },
+    "ReplyData" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "object",
+        "properties" : { }
+      }
     },
     "ReplyMeta" : {
       "type" : "object",
@@ -610,17 +626,21 @@
         },
         "createdAt" : {
           "type" : "string",
-          "format" : "datetime"
+          "format" : "date-time"
         },
         "modifiedAt" : {
           "type" : "string",
-          "format" : "datetime"
+          "format" : "date-time"
         }
       }
     },
     "Metaform" : {
       "type" : "object",
       "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
         "replyStrategy" : {
           "type" : "string",
           "enum" : [ "PUBLIC", "PRIVATE" ]
@@ -655,7 +675,7 @@
     },
     "MetaformField" : {
       "type" : "object",
-      "required" : [ "name", "type" ],
+      "required" : [ "type" ],
       "properties" : {
         "visible-if" : {
           "$ref" : "#/definitions/MetaformVisibleIf"

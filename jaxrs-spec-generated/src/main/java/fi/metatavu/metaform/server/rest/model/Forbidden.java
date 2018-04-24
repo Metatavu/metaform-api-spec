@@ -10,8 +10,8 @@ import java.util.Objects;
 
 public class Forbidden   {
   
-  private @Valid Integer code = null;
-  private @Valid String message = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("code") Integer code = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("message") String message = null;
 
   /**
    **/

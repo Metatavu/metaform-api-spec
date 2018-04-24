@@ -1,5 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -11,9 +12,9 @@ import java.util.Objects;
 
 public class ReplyMeta   {
   
-  private @Valid UUID userId = null;
-  private @Valid String createdAt = null;
-  private @Valid String modifiedAt = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("userId") UUID userId = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("createdAt") OffsetDateTime createdAt = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("modifiedAt") OffsetDateTime modifiedAt = null;
 
   /**
    **/
@@ -33,33 +34,33 @@ public class ReplyMeta   {
 
   /**
    **/
-  public ReplyMeta createdAt(String createdAt) {
+  public ReplyMeta createdAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public String getCreatedAt() {
+  public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
   /**
    **/
-  public ReplyMeta modifiedAt(String modifiedAt) {
+  public ReplyMeta modifiedAt(OffsetDateTime modifiedAt) {
     this.modifiedAt = modifiedAt;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public String getModifiedAt() {
+  public OffsetDateTime getModifiedAt() {
     return modifiedAt;
   }
-  public void setModifiedAt(String modifiedAt) {
+  public void setModifiedAt(OffsetDateTime modifiedAt) {
     this.modifiedAt = modifiedAt;
   }
 

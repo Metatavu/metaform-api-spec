@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class MetaformTableColumnValues   {
   
-  private @Valid String value = null;
-  private @Valid String other = null;
-  private @Valid String text = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("value") String value = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("other") String other = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("text") String text = null;
 
   /**
    **/
