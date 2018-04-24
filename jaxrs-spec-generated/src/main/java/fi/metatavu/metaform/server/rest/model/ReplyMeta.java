@@ -1,7 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -12,25 +11,8 @@ import java.util.Objects;
 
 public class ReplyMeta   {
   
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("userId") UUID userId = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("createdAt") OffsetDateTime createdAt = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("modifiedAt") OffsetDateTime modifiedAt = null;
-
-  /**
-   **/
-  public ReplyMeta userId(UUID userId) {
-    this.userId = userId;
-    return this;
-  }
-
-  
-  @ApiModelProperty(value = "")
-  public UUID getUserId() {
-    return userId;
-  }
-  public void setUserId(UUID userId) {
-    this.userId = userId;
-  }
 
   /**
    **/
@@ -74,14 +56,13 @@ public class ReplyMeta   {
       return false;
     }
     ReplyMeta replyMeta = (ReplyMeta) o;
-    return Objects.equals(userId, replyMeta.userId) &&
-        Objects.equals(createdAt, replyMeta.createdAt) &&
+    return Objects.equals(createdAt, replyMeta.createdAt) &&
         Objects.equals(modifiedAt, replyMeta.modifiedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, createdAt, modifiedAt);
+    return Objects.hash(createdAt, modifiedAt);
   }
 
   @Override
@@ -89,7 +70,6 @@ public class ReplyMeta   {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReplyMeta {\n");
     
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("}");
