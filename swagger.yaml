@@ -455,7 +455,18 @@ paths:
 definitions:
   Reply:
     type: object
-        
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      data:
+        $ref: '#/definitions/ReplyData'
+          
+  ReplyData:
+    type: object
+    additionalProperties:
+      type: object
+
   ReplyMeta:
     type: object
     properties:
@@ -464,14 +475,17 @@ definitions:
         format: "uuid"
       createdAt:
         type: "string"
-        format: "datetime"
+        format: "date-time"
       modifiedAt:
         type: "string"
-        format: "datetime"
+        format: "date-time"
 
   Metaform:
     type: object
     properties:
+      id:
+        type: "string"
+        format: "uuid"
       replyStrategy:
         type: "string"
         enum:
@@ -500,7 +514,6 @@ definitions:
     type: "object"
     required:
       - type
-      - name
     properties: 
       visible-if:
         $ref: '#/definitions/MetaformVisibleIf'
