@@ -255,29 +255,25 @@
           "in" : "query",
           "description" : "Filter results created before specified time",
           "required" : false,
-          "type" : "string",
-          "format" : "date-time"
+          "type" : "string"
         }, {
           "name" : "createdAfter",
           "in" : "query",
           "description" : "Filter results created after specified time",
           "required" : false,
-          "type" : "string",
-          "format" : "date-time"
+          "type" : "string"
         }, {
           "name" : "modifiedBefore",
           "in" : "query",
           "description" : "Filter results modified before specified time",
           "required" : false,
-          "type" : "string",
-          "format" : "date-time"
+          "type" : "string"
         }, {
           "name" : "modifiedAfter",
           "in" : "query",
           "description" : "Filter results modified after specified time",
           "required" : false,
-          "type" : "string",
-          "format" : "date-time"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
