@@ -5,6 +5,7 @@ import fi.metatavu.metaform.server.rest.model.Forbidden;
 import fi.metatavu.metaform.server.rest.model.InternalServerError;
 import fi.metatavu.metaform.server.rest.model.Metaform;
 import fi.metatavu.metaform.server.rest.model.NotFound;
+import java.time.OffsetDateTime;
 import fi.metatavu.metaform.server.rest.model.Reply;
 import fi.metatavu.metaform.server.rest.model.ReplyMeta;
 import java.util.UUID;
@@ -25,7 +26,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T15:16:18.230+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T17:48:57.514+03:00")
 
 
 public interface RealmsApi  {
@@ -147,7 +148,7 @@ public interface RealmsApi  {
         @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
-    public Response listReplies(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@QueryParam("userId")   @ApiParam("Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so")  UUID userId) throws Exception;
+    public Response listReplies(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@QueryParam("userId")   @ApiParam("Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so")  UUID userId,@QueryParam("createdBefore")   @ApiParam("Filter results created before specified time")  OffsetDateTime createdBefore,@QueryParam("createdAfter")   @ApiParam("Filter results created after specified time")  OffsetDateTime createdAfter,@QueryParam("modifiedBefore")   @ApiParam("Filter results modified before specified time")  OffsetDateTime modifiedBefore,@QueryParam("modifiedAfter")   @ApiParam("Filter results modified after specified time")  OffsetDateTime modifiedAfter) throws Exception;
 
     @PUT
     @Path("/{realmId}/metaforms/{metaformId}")
