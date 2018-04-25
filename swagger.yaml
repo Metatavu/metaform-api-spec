@@ -175,6 +175,44 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
+    delete:
+      operationId: deleteMetaform
+      summary: Deletes Metaform 
+      description: Deletes a Metaform
+      tags:
+        - Metaforms
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Empty content indicating a successful removal
+        '400':
+          description: Invalid request was sent to the server
+          schema:
+            $ref: '#/definitions/BadRequest'
+        '403':
+          description: Attempted to make a call with unauthorized client
+          schema:
+            $ref: '#/definitions/Forbidden'
+        '404':
+          description: Attempted to make a call to an non existant metaform
+          schema:
+            $ref: '#/definitions/NotFound'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+
   '/realms/{realmId}/metaforms/{metaformId}/replies':
     get:
       operationId: listReplies
@@ -202,22 +240,18 @@ paths:
         - name: createdBefore
           description: Filter results created before specified time
           in: query
-          format: date-time
           type: string
         - name: createdAfter
           description: Filter results created after specified time
           in: query
-          format: date-time
           type: string
         - name: modifiedBefore
           description: Filter results modified before specified time
           in: query
-          format: date-time
           type: string
         - name: modifiedAfter
           description: Filter results modified after specified time
           in: query
-          format: date-time
           type: string
       responses:
         '200':
