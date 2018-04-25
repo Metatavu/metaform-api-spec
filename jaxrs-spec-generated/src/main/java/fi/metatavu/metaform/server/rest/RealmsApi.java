@@ -25,7 +25,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T18:08:44.054+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T19:34:15.217+03:00")
 
 
 public interface RealmsApi  {
@@ -59,6 +59,21 @@ public interface RealmsApi  {
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
     public Response createReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Reply payload,@QueryParam("updateExisting")   @ApiParam("specifies that existing reply should be updated")  Boolean updateExisting) throws Exception;
+
+    @DELETE
+    @Path("/{realmId}/metaforms/{metaformId}")
+    @Consumes({ "application/json;charset&#x3D;utf-8" })
+    @Produces({ "application/json;charset&#x3D;utf-8" })
+    @ApiOperation(value = "Deletes Metaform", notes = "Deletes a Metaform", response = Void.class, authorizations = {
+        @Authorization(value = "bearer")
+    }, tags={ "Metaforms",  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 204, message = "Empty content indicating a successful removal", response = Void.class),
+        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
+        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
+        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
+    public Response deleteMetaform(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId) throws Exception;
 
     @GET
     @Path("/{realmId}/metaforms/{metaformId}/export")
