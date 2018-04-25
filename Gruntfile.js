@@ -8,6 +8,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   
   const SWAGGER_SRC = "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/swagger-codegen-cli/3.0.0-SNAPSHOT/swagger-codegen-cli-3.0.0-20180112.231857-20.jar";
+  const PHP_CLIENT_VERSION = "0.0.1";
  
   grunt.initConfig({
     'curl': {
@@ -52,6 +53,22 @@ module.exports = function(grunt) {
             cwd: 'jaxrs-spec-generated'
           }
         }
+      },
+      'php-client-generate': {
+        command : 'java -jar swagger-codegen-cli.jar generate ' +
+          '-i ./swagger.yaml ' +
+          '-l php ' +
+          '--template-dir php-templates ' +
+          '-o php-generated ' +
+          '--additional-properties packagePath=metaform-api-client-php,composerVendorName=metatavu,composerProjectName=metaform-api-client-php,variableNamingConvention=camelCase,invokerPackage=Metatavu\\\\Metaform,apiPackage=Api,modelPackage=Api\\\\Model,artifactVersion=' + PHP_CLIENT_VERSION
+      },
+      'php-client-publish': {
+        command : 'sh git_push.sh',
+        options: {
+          execOptions: {
+            cwd: 'php-generated/metaform-api-client-php'
+          }
+        }
       }
     }
   });
@@ -59,5 +76,7 @@ module.exports = function(grunt) {
   grunt.registerTask('download-dependencies', 'if-missing:curl:swagger-codegen');
   grunt.registerTask('jaxrs-gen', [ 'download-dependencies', 'clean:jaxrs-spec-sources', 'shell:jaxrs-spec-generate', 'clean:jaxrs-spec-cruft', 'shell:jaxrs-spec-install' ]);
   grunt.registerTask('jaxrs-spec', [ 'jaxrs-gen', 'shell:jaxrs-spec-release' ]);
+  grunt.registerTask('php-gen', [ "shell:php-client-generate" ]);
+  grunt.registerTask('php', [ "php-gen", "shell:php-client-publish" ]);
   
 };

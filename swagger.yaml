@@ -238,6 +238,10 @@ paths:
           description: Metaform id
           type: string
           format: uuid
+        - name: updateExisting
+          in: query
+          description: specifies that existing reply should be updated
+          type: boolean
         - name: payload
           in: body
           description: Payload
