@@ -888,6 +888,10 @@
         "checked" : {
           "type" : "boolean",
           "description" : "Defines whether option should be checked by default."
+        },
+        "selected" : {
+          "type" : "boolean",
+          "description" : "Defines whether option should be selected by default."
         }
       },
       "description" : "Option object for Metaform field"

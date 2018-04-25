@@ -17,6 +17,7 @@ public class MetaformFieldOption   {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("text") String text = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("checked") Boolean checked = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("selected") Boolean selected = null;
 
   /**
    * Option name
@@ -71,6 +72,23 @@ public class MetaformFieldOption   {
     this.checked = checked;
   }
 
+  /**
+   * Defines whether option should be selected by default.
+   **/
+  public MetaformFieldOption selected(Boolean selected) {
+    this.selected = selected;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "Defines whether option should be selected by default.")
+  public Boolean isSelected() {
+    return selected;
+  }
+  public void setSelected(Boolean selected) {
+    this.selected = selected;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,12 +101,13 @@ public class MetaformFieldOption   {
     MetaformFieldOption metaformFieldOption = (MetaformFieldOption) o;
     return Objects.equals(name, metaformFieldOption.name) &&
         Objects.equals(text, metaformFieldOption.text) &&
-        Objects.equals(checked, metaformFieldOption.checked);
+        Objects.equals(checked, metaformFieldOption.checked) &&
+        Objects.equals(selected, metaformFieldOption.selected);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, text, checked);
+    return Objects.hash(name, text, checked, selected);
   }
 
   @Override
@@ -99,6 +118,7 @@ public class MetaformFieldOption   {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    text: ").append(toIndentedString(text)).append("\n");
     sb.append("    checked: ").append(toIndentedString(checked)).append("\n");
+    sb.append("    selected: ").append(toIndentedString(selected)).append("\n");
     sb.append("}");
     return sb.toString();
   }
