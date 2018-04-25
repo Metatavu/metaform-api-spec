@@ -199,6 +199,26 @@ paths:
           description: Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so
           type: string
           format: uuid
+        - name: createdBefore
+          description: Filter results created before specified time
+          in: query
+          format: date-time
+          type: string
+        - name: createdAfter
+          description: Filter results created after specified time
+          in: query
+          format: date-time
+          type: string
+        - name: modifiedBefore
+          description: Filter results modified before specified time
+          in: query
+          format: date-time
+          type: string
+        - name: modifiedAfter
+          description: Filter results modified after specified time
+          in: query
+          format: date-time
+          type: string
       responses:
         '200':
           description: A list of replies
@@ -705,6 +725,9 @@ definitions:
         type: "string"
       checked:
         description: Defines whether option should be checked by default.
+        type: boolean
+      selected:
+        description: Defines whether option should be selected by default.
         type: boolean
         
   MetaformVisibleIf:
