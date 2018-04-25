@@ -25,7 +25,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-24T17:12:28.945+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T10:47:21.721+03:00")
 
 
 public interface RealmsApi  {
@@ -58,7 +58,7 @@ public interface RealmsApi  {
         @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
-    public Response createReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Reply payload) throws Exception;
+    public Response createReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Reply payload,@QueryParam("updateExisting")   @ApiParam("specifies that existing reply should be updated")  Boolean updateExisting) throws Exception;
 
     @GET
     @Path("/{realmId}/metaforms/{metaformId}/export")

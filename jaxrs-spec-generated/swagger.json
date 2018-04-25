@@ -303,6 +303,12 @@
           "type" : "string",
           "format" : "uuid"
         }, {
+          "name" : "updateExisting",
+          "in" : "query",
+          "description" : "specifies that existing reply should be updated",
+          "required" : false,
+          "type" : "boolean"
+        }, {
           "in" : "body",
           "name" : "payload",
           "description" : "Payload",
