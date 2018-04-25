@@ -253,9 +253,12 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "A reply",
+            "description" : "A list of replies",
             "schema" : {
-              "$ref" : "#/definitions/Reply"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Reply"
+              }
             }
           },
           "400" : {

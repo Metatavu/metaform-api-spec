@@ -25,7 +25,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T10:47:21.721+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T11:41:57.964+03:00")
 
 
 public interface RealmsApi  {
@@ -138,11 +138,11 @@ public interface RealmsApi  {
     @Path("/{realmId}/metaforms/{metaformId}/replies")
     @Consumes({ "application/json;charset&#x3D;utf-8" })
     @Produces({ "application/json;charset&#x3D;utf-8" })
-    @ApiOperation(value = "Lists form replies", notes = "Lists form replies", response = Reply.class, authorizations = {
+    @ApiOperation(value = "Lists form replies", notes = "Lists form replies", response = Reply.class, responseContainer = "List", authorizations = {
         @Authorization(value = "bearer")
     }, tags={ "Replies",  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "A reply", response = Reply.class),
+        @ApiResponse(code = 200, message = "A list of replies", response = Reply.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
         @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
