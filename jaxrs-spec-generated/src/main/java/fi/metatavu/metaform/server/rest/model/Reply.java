@@ -14,6 +14,7 @@ public class Reply   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("userId") UUID userId = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("revision") String revision = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("data") ReplyData data = null;
 
   /**
@@ -50,6 +51,22 @@ public class Reply   {
 
   /**
    **/
+  public Reply revision(String revision) {
+    this.revision = revision;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public String getRevision() {
+    return revision;
+  }
+  public void setRevision(String revision) {
+    this.revision = revision;
+  }
+
+  /**
+   **/
   public Reply data(ReplyData data) {
     this.data = data;
     return this;
@@ -76,12 +93,13 @@ public class Reply   {
     Reply reply = (Reply) o;
     return Objects.equals(id, reply.id) &&
         Objects.equals(userId, reply.userId) &&
+        Objects.equals(revision, reply.revision) &&
         Objects.equals(data, reply.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, data);
+    return Objects.hash(id, userId, revision, data);
   }
 
   @Override
@@ -91,6 +109,7 @@ public class Reply   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -323,6 +323,12 @@
           "description" : "Filter results modified after specified time",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "includeRevisions",
+          "in" : "query",
+          "description" : "Specifies that revisions should be included into response",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -749,6 +755,10 @@
         "userId" : {
           "type" : "string",
           "format" : "uuid"
+        },
+        "revision" : {
+          "type" : "string",
+          "format" : "datetime"
         },
         "data" : {
           "$ref" : "#/definitions/ReplyData"
