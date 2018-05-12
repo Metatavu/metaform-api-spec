@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * MetaformField
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:45:24.175+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:50:00.766+03:00")
 public class MetaformField {
   @JsonProperty("visible-if")
   private MetaformVisibleIf visibleIf = null;
