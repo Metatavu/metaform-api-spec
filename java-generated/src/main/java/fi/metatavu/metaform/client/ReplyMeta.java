@@ -24,7 +24,7 @@ import java.time.OffsetDateTime;
 /**
  * ReplyMeta
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:27:59.187+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:29:08.475+03:00")
 public class ReplyMeta {
   @JsonProperty("createdAt")
   private OffsetDateTime createdAt = null;
