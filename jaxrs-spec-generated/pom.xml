@@ -4,7 +4,7 @@
   <artifactId>metaform-api-spec</artifactId>
   <packaging>jar</packaging>
   <name>metaform-api-spec</name>
-  <version>0.0.12</version>
+  <version>0.0.13-SNAPSHOT</version>
   <description>Metaform API specifications</description>
   <url>https://github.com/Metatavu/metaform-api-spec</url>
 
@@ -33,7 +33,7 @@
     <developerConnection>scm:git:git@github.com:Metatavu/metaform-api-spec.git</developerConnection>
     <url>git@github.com:Metatavu/metaform-api-spec.git</url>
     <connection>scm:git:git@github.com:Metatavu/metaform-api-spec.git</connection>
-    <tag>0.0.12</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <organization>
