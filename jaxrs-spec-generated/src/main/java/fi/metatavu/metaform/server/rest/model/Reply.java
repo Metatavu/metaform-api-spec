@@ -1,6 +1,7 @@
 package fi.metatavu.metaform.server.rest.model;
 
 import fi.metatavu.metaform.server.rest.model.ReplyData;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -14,7 +15,7 @@ public class Reply   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("userId") UUID userId = null;
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("revision") String revision = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("revision") OffsetDateTime revision = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("data") ReplyData data = null;
 
   /**
@@ -51,17 +52,17 @@ public class Reply   {
 
   /**
    **/
-  public Reply revision(String revision) {
+  public Reply revision(OffsetDateTime revision) {
     this.revision = revision;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public String getRevision() {
+  public OffsetDateTime getRevision() {
     return revision;
   }
-  public void setRevision(String revision) {
+  public void setRevision(OffsetDateTime revision) {
     this.revision = revision;
   }
 
