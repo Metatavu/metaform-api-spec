@@ -25,7 +25,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-04-25T19:34:15.217+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-05-12T11:02:44.496+03:00")
 
 
 public interface RealmsApi  {
@@ -49,11 +49,11 @@ public interface RealmsApi  {
     @Path("/{realmId}/metaforms/{metaformId}/replies")
     @Consumes({ "application/json;charset&#x3D;utf-8" })
     @Produces({ "application/json;charset&#x3D;utf-8" })
-    @ApiOperation(value = "create new form reply", notes = "Creates new form reply", response = Void.class, authorizations = {
+    @ApiOperation(value = "create new form reply", notes = "Creates new form reply", response = Reply.class, authorizations = {
         @Authorization(value = "bearer")
     }, tags={ "Replies",  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Empty response indicating a succesful update", response = Void.class),
+        @ApiResponse(code = 200, message = "Created reply", response = Reply.class),
         @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
         @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
@@ -74,6 +74,21 @@ public interface RealmsApi  {
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
     public Response deleteMetaform(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId) throws Exception;
+
+    @DELETE
+    @Path("/{realmId}/metaforms/{metaformId}/replies/{replyId}")
+    @Consumes({ "application/json;charset&#x3D;utf-8" })
+    @Produces({ "application/json;charset&#x3D;utf-8" })
+    @ApiOperation(value = "Deletes a reply", notes = "Deletes a reply", response = Void.class, authorizations = {
+        @Authorization(value = "bearer")
+    }, tags={ "Replies",  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 204, message = "Empty content indicating a successful removal", response = Void.class),
+        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
+        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
+        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
+    public Response deleteReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@PathParam("replyId") @ApiParam("Reply id") UUID replyId) throws Exception;
 
     @GET
     @Path("/{realmId}/metaforms/{metaformId}/export")
