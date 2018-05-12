@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MetaformTableColumn
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:35:03.605+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:37:59.773+03:00")
 public class MetaformTableColumn {
   @JsonProperty("type")
   private MetaformTableColumnType type = null;

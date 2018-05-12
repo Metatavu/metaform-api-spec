@@ -26,7 +26,7 @@ import java.util.UUID;
 /**
  * Reply
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:35:03.605+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:37:59.773+03:00")
 public class Reply {
   @JsonProperty("id")
   private UUID id = null;
