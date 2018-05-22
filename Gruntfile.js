@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         'jaxrs-spec-generated/src/main/java/fi/metatavu/metaform/server/RestApplication.java'
       ],
       'jaxrs-spec-sources': ['jaxrs-spec-generated/src'],
+      'java-sources': ['java-generated/src']
     },
     'shell': {
       'jaxrs-spec-generate': {
@@ -54,6 +55,38 @@ module.exports = function(grunt) {
           }
         }
       },
+
+      'java-generate': {
+        command : 'mv java-generated/pom.xml java-generated/pom.xml.before && ' +
+          'java -jar swagger-codegen-cli.jar generate ' +
+          '-i ./swagger.yaml ' +
+          '-l java ' +
+          '--api-package fi.metatavu.metaform.client ' +
+          '--model-package fi.metatavu.metaform.client ' +
+          '--group-id fi.metatavu.metaform ' +
+          '--artifact-id metaform-api-client ' +
+          '--artifact-version `cat java-generated/pom.xml.before|grep version -m 1|sed -e \'s/.*<version>//\'|sed -e \'s/<.*//\'` ' +
+          '--template-dir java-templates ' +
+          '--additional-properties library=feign,dateLibrary=java8,sourceFolder=src/main/java ' +
+          '-o java-generated/'
+      },
+      'java-install': {
+        command : 'mvn install',
+        options: {
+          execOptions: {
+            cwd: 'java-generated'
+          }
+        }
+      },
+      'java-release': {
+        command : 'git add src pom.xml && git commit -m "Generated source" && git push && mvn -B release:clean release:prepare release:perform',
+        options: {
+          execOptions: {
+            cwd: 'java-generated'
+          }
+        }
+      },
+
       'php-client-generate': {
         command : 'java -jar swagger-codegen-cli.jar generate ' +
           '-i ./swagger.yaml ' +
@@ -69,6 +102,38 @@ module.exports = function(grunt) {
             cwd: 'php-generated/metaform-api-client-php'
           }
         }
+      },
+
+      'javascript-generate': {
+        command : 'java -jar swagger-codegen-cli.jar generate ' +
+          '-i ./swagger.yaml ' +
+          '-l javascript ' +
+          '-o javascript-generated/ ' +
+          '--additional-properties useES6=false,usePromises=true,projectName=metaform-api-client,projectVersion='  + require('./javascript-generated/package.json').version
+      },
+      'javascript-bump-version': {
+        command: 'npm version patch',
+        options: {
+          execOptions: {
+            cwd: 'javascript-generated'
+          }
+        }
+      },
+      'javascript-push': {
+        command : 'git add . && git commit -m "Generated javascript source" ; git push',
+        options: {
+          execOptions: {
+            cwd: 'javascript-generated'
+          }
+        }
+      },
+      'javascript-publish': {
+        command : 'npm publish',
+        options: {
+          execOptions: {
+            cwd: 'javascript-generated'
+          }
+        }
       }
     }
   });
@@ -76,7 +141,12 @@ module.exports = function(grunt) {
   grunt.registerTask('download-dependencies', 'if-missing:curl:swagger-codegen');
   grunt.registerTask('jaxrs-gen', [ 'download-dependencies', 'clean:jaxrs-spec-sources', 'shell:jaxrs-spec-generate', 'clean:jaxrs-spec-cruft', 'shell:jaxrs-spec-install' ]);
   grunt.registerTask('jaxrs-spec', [ 'jaxrs-gen', 'shell:jaxrs-spec-release' ]);
+  grunt.registerTask('java-gen', [ 'download-dependencies', 'clean:java-sources', 'shell:java-generate', 'shell:java-install' ]);
+  grunt.registerTask('java', [ 'java-gen', 'shell:java-release' ]);
   grunt.registerTask('php-gen', [ "shell:php-client-generate" ]);
   grunt.registerTask('php', [ "php-gen", "shell:php-client-publish" ]);
-  
+
+  grunt.registerTask('javascript-gen', [ "shell:javascript-generate" ]);
+  grunt.registerTask('javascript', [ "javascript-gen", "shell:javascript-bump-version", "shell:javascript-push", "shell:javascript-publish" ]);
+
 };
