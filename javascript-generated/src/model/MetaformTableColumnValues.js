@@ -36,7 +36,7 @@
   /**
    * The MetaformTableColumnValues model module.
    * @module model/MetaformTableColumnValues
-   * @version 0.0.1
+   * @version 0.0.2
    */
 
   /**
