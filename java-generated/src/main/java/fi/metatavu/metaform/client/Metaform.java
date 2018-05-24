@@ -27,7 +27,7 @@ import java.util.UUID;
 /**
  * Metaform
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-12T23:50:00.766+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-24T13:27:12.215+03:00")
 public class Metaform {
   @JsonProperty("id")
   private UUID id = null;
@@ -70,6 +70,9 @@ public class Metaform {
   @JsonProperty("replyStrategy")
   private ReplyStrategyEnum replyStrategy = null;
 
+  @JsonProperty("allowAnonymous")
+  private Boolean allowAnonymous = null;
+
   @JsonProperty("title")
   private String title = null;
 
@@ -110,6 +113,24 @@ public class Metaform {
 
   public void setReplyStrategy(ReplyStrategyEnum replyStrategy) {
     this.replyStrategy = replyStrategy;
+  }
+
+  public Metaform allowAnonymous(Boolean allowAnonymous) {
+    this.allowAnonymous = allowAnonymous;
+    return this;
+  }
+
+   /**
+   * Are anonymous replies allowed or not
+   * @return allowAnonymous
+  **/
+  @ApiModelProperty(value = "Are anonymous replies allowed or not")
+  public Boolean isAllowAnonymous() {
+    return allowAnonymous;
+  }
+
+  public void setAllowAnonymous(Boolean allowAnonymous) {
+    this.allowAnonymous = allowAnonymous;
   }
 
   public Metaform title(String title) {
@@ -168,13 +189,14 @@ public class Metaform {
     Metaform metaform = (Metaform) o;
     return Objects.equals(this.id, metaform.id) &&
         Objects.equals(this.replyStrategy, metaform.replyStrategy) &&
+        Objects.equals(this.allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(this.title, metaform.title) &&
         Objects.equals(this.sections, metaform.sections);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, title, sections);
+    return Objects.hash(id, replyStrategy, allowAnonymous, title, sections);
   }
 
 
@@ -185,6 +207,7 @@ public class Metaform {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
+    sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
     sb.append("}");
