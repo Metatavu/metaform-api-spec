@@ -796,6 +796,10 @@
           "type" : "string",
           "enum" : [ "PUBLIC", "PRIVATE" ]
         },
+        "allowAnonymous" : {
+          "type" : "boolean",
+          "description" : "Are anonymous replies allowed or not"
+        },
         "title" : {
           "type" : "string"
         },

@@ -47,6 +47,7 @@ public enum ReplyStrategyEnum {
 }
 
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("replyStrategy") ReplyStrategyEnum replyStrategy = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("allowAnonymous") Boolean allowAnonymous = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sections") List<MetaformSection> sections = new ArrayList<MetaformSection>();
 
@@ -80,6 +81,23 @@ public enum ReplyStrategyEnum {
   }
   public void setReplyStrategy(ReplyStrategyEnum replyStrategy) {
     this.replyStrategy = replyStrategy;
+  }
+
+  /**
+   * Are anonymous replies allowed or not
+   **/
+  public Metaform allowAnonymous(Boolean allowAnonymous) {
+    this.allowAnonymous = allowAnonymous;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "Are anonymous replies allowed or not")
+  public Boolean isAllowAnonymous() {
+    return allowAnonymous;
+  }
+  public void setAllowAnonymous(Boolean allowAnonymous) {
+    this.allowAnonymous = allowAnonymous;
   }
 
   /**
@@ -126,13 +144,14 @@ public enum ReplyStrategyEnum {
     Metaform metaform = (Metaform) o;
     return Objects.equals(id, metaform.id) &&
         Objects.equals(replyStrategy, metaform.replyStrategy) &&
+        Objects.equals(allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(title, metaform.title) &&
         Objects.equals(sections, metaform.sections);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, title, sections);
+    return Objects.hash(id, replyStrategy, allowAnonymous, title, sections);
   }
 
   @Override
@@ -142,6 +161,7 @@ public enum ReplyStrategyEnum {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
+    sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
     sb.append("}");
