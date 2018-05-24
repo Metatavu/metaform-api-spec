@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
 **replyStrategy** | **String** |  | [optional] 
+**allowAnonymous** | **Boolean** | Are anonymous replies allowed or not | [optional] 
 **title** | **String** |  | [optional] 
 **sections** | [**[MetaformSection]**](MetaformSection.md) |  | [optional] 
 

@@ -36,7 +36,7 @@
   /**
    * The ReplyMeta model module.
    * @module model/ReplyMeta
-   * @version 0.0.2
+   * @version 0.0.3
    */
 
   /**
