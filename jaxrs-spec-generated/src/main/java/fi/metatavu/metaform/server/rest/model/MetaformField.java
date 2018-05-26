@@ -21,7 +21,7 @@ public class MetaformField   {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") MetaformFieldType type = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("required") Boolean required = null;
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("contexts") String contexts = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("contexts") List<String> contexts = new ArrayList<String>();
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("placeholder") String placeholder = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("class") String propertyClass = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("readonly") Boolean readonly = null;
@@ -128,17 +128,17 @@ public class MetaformField   {
 
   /**
    **/
-  public MetaformField contexts(String contexts) {
+  public MetaformField contexts(List<String> contexts) {
     this.contexts = contexts;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public String getContexts() {
+  public List<String> getContexts() {
     return contexts;
   }
-  public void setContexts(String contexts) {
+  public void setContexts(List<String> contexts) {
     this.contexts = contexts;
   }
 

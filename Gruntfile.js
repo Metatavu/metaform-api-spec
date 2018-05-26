@@ -149,4 +149,6 @@ module.exports = function(grunt) {
   grunt.registerTask('javascript-gen', [ "shell:javascript-generate" ]);
   grunt.registerTask('javascript', [ "javascript-gen", "shell:javascript-bump-version", "shell:javascript-push", "shell:javascript-publish" ]);
 
+  grunt.registerTask('default', [ "jaxrs-gen", "java", "php", "javascript" ]);
+
 };

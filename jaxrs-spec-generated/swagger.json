@@ -849,7 +849,10 @@
           "type" : "boolean"
         },
         "contexts" : {
-          "type" : "string"
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
         },
         "placeholder" : {
           "type" : "string"
