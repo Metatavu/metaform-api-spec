@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * InternalServerError
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-26T08:18:27.978+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-26T15:31:30.255+03:00")
 public class InternalServerError {
   @JsonProperty("code")
   private Integer code = null;
