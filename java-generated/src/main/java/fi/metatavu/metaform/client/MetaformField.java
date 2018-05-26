@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * MetaformField
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-24T13:31:44.331+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-26T08:18:27.978+03:00")
 public class MetaformField {
   @JsonProperty("visible-if")
   private MetaformVisibleIf visibleIf = null;
@@ -47,7 +47,7 @@ public class MetaformField {
   private Boolean required = null;
 
   @JsonProperty("contexts")
-  private String contexts = null;
+  private List<String> contexts = null;
 
   @JsonProperty("placeholder")
   private String placeholder = null;
@@ -202,8 +202,16 @@ public class MetaformField {
     this.required = required;
   }
 
-  public MetaformField contexts(String contexts) {
+  public MetaformField contexts(List<String> contexts) {
     this.contexts = contexts;
+    return this;
+  }
+
+  public MetaformField addContextsItem(String contextsItem) {
+    if (this.contexts == null) {
+      this.contexts = new ArrayList<String>();
+    }
+    this.contexts.add(contextsItem);
     return this;
   }
 
@@ -212,11 +220,11 @@ public class MetaformField {
    * @return contexts
   **/
   @ApiModelProperty(value = "")
-  public String getContexts() {
+  public List<String> getContexts() {
     return contexts;
   }
 
-  public void setContexts(String contexts) {
+  public void setContexts(List<String> contexts) {
     this.contexts = contexts;
   }
 
