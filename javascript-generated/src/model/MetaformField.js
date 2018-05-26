@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.3
+   * @version 0.0.4
    */
 
   /**
@@ -104,7 +104,7 @@
         obj['required'] = ApiClient.convertToType(data['required'], 'Boolean');
       }
       if (data.hasOwnProperty('contexts')) {
-        obj['contexts'] = ApiClient.convertToType(data['contexts'], 'String');
+        obj['contexts'] = ApiClient.convertToType(data['contexts'], ['String']);
       }
       if (data.hasOwnProperty('placeholder')) {
         obj['placeholder'] = ApiClient.convertToType(data['placeholder'], 'String');
@@ -195,7 +195,7 @@
    */
   exports.prototype['required'] = undefined;
   /**
-   * @member {String} contexts
+   * @member {Array.<String>} contexts
    */
   exports.prototype['contexts'] = undefined;
   /**

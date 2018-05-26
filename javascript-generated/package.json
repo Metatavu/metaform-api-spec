@@ -1,6 +1,6 @@
 {
   "name": "metaform-api-client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "REST_API_for_Metaform",
   "license": "Unlicense",
   "main": "src/index.js",

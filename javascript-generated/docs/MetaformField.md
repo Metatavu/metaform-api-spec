@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **type** | [**MetaformFieldType**](MetaformFieldType.md) |  | 
 **title** | **String** |  | [optional] 
 **required** | **Boolean** |  | [optional] 
-**contexts** | **String** |  | [optional] 
+**contexts** | **[String]** |  | [optional] 
 **placeholder** | **String** |  | [optional] 
 **_class** | **String** |  | [optional] 
 **readonly** | **Boolean** |  | [optional] 
