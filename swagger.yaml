@@ -642,8 +642,10 @@ definitions:
         type: "string"
       required: 
         type: "boolean"
-      contexts: 
-        type: "string"
+      contexts:
+        type: "array"
+        items:
+          type: "string"
       placeholder: 
         type: "string"
       class:
