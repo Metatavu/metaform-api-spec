@@ -599,6 +599,10 @@ definitions:
       id:
         type: "string"
         format: "uuid"
+      metafields: 
+        type: "array"
+        items: 
+          $ref: '#/definitions/Metafield'
       replyStrategy:
         type: "string"
         enum:
@@ -625,6 +629,26 @@ definitions:
         type: "array"
         items: 
           $ref: '#/definitions/MetaformField'
+
+  Metafield:
+    type: "object"
+    required:
+      - type
+      - name
+    properties: 
+      title: 
+        type: "string"
+      name: 
+        type: "string"
+        description: Field name
+      type:
+        $ref: '#/definitions/MetaformFieldType'
+      time:
+        type: "boolean"
+      contexts:
+        type: "array"
+        items:
+          type: "string"
           
   MetaformField:
     type: "object"
