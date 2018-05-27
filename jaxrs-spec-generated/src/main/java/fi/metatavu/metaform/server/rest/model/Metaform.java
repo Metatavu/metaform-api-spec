@@ -1,5 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
+import fi.metatavu.metaform.server.rest.model.Metafield;
 import fi.metatavu.metaform.server.rest.model.MetaformSection;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class Metaform   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("metafields") List<Metafield> metafields = new ArrayList<Metafield>();
 
 public enum ReplyStrategyEnum {
 
@@ -65,6 +67,22 @@ public enum ReplyStrategyEnum {
   }
   public void setId(UUID id) {
     this.id = id;
+  }
+
+  /**
+   **/
+  public Metaform metafields(List<Metafield> metafields) {
+    this.metafields = metafields;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public List<Metafield> getMetafields() {
+    return metafields;
+  }
+  public void setMetafields(List<Metafield> metafields) {
+    this.metafields = metafields;
   }
 
   /**
@@ -143,6 +161,7 @@ public enum ReplyStrategyEnum {
     }
     Metaform metaform = (Metaform) o;
     return Objects.equals(id, metaform.id) &&
+        Objects.equals(metafields, metaform.metafields) &&
         Objects.equals(replyStrategy, metaform.replyStrategy) &&
         Objects.equals(allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(title, metaform.title) &&
@@ -151,7 +170,7 @@ public enum ReplyStrategyEnum {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, allowAnonymous, title, sections);
+    return Objects.hash(id, metafields, replyStrategy, allowAnonymous, title, sections);
   }
 
   @Override
@@ -160,6 +179,7 @@ public enum ReplyStrategyEnum {
     sb.append("class Metaform {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    metafields: ").append(toIndentedString(metafields)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
