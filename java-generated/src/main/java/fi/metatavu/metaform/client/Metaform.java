@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import fi.metatavu.metaform.client.Metafield;
 import fi.metatavu.metaform.client.MetaformSection;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,10 +28,13 @@ import java.util.UUID;
 /**
  * Metaform
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-26T15:47:16.349+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-27T16:01:42.062+03:00")
 public class Metaform {
   @JsonProperty("id")
   private UUID id = null;
+
+  @JsonProperty("metafields")
+  private List<Metafield> metafields = null;
 
   /**
    * Gets or Sets replyStrategy
@@ -95,6 +99,32 @@ public class Metaform {
 
   public void setId(UUID id) {
     this.id = id;
+  }
+
+  public Metaform metafields(List<Metafield> metafields) {
+    this.metafields = metafields;
+    return this;
+  }
+
+  public Metaform addMetafieldsItem(Metafield metafieldsItem) {
+    if (this.metafields == null) {
+      this.metafields = new ArrayList<Metafield>();
+    }
+    this.metafields.add(metafieldsItem);
+    return this;
+  }
+
+   /**
+   * Get metafields
+   * @return metafields
+  **/
+  @ApiModelProperty(value = "")
+  public List<Metafield> getMetafields() {
+    return metafields;
+  }
+
+  public void setMetafields(List<Metafield> metafields) {
+    this.metafields = metafields;
   }
 
   public Metaform replyStrategy(ReplyStrategyEnum replyStrategy) {
@@ -188,6 +218,7 @@ public class Metaform {
     }
     Metaform metaform = (Metaform) o;
     return Objects.equals(this.id, metaform.id) &&
+        Objects.equals(this.metafields, metaform.metafields) &&
         Objects.equals(this.replyStrategy, metaform.replyStrategy) &&
         Objects.equals(this.allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(this.title, metaform.title) &&
@@ -196,7 +227,7 @@ public class Metaform {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, allowAnonymous, title, sections);
+    return Objects.hash(id, metafields, replyStrategy, allowAnonymous, title, sections);
   }
 
 
@@ -206,6 +237,7 @@ public class Metaform {
     sb.append("class Metaform {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    metafields: ").append(toIndentedString(metafields)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
