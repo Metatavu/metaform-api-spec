@@ -16,18 +16,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MetaformSection'], factory);
+    define(['ApiClient', 'model/Metafield', 'model/MetaformSection'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MetaformSection'));
+    module.exports = factory(require('../ApiClient'), require('./Metafield'), require('./MetaformSection'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.Metaform = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformSection);
+    root.MetaformApiClient.Metaform = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.Metafield, root.MetaformApiClient.MetaformSection);
   }
-}(this, function(ApiClient, MetaformSection) {
+}(this, function(ApiClient, Metafield, MetaformSection) {
   'use strict';
 
 
@@ -36,7 +36,7 @@
   /**
    * The Metaform model module.
    * @module model/Metaform
-   * @version 0.0.6
+   * @version 0.0.7
    */
 
   /**
@@ -46,6 +46,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -68,6 +69,9 @@
       if (data.hasOwnProperty('id')) {
         obj['id'] = ApiClient.convertToType(data['id'], 'String');
       }
+      if (data.hasOwnProperty('metafields')) {
+        obj['metafields'] = ApiClient.convertToType(data['metafields'], [Metafield]);
+      }
       if (data.hasOwnProperty('replyStrategy')) {
         obj['replyStrategy'] = ApiClient.convertToType(data['replyStrategy'], 'String');
       }
@@ -88,6 +92,10 @@
    * @member {String} id
    */
   exports.prototype['id'] = undefined;
+  /**
+   * @member {Array.<module:model/Metafield>} metafields
+   */
+  exports.prototype['metafields'] = undefined;
   /**
    * @member {module:model/Metaform.ReplyStrategyEnum} replyStrategy
    */
