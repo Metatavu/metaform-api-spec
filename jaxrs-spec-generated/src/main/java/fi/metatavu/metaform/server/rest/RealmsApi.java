@@ -6,7 +6,6 @@ import fi.metatavu.metaform.server.rest.model.InternalServerError;
 import fi.metatavu.metaform.server.rest.model.Metaform;
 import fi.metatavu.metaform.server.rest.model.NotFound;
 import fi.metatavu.metaform.server.rest.model.Reply;
-import fi.metatavu.metaform.server.rest.model.ReplyMeta;
 import java.util.UUID;
 
 import javax.ws.rs.*;
@@ -25,7 +24,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-05-28T07:24:33.973+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-05-28T13:01:57.739+03:00")
 
 
 public interface RealmsApi  {
@@ -134,21 +133,6 @@ public interface RealmsApi  {
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
     public Response findReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@PathParam("replyId") @ApiParam("Reply id") UUID replyId) throws Exception;
-
-    @GET
-    @Path("/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta")
-    @Consumes({ "application/json;charset&#x3D;utf-8" })
-    @Produces({ "application/json;charset&#x3D;utf-8" })
-    @ApiOperation(value = "Returns reply meta", notes = "Returns meta data from the reply", response = ReplyMeta.class, authorizations = {
-        @Authorization(value = "bearer")
-    }, tags={ "Replies",  })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "A reply meta", response = ReplyMeta.class),
-        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
-        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
-        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
-        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
-    public Response findReplyMeta(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@PathParam("replyId") @ApiParam("Reply id") UUID replyId) throws Exception;
 
     @GET
     @Path("/{realmId}/metaforms")

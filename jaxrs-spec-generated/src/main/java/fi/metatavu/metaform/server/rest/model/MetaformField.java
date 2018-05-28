@@ -1,5 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
+import fi.metatavu.metaform.server.rest.model.MetaformFieldFlags;
 import fi.metatavu.metaform.server.rest.model.MetaformFieldOption;
 import fi.metatavu.metaform.server.rest.model.MetaformFieldType;
 import fi.metatavu.metaform.server.rest.model.MetaformTableColumn;
@@ -22,6 +23,7 @@ public class MetaformField   {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("required") Boolean required = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("contexts") List<String> contexts = new ArrayList<String>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("flags") MetaformFieldFlags flags = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("placeholder") String placeholder = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("class") String propertyClass = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("readonly") Boolean readonly = null;
@@ -140,6 +142,22 @@ public class MetaformField   {
   }
   public void setContexts(List<String> contexts) {
     this.contexts = contexts;
+  }
+
+  /**
+   **/
+  public MetaformField flags(MetaformFieldFlags flags) {
+    this.flags = flags;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public MetaformFieldFlags getFlags() {
+    return flags;
+  }
+  public void setFlags(MetaformFieldFlags flags) {
+    this.flags = flags;
   }
 
   /**
@@ -511,6 +529,7 @@ public class MetaformField   {
         Objects.equals(title, metaformField.title) &&
         Objects.equals(required, metaformField.required) &&
         Objects.equals(contexts, metaformField.contexts) &&
+        Objects.equals(flags, metaformField.flags) &&
         Objects.equals(placeholder, metaformField.placeholder) &&
         Objects.equals(propertyClass, metaformField.propertyClass) &&
         Objects.equals(readonly, metaformField.readonly) &&
@@ -536,7 +555,7 @@ public class MetaformField   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, name, type, title, required, contexts, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
+    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
   }
 
   @Override
@@ -550,6 +569,7 @@ public class MetaformField   {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    contexts: ").append(toIndentedString(contexts)).append("\n");
+    sb.append("    flags: ").append(toIndentedString(flags)).append("\n");
     sb.append("    placeholder: ").append(toIndentedString(placeholder)).append("\n");
     sb.append("    propertyClass: ").append(toIndentedString(propertyClass)).append("\n");
     sb.append("    readonly: ").append(toIndentedString(readonly)).append("\n");

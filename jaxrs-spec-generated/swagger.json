@@ -684,67 +684,6 @@
           }
         }
       }
-    },
-    "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta" : {
-      "get" : {
-        "tags" : [ "Replies" ],
-        "summary" : "Returns reply meta",
-        "description" : "Returns meta data from the reply",
-        "operationId" : "findReplyMeta",
-        "parameters" : [ {
-          "name" : "realmId",
-          "in" : "path",
-          "description" : "realm id",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "metaformId",
-          "in" : "path",
-          "description" : "Metaform id",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "replyId",
-          "in" : "path",
-          "description" : "Reply id",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "A reply meta",
-            "schema" : {
-              "$ref" : "#/definitions/ReplyMeta"
-            }
-          },
-          "400" : {
-            "description" : "Invalid request was sent to the server",
-            "schema" : {
-              "$ref" : "#/definitions/BadRequest"
-            }
-          },
-          "403" : {
-            "description" : "Attempted to make a call with unauthorized client",
-            "schema" : {
-              "$ref" : "#/definitions/Forbidden"
-            }
-          },
-          "404" : {
-            "description" : "Attempted to make a call to an non existant metaform",
-            "schema" : {
-              "$ref" : "#/definitions/NotFound"
-            }
-          },
-          "500" : {
-            "description" : "Internal server error",
-            "schema" : {
-              "$ref" : "#/definitions/InternalServerError"
-            }
-          }
-        }
-      }
     }
   },
   "securityDefinitions" : {
@@ -782,31 +721,12 @@
         "properties" : { }
       }
     },
-    "ReplyMeta" : {
-      "type" : "object",
-      "properties" : {
-        "createdAt" : {
-          "type" : "string",
-          "format" : "date-time"
-        },
-        "modifiedAt" : {
-          "type" : "string",
-          "format" : "date-time"
-        }
-      }
-    },
     "Metaform" : {
       "type" : "object",
       "properties" : {
         "id" : {
           "type" : "string",
           "format" : "uuid"
-        },
-        "metafields" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Metafield"
-          }
         },
         "replyStrategy" : {
           "type" : "string",
@@ -894,6 +814,9 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "flags" : {
+          "$ref" : "#/definitions/MetaformFieldFlags"
         },
         "placeholder" : {
           "type" : "string"
@@ -987,6 +910,16 @@
         "html" : {
           "type" : "string",
           "description" : "Html code for html field."
+        }
+      }
+    },
+    "MetaformFieldFlags" : {
+      "type" : "object",
+      "properties" : {
+        "managementEditable" : {
+          "type" : "boolean",
+          "description" : "Field should be editable in management service",
+          "default" : false
         }
       }
     },
