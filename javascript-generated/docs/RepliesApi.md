@@ -8,7 +8,6 @@ Method | HTTP request | Description
 [**createReply**](RepliesApi.md#createReply) | **POST** /realms/{realmId}/metaforms/{metaformId}/replies | create new form reply
 [**deleteReply**](RepliesApi.md#deleteReply) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Deletes a reply
 [**findReply**](RepliesApi.md#findReply) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Find a single reply
-[**findReplyMeta**](RepliesApi.md#findReplyMeta) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta | Returns reply meta
 [**listReplies**](RepliesApi.md#listReplies) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies | Lists form replies
 [**updateReply**](RepliesApi.md#updateReply) | **PUT** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Updates reply
 
@@ -241,62 +240,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json;charset=utf-8
  - **Accept**: application/json;charset=utf-8
 
-<a name="findReplyMeta"></a>
-# **findReplyMeta**
-> ReplyMeta findReplyMeta(realmId, metaformId, replyId)
-
-Returns reply meta
-
-Returns meta data from the reply
-
-### Example
-```javascript
-var MetaformApiClient = require('metaform-api-client');
-var defaultClient = MetaformApiClient.ApiClient.instance;
-
-// Configure API key authorization: bearer
-var bearer = defaultClient.authentications['bearer'];
-bearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//bearer.apiKeyPrefix = 'Token';
-
-var apiInstance = new MetaformApiClient.RepliesApi();
-
-var realmId = "realmId_example"; // String | realm id
-
-var metaformId = "metaformId_example"; // String | Metaform id
-
-var replyId = "replyId_example"; // String | Reply id
-
-apiInstance.findReplyMeta(realmId, metaformId, replyId).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **realmId** | **String**| realm id | 
- **metaformId** | **String**| Metaform id | 
- **replyId** | **String**| Reply id | 
-
-### Return type
-
-[**ReplyMeta**](ReplyMeta.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json;charset=utf-8
- - **Accept**: application/json;charset=utf-8
-
 <a name="listReplies"></a>
 # **listReplies**
 > [Reply] listReplies(realmId, metaformId, opts)
@@ -328,7 +271,8 @@ var opts = {
   'createdAfter': "createdAfter_example", // String | Filter results created after specified time
   'modifiedBefore': "modifiedBefore_example", // String | Filter results modified before specified time
   'modifiedAfter': "modifiedAfter_example", // String | Filter results modified after specified time
-  'includeRevisions': true // Boolean | Specifies that revisions should be included into response
+  'includeRevisions': true, // Boolean | Specifies that revisions should be included into response
+  'fields': ["fields_example"] // [String] | Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
 };
 apiInstance.listReplies(realmId, metaformId, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -350,6 +294,7 @@ Name | Type | Description  | Notes
  **modifiedBefore** | **String**| Filter results modified before specified time | [optional] 
  **modifiedAfter** | **String**| Filter results modified after specified time | [optional] 
  **includeRevisions** | **Boolean**| Specifies that revisions should be included into response | [optional] 
+ **fields** | [**[String]**](String.md)| Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another | [optional] 
 
 ### Return type
 

@@ -16,18 +16,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformTableColumn', 'model/MetaformVisibleIf'], factory);
+    define(['ApiClient', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformTableColumn', 'model/MetaformVisibleIf'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MetaformFieldOption'), require('./MetaformFieldType'), require('./MetaformTableColumn'), require('./MetaformVisibleIf'));
+    module.exports = factory(require('../ApiClient'), require('./MetaformFieldFlags'), require('./MetaformFieldOption'), require('./MetaformFieldType'), require('./MetaformTableColumn'), require('./MetaformVisibleIf'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.MetaformField = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformFieldOption, root.MetaformApiClient.MetaformFieldType, root.MetaformApiClient.MetaformTableColumn, root.MetaformApiClient.MetaformVisibleIf);
+    root.MetaformApiClient.MetaformField = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformFieldFlags, root.MetaformApiClient.MetaformFieldOption, root.MetaformApiClient.MetaformFieldType, root.MetaformApiClient.MetaformTableColumn, root.MetaformApiClient.MetaformVisibleIf);
   }
-}(this, function(ApiClient, MetaformFieldOption, MetaformFieldType, MetaformTableColumn, MetaformVisibleIf) {
+}(this, function(ApiClient, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformTableColumn, MetaformVisibleIf) {
   'use strict';
 
 
@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.7
+   * @version 0.0.8
    */
 
   /**
@@ -51,6 +51,7 @@
 
 
     _this['type'] = type;
+
 
 
 
@@ -105,6 +106,9 @@
       }
       if (data.hasOwnProperty('contexts')) {
         obj['contexts'] = ApiClient.convertToType(data['contexts'], ['String']);
+      }
+      if (data.hasOwnProperty('flags')) {
+        obj['flags'] = MetaformFieldFlags.constructFromObject(data['flags']);
       }
       if (data.hasOwnProperty('placeholder')) {
         obj['placeholder'] = ApiClient.convertToType(data['placeholder'], 'String');
@@ -198,6 +202,10 @@
    * @member {Array.<String>} contexts
    */
   exports.prototype['contexts'] = undefined;
+  /**
+   * @member {module:model/MetaformFieldFlags} flags
+   */
+  exports.prototype['flags'] = undefined;
   /**
    * @member {String} placeholder
    */

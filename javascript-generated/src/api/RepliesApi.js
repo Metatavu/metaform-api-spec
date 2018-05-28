@@ -16,24 +16,24 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BadRequest', 'model/Forbidden', 'model/InternalServerError', 'model/NotFound', 'model/Reply', 'model/ReplyMeta'], factory);
+    define(['ApiClient', 'model/BadRequest', 'model/Forbidden', 'model/InternalServerError', 'model/NotFound', 'model/Reply'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/BadRequest'), require('../model/Forbidden'), require('../model/InternalServerError'), require('../model/NotFound'), require('../model/Reply'), require('../model/ReplyMeta'));
+    module.exports = factory(require('../ApiClient'), require('../model/BadRequest'), require('../model/Forbidden'), require('../model/InternalServerError'), require('../model/NotFound'), require('../model/Reply'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.RepliesApi = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.BadRequest, root.MetaformApiClient.Forbidden, root.MetaformApiClient.InternalServerError, root.MetaformApiClient.NotFound, root.MetaformApiClient.Reply, root.MetaformApiClient.ReplyMeta);
+    root.MetaformApiClient.RepliesApi = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.BadRequest, root.MetaformApiClient.Forbidden, root.MetaformApiClient.InternalServerError, root.MetaformApiClient.NotFound, root.MetaformApiClient.Reply);
   }
-}(this, function(ApiClient, BadRequest, Forbidden, InternalServerError, NotFound, Reply, ReplyMeta) {
+}(this, function(ApiClient, BadRequest, Forbidden, InternalServerError, NotFound, Reply) {
   'use strict';
 
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.0.7
+   * @version 0.0.8
    */
 
   /**
@@ -330,75 +330,6 @@
 
 
     /**
-     * Returns reply meta
-     * Returns meta data from the reply
-     * @param {String} realmId realm id
-     * @param {String} metaformId Metaform id
-     * @param {String} replyId Reply id
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ReplyMeta} and HTTP response
-     */
-    this.findReplyMetaWithHttpInfo = function(realmId, metaformId, replyId) {
-      var postBody = null;
-
-      // verify the required parameter 'realmId' is set
-      if (realmId === undefined || realmId === null) {
-        throw new Error("Missing the required parameter 'realmId' when calling findReplyMeta");
-      }
-
-      // verify the required parameter 'metaformId' is set
-      if (metaformId === undefined || metaformId === null) {
-        throw new Error("Missing the required parameter 'metaformId' when calling findReplyMeta");
-      }
-
-      // verify the required parameter 'replyId' is set
-      if (replyId === undefined || replyId === null) {
-        throw new Error("Missing the required parameter 'replyId' when calling findReplyMeta");
-      }
-
-
-      var pathParams = {
-        'realmId': realmId,
-        'metaformId': metaformId,
-        'replyId': replyId
-      };
-      var queryParams = {
-      };
-      var collectionQueryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['bearer'];
-      var contentTypes = ['application/json;charset=utf-8'];
-      var accepts = ['application/json;charset=utf-8'];
-      var returnType = ReplyMeta;
-
-      return this.apiClient.callApi(
-        '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta', 'GET',
-        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-    /**
-     * Returns reply meta
-     * Returns meta data from the reply
-     * @param {String} realmId realm id
-     * @param {String} metaformId Metaform id
-     * @param {String} replyId Reply id
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ReplyMeta}
-     */
-    this.findReplyMeta = function(realmId, metaformId, replyId) {
-      return this.findReplyMetaWithHttpInfo(realmId, metaformId, replyId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * Lists form replies
      * Lists form replies
      * @param {String} realmId realm id
@@ -410,6 +341,7 @@
      * @param {String} opts.modifiedBefore Filter results modified before specified time
      * @param {String} opts.modifiedAfter Filter results modified after specified time
      * @param {Boolean} opts.includeRevisions Specifies that revisions should be included into response
+     * @param {Array.<String>} opts.fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Reply>} and HTTP response
      */
     this.listRepliesWithHttpInfo = function(realmId, metaformId, opts) {
@@ -440,6 +372,10 @@
         'includeRevisions': opts['includeRevisions'],
       };
       var collectionQueryParams = {
+        'fields': {
+          value: opts['fields'],
+          collectionFormat: 'csv'
+        },
       };
       var headerParams = {
       };
@@ -470,6 +406,7 @@
      * @param {String} opts.modifiedBefore Filter results modified before specified time
      * @param {String} opts.modifiedAfter Filter results modified after specified time
      * @param {Boolean} opts.includeRevisions Specifies that revisions should be included into response
+     * @param {Array.<String>} opts.fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Reply>}
      */
     this.listReplies = function(realmId, metaformId, opts) {

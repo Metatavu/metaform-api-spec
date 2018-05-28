@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **title** | **String** |  | [optional] 
 **required** | **Boolean** |  | [optional] 
 **contexts** | **[String]** |  | [optional] 
+**flags** | [**MetaformFieldFlags**](MetaformFieldFlags.md) |  | [optional] 
 **placeholder** | **String** |  | [optional] 
 **_class** | **String** |  | [optional] 
 **readonly** | **Boolean** |  | [optional] 

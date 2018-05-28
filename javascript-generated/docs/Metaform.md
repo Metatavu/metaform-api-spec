@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
-**metafields** | [**[Metafield]**](Metafield.md) |  | [optional] 
 **replyStrategy** | **String** |  | [optional] 
 **allowAnonymous** | **Boolean** | Are anonymous replies allowed or not | [optional] 
 **title** | **String** |  | [optional] 

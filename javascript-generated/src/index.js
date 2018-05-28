@@ -16,12 +16,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BadRequest', 'model/Forbidden', 'model/InternalServerError', 'model/Metafield', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'model/ReplyMeta', 'api/MetaformsApi', 'api/RepliesApi'], factory);
+    define(['ApiClient', 'model/BadRequest', 'model/Forbidden', 'model/InternalServerError', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'api/MetaformsApi', 'api/RepliesApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/BadRequest'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metafield'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./model/ReplyMeta'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/BadRequest'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldFlags'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
   }
-}(function(ApiClient, BadRequest, Forbidden, InternalServerError, Metafield, Metaform, MetaformField, MetaformFieldOption, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, ReplyMeta, MetaformsApi, RepliesApi) {
+}(function(ApiClient, BadRequest, Forbidden, InternalServerError, Metaform, MetaformField, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, MetaformsApi, RepliesApi) {
   'use strict';
 
   /**
@@ -53,7 +53,7 @@
    * </pre>
    * </p>
    * @module index
-   * @version 0.0.7
+   * @version 0.0.8
    */
   var exports = {
     /**
@@ -77,11 +77,6 @@
      */
     InternalServerError: InternalServerError,
     /**
-     * The Metafield model constructor.
-     * @property {module:model/Metafield}
-     */
-    Metafield: Metafield,
-    /**
      * The Metaform model constructor.
      * @property {module:model/Metaform}
      */
@@ -91,6 +86,11 @@
      * @property {module:model/MetaformField}
      */
     MetaformField: MetaformField,
+    /**
+     * The MetaformFieldFlags model constructor.
+     * @property {module:model/MetaformFieldFlags}
+     */
+    MetaformFieldFlags: MetaformFieldFlags,
     /**
      * The MetaformFieldOption model constructor.
      * @property {module:model/MetaformFieldOption}
@@ -146,11 +146,6 @@
      * @property {module:model/ReplyData}
      */
     ReplyData: ReplyData,
-    /**
-     * The ReplyMeta model constructor.
-     * @property {module:model/ReplyMeta}
-     */
-    ReplyMeta: ReplyMeta,
     /**
      * The MetaformsApi service constructor.
      * @property {module:api/MetaformsApi}

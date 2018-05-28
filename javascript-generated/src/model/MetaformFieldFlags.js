@@ -25,7 +25,7 @@
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.NotFound = factory(root.MetaformApiClient.ApiClient);
+    root.MetaformApiClient.MetaformFieldFlags = factory(root.MetaformApiClient.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -34,52 +34,46 @@
 
 
   /**
-   * The NotFound model module.
-   * @module model/NotFound
+   * The MetaformFieldFlags model module.
+   * @module model/MetaformFieldFlags
    * @version 0.0.8
    */
 
   /**
-   * Constructs a new <code>NotFound</code>.
-   * @alias module:model/NotFound
+   * Constructs a new <code>MetaformFieldFlags</code>.
+   * @alias module:model/MetaformFieldFlags
    * @class
    */
   var exports = function() {
     var _this = this;
 
 
-
   };
 
   /**
-   * Constructs a <code>NotFound</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>MetaformFieldFlags</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/NotFound} obj Optional instance to populate.
-   * @return {module:model/NotFound} The populated <code>NotFound</code> instance.
+   * @param {module:model/MetaformFieldFlags} obj Optional instance to populate.
+   * @return {module:model/MetaformFieldFlags} The populated <code>MetaformFieldFlags</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'Number');
-      }
-      if (data.hasOwnProperty('message')) {
-        obj['message'] = ApiClient.convertToType(data['message'], 'String');
+      if (data.hasOwnProperty('managementEditable')) {
+        obj['managementEditable'] = ApiClient.convertToType(data['managementEditable'], 'Boolean');
       }
     }
     return obj;
   }
 
   /**
-   * @member {Number} code
+   * Field should be editable in management service
+   * @member {Boolean} managementEditable
+   * @default false
    */
-  exports.prototype['code'] = undefined;
-  /**
-   * @member {String} message
-   */
-  exports.prototype['message'] = undefined;
+  exports.prototype['managementEditable'] = false;
 
 
 
