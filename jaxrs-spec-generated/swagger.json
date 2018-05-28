@@ -329,6 +329,16 @@
           "description" : "Specifies that revisions should be included into response",
           "required" : false,
           "type" : "boolean"
+        }, {
+          "name" : "fields",
+          "in" : "query",
+          "description" : "Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
         } ],
         "responses" : {
           "200" : {
