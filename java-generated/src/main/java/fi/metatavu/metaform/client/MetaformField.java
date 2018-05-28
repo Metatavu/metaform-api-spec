@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import fi.metatavu.metaform.client.MetaformFieldFlags;
 import fi.metatavu.metaform.client.MetaformFieldOption;
 import fi.metatavu.metaform.client.MetaformFieldType;
 import fi.metatavu.metaform.client.MetaformTableColumn;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * MetaformField
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-27T16:01:42.062+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-28T13:06:49.711+03:00")
 public class MetaformField {
   @JsonProperty("visible-if")
   private MetaformVisibleIf visibleIf = null;
@@ -48,6 +49,9 @@ public class MetaformField {
 
   @JsonProperty("contexts")
   private List<String> contexts = null;
+
+  @JsonProperty("flags")
+  private MetaformFieldFlags flags = null;
 
   @JsonProperty("placeholder")
   private String placeholder = null;
@@ -226,6 +230,24 @@ public class MetaformField {
 
   public void setContexts(List<String> contexts) {
     this.contexts = contexts;
+  }
+
+  public MetaformField flags(MetaformFieldFlags flags) {
+    this.flags = flags;
+    return this;
+  }
+
+   /**
+   * Get flags
+   * @return flags
+  **/
+  @ApiModelProperty(value = "")
+  public MetaformFieldFlags getFlags() {
+    return flags;
+  }
+
+  public void setFlags(MetaformFieldFlags flags) {
+    this.flags = flags;
   }
 
   public MetaformField placeholder(String placeholder) {
@@ -638,6 +660,7 @@ public class MetaformField {
         Objects.equals(this.title, metaformField.title) &&
         Objects.equals(this.required, metaformField.required) &&
         Objects.equals(this.contexts, metaformField.contexts) &&
+        Objects.equals(this.flags, metaformField.flags) &&
         Objects.equals(this.placeholder, metaformField.placeholder) &&
         Objects.equals(this.propertyClass, metaformField.propertyClass) &&
         Objects.equals(this.readonly, metaformField.readonly) &&
@@ -663,7 +686,7 @@ public class MetaformField {
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, name, type, title, required, contexts, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
+    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
   }
 
 
@@ -678,6 +701,7 @@ public class MetaformField {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    contexts: ").append(toIndentedString(contexts)).append("\n");
+    sb.append("    flags: ").append(toIndentedString(flags)).append("\n");
     sb.append("    placeholder: ").append(toIndentedString(placeholder)).append("\n");
     sb.append("    propertyClass: ").append(toIndentedString(propertyClass)).append("\n");
     sb.append("    readonly: ").append(toIndentedString(readonly)).append("\n");

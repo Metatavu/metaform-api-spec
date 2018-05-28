@@ -8,7 +8,6 @@ import fi.metatavu.metaform.client.Forbidden;
 import fi.metatavu.metaform.client.InternalServerError;
 import fi.metatavu.metaform.client.NotFound;
 import fi.metatavu.metaform.client.Reply;
-import fi.metatavu.metaform.client.ReplyMeta;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-27T16:01:42.062+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-28T13:06:49.711+03:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -153,21 +152,6 @@ public interface RepliesApi extends ApiClient.Api {
   Reply findReply(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("replyId") UUID replyId);
 
   /**
-   * Returns reply meta
-   * Returns meta data from the reply
-    * @param realmId realm id (required)
-    * @param metaformId Metaform id (required)
-    * @param replyId Reply id (required)
-   * @return ReplyMeta
-   */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta")
-  @Headers({
-    "Content-Type: application/json",
-    "Accept: application/json",
-  })
-  ReplyMeta findReplyMeta(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("replyId") UUID replyId);
-
-  /**
    * Lists form replies
    * Lists form replies
     * @param realmId realm id (required)
@@ -178,14 +162,15 @@ public interface RepliesApi extends ApiClient.Api {
     * @param modifiedBefore Filter results modified before specified time (optional)
     * @param modifiedAfter Filter results modified after specified time (optional)
     * @param includeRevisions Specifies that revisions should be included into response (optional)
+    * @param fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
    * @return List&lt;Reply&gt;
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions);
+  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions, @Param("fields") List<String> fields);
 
   /**
    * Lists form replies
@@ -206,10 +191,11 @@ public interface RepliesApi extends ApiClient.Api {
    *   <li>modifiedBefore - Filter results modified before specified time (optional)</li>
    *   <li>modifiedAfter - Filter results modified after specified time (optional)</li>
    *   <li>includeRevisions - Specifies that revisions should be included into response (optional)</li>
+   *   <li>fields - Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)</li>
    *   </ul>
    * @return List&lt;Reply&gt;
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}")
   @Headers({
   "Content-Type: application/json",
   "Accept: application/json",
@@ -243,6 +229,10 @@ public interface RepliesApi extends ApiClient.Api {
     }
     public ListRepliesQueryParams includeRevisions(final Boolean value) {
       put("includeRevisions", EncodingUtils.encode(value));
+      return this;
+    }
+    public ListRepliesQueryParams fields(final List<String> value) {
+      put("fields", EncodingUtils.encodeCollection(value, "csv"));
       return this;
     }
   }

@@ -6,7 +6,6 @@ import fi.metatavu.metaform.client.Forbidden;
 import fi.metatavu.metaform.client.InternalServerError;
 import fi.metatavu.metaform.client.NotFound;
 import fi.metatavu.metaform.client.Reply;
-import fi.metatavu.metaform.client.ReplyMeta;
 import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
@@ -132,22 +131,6 @@ public class RepliesApiTest {
 
     
     /**
-     * Returns reply meta
-     *
-     * Returns meta data from the reply
-     */
-    @Test
-    public void findReplyMetaTest() {
-        String realmId = null;
-        UUID metaformId = null;
-        UUID replyId = null;
-        // ReplyMeta response = api.findReplyMeta(realmId, metaformId, replyId);
-
-        // TODO: test validations
-    }
-
-    
-    /**
      * Lists form replies
      *
      * Lists form replies
@@ -162,7 +145,8 @@ public class RepliesApiTest {
         String modifiedBefore = null;
         String modifiedAfter = null;
         Boolean includeRevisions = null;
-        // List<Reply> response = api.listReplies(realmId, metaformId, userId, createdBefore, createdAfter, modifiedBefore, modifiedAfter, includeRevisions);
+        List<String> fields = null;
+        // List<Reply> response = api.listReplies(realmId, metaformId, userId, createdBefore, createdAfter, modifiedBefore, modifiedAfter, includeRevisions, fields);
 
         // TODO: test validations
     }
@@ -185,7 +169,8 @@ public class RepliesApiTest {
             .createdAfter(null)
             .modifiedBefore(null)
             .modifiedAfter(null)
-            .includeRevisions(null);
+            .includeRevisions(null)
+            .fields(null);
         // List<Reply> response = api.listReplies(realmId, metaformId, queryParams);
 
     // TODO: test validations

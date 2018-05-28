@@ -21,50 +21,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * NotFound
+ * MetaformFieldFlags
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-28T13:06:49.711+03:00")
-public class NotFound {
-  @JsonProperty("code")
-  private Integer code = null;
+public class MetaformFieldFlags {
+  @JsonProperty("managementEditable")
+  private Boolean managementEditable = false;
 
-  @JsonProperty("message")
-  private String message = null;
-
-  public NotFound code(Integer code) {
-    this.code = code;
+  public MetaformFieldFlags managementEditable(Boolean managementEditable) {
+    this.managementEditable = managementEditable;
     return this;
   }
 
    /**
-   * Get code
-   * @return code
+   * Field should be editable in management service
+   * @return managementEditable
   **/
-  @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
+  @ApiModelProperty(value = "Field should be editable in management service")
+  public Boolean isManagementEditable() {
+    return managementEditable;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
-  }
-
-  public NotFound message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Get message
-   * @return message
-  **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
+  public void setManagementEditable(Boolean managementEditable) {
+    this.managementEditable = managementEditable;
   }
 
 
@@ -76,24 +55,22 @@ public class NotFound {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NotFound notFound = (NotFound) o;
-    return Objects.equals(this.code, notFound.code) &&
-        Objects.equals(this.message, notFound.message);
+    MetaformFieldFlags metaformFieldFlags = (MetaformFieldFlags) o;
+    return Objects.equals(this.managementEditable, metaformFieldFlags.managementEditable);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(managementEditable);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NotFound {\n");
+    sb.append("class MetaformFieldFlags {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    managementEditable: ").append(toIndentedString(managementEditable)).append("\n");
     sb.append("}");
     return sb.toString();
   }
