@@ -307,8 +307,12 @@ paths:
           format: uuid
         - name: updateExisting
           in: query
-          description: specifies that existing reply should be updated
+          description: specifies that existing reply should be updated. DEPRECATED, use replymode instead
           type: boolean
+        - name: replyMode
+          in: query
+          description: specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
+          type: string
         - name: payload
           in: body
           description: Payload
