@@ -397,9 +397,15 @@
         }, {
           "name" : "updateExisting",
           "in" : "query",
-          "description" : "specifies that existing reply should be updated",
+          "description" : "specifies that existing reply should be updated. DEPRECATED, use replymode instead",
           "required" : false,
           "type" : "boolean"
+        }, {
+          "name" : "replyMode",
+          "in" : "query",
+          "description" : "specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE",
+          "required" : false,
+          "type" : "string"
         }, {
           "in" : "body",
           "name" : "payload",
@@ -760,31 +766,6 @@
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/MetaformField"
-          }
-        }
-      }
-    },
-    "Metafield" : {
-      "type" : "object",
-      "required" : [ "name", "type" ],
-      "properties" : {
-        "title" : {
-          "type" : "string"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "Field name"
-        },
-        "type" : {
-          "$ref" : "#/definitions/MetaformFieldType"
-        },
-        "time" : {
-          "type" : "boolean"
-        },
-        "contexts" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
           }
         }
       }

@@ -24,7 +24,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-05-28T13:01:57.739+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-06-04T14:31:23.230+03:00")
 
 
 public interface RealmsApi  {
@@ -57,7 +57,7 @@ public interface RealmsApi  {
         @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
-    public Response createReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Reply payload,@QueryParam("updateExisting")   @ApiParam("specifies that existing reply should be updated")  Boolean updateExisting) throws Exception;
+    public Response createReply(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@Valid Reply payload,@QueryParam("updateExisting")   @ApiParam("specifies that existing reply should be updated. DEPRECATED, use replymode instead")  Boolean updateExisting,@QueryParam("replyMode")   @ApiParam("specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE")  String replyMode) throws Exception;
 
     @DELETE
     @Path("/{realmId}/metaforms/{metaformId}")
