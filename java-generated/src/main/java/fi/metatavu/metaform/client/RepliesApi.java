@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-28T13:06:49.711+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-04T14:36:56.681+03:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -26,15 +26,16 @@ public interface RepliesApi extends ApiClient.Api {
     * @param realmId realm id (required)
     * @param metaformId Metaform id (required)
     * @param payload Payload (required)
-    * @param updateExisting specifies that existing reply should be updated (optional)
+    * @param updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+    * @param replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
    * @return Reply
    */
-  @RequestLine("POST /realms/{realmId}/metaforms/{metaformId}/replies?updateExisting={updateExisting}")
+  @RequestLine("POST /realms/{realmId}/metaforms/{metaformId}/replies?updateExisting={updateExisting}&replyMode={replyMode}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  Reply createReply(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, Reply payload, @Param("updateExisting") Boolean updateExisting);
+  Reply createReply(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, Reply payload, @Param("updateExisting") Boolean updateExisting, @Param("replyMode") String replyMode);
 
   /**
    * create new form reply
@@ -50,11 +51,12 @@ public interface RepliesApi extends ApiClient.Api {
    * @param queryParams Map of query parameters as name-value pairs
    *   <p>The following elements may be specified in the query map:</p>
    *   <ul>
-   *   <li>updateExisting - specifies that existing reply should be updated (optional)</li>
+   *   <li>updateExisting - specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)</li>
+   *   <li>replyMode - specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)</li>
    *   </ul>
    * @return Reply
    */
-  @RequestLine("POST /realms/{realmId}/metaforms/{metaformId}/replies?updateExisting={updateExisting}")
+  @RequestLine("POST /realms/{realmId}/metaforms/{metaformId}/replies?updateExisting={updateExisting}&replyMode={replyMode}")
   @Headers({
   "Content-Type: application/json",
   "Accept: application/json",
@@ -68,6 +70,10 @@ public interface RepliesApi extends ApiClient.Api {
   public static class CreateReplyQueryParams extends HashMap<String, Object> {
     public CreateReplyQueryParams updateExisting(final Boolean value) {
       put("updateExisting", EncodingUtils.encode(value));
+      return this;
+    }
+    public CreateReplyQueryParams replyMode(final String value) {
+      put("replyMode", EncodingUtils.encode(value));
       return this;
     }
   }

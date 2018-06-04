@@ -39,7 +39,8 @@ public class RepliesApiTest {
         UUID metaformId = null;
         Reply payload = null;
         Boolean updateExisting = null;
-        // Reply response = api.createReply(realmId, metaformId, payload, updateExisting);
+        String replyMode = null;
+        // Reply response = api.createReply(realmId, metaformId, payload, updateExisting, replyMode);
 
         // TODO: test validations
     }
@@ -58,7 +59,8 @@ public class RepliesApiTest {
         UUID metaformId = null;
         Reply payload = null;
         RepliesApi.CreateReplyQueryParams queryParams = new RepliesApi.CreateReplyQueryParams()
-            .updateExisting(null);
+            .updateExisting(null)
+            .replyMode(null);
         // Reply response = api.createReply(realmId, metaformId, payload, queryParams);
 
     // TODO: test validations
