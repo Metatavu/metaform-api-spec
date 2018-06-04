@@ -36,7 +36,7 @@
   /**
    * The Metaform model module.
    * @module model/Metaform
-   * @version 0.0.8
+   * @version 0.0.9
    */
 
   /**

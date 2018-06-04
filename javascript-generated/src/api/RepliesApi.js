@@ -33,7 +33,7 @@
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.0.8
+   * @version 0.0.9
    */
 
   /**
@@ -124,7 +124,8 @@
      * @param {String} metaformId Metaform id
      * @param {module:model/Reply} payload Payload
      * @param {Object} opts Optional parameters
-     * @param {Boolean} opts.updateExisting specifies that existing reply should be updated
+     * @param {Boolean} opts.updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead
+     * @param {String} opts.replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Reply} and HTTP response
      */
     this.createReplyWithHttpInfo = function(realmId, metaformId, payload, opts) {
@@ -153,6 +154,7 @@
       };
       var queryParams = {
         'updateExisting': opts['updateExisting'],
+        'replyMode': opts['replyMode'],
       };
       var collectionQueryParams = {
       };
@@ -180,7 +182,8 @@
      * @param {String} metaformId Metaform id
      * @param {module:model/Reply} payload Payload
      * @param {Object} opts Optional parameters
-     * @param {Boolean} opts.updateExisting specifies that existing reply should be updated
+     * @param {Boolean} opts.updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead
+     * @param {String} opts.replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Reply}
      */
     this.createReply = function(realmId, metaformId, payload, opts) {

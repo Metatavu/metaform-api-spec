@@ -96,7 +96,8 @@ var metaformId = "metaformId_example"; // String | Metaform id
 var payload = new MetaformApiClient.Reply(); // Reply | Payload
 
 var opts = { 
-  'updateExisting': true // Boolean | specifies that existing reply should be updated
+  'updateExisting': true, // Boolean | specifies that existing reply should be updated. DEPRECATED, use replymode instead
+  'replyMode': "replyMode_example" // String | specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
 };
 apiInstance.createReply(realmId, metaformId, payload, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -113,7 +114,8 @@ Name | Type | Description  | Notes
  **realmId** | **String**| realm id | 
  **metaformId** | **String**| Metaform id | 
  **payload** | [**Reply**](Reply.md)| Payload | 
- **updateExisting** | **Boolean**| specifies that existing reply should be updated | [optional] 
+ **updateExisting** | **Boolean**| specifies that existing reply should be updated. DEPRECATED, use replymode instead | [optional] 
+ **replyMode** | **String**| specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE | [optional] 
 
 ### Return type
 
