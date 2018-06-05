@@ -20,7 +20,7 @@ import feign.slf4j.Slf4jLogger;
 import fi.metatavu.metaform.auth.*;
 import fi.metatavu.metaform.auth.OAuth.AccessTokenListener;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-04T14:36:56.681+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T10:48:47.188+03:00")
 public class ApiClient {
   public interface Api {}
 

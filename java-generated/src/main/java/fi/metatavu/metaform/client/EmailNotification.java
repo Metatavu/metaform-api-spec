@@ -19,52 +19,61 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
- * Forbidden
+ * Email notification
  */
+@ApiModel(description = "Email notification")
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T10:48:47.188+03:00")
-public class Forbidden {
-  @JsonProperty("code")
-  private Integer code = null;
+public class EmailNotification {
+  @JsonProperty("id")
+  private UUID id = null;
 
-  @JsonProperty("message")
-  private String message = null;
+  @JsonProperty("emails")
+  private List<String> emails = new ArrayList<String>();
 
-  public Forbidden code(Integer code) {
-    this.code = code;
+  public EmailNotification id(UUID id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get code
-   * @return code
+   * Get id
+   * @return id
   **/
   @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
+  public UUID getId() {
+    return id;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setId(UUID id) {
+    this.id = id;
   }
 
-  public Forbidden message(String message) {
-    this.message = message;
+  public EmailNotification emails(List<String> emails) {
+    this.emails = emails;
+    return this;
+  }
+
+  public EmailNotification addEmailsItem(String emailsItem) {
+    this.emails.add(emailsItem);
     return this;
   }
 
    /**
-   * Get message
-   * @return message
+   * Get emails
+   * @return emails
   **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
+  @ApiModelProperty(required = true, value = "")
+  public List<String> getEmails() {
+    return emails;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setEmails(List<String> emails) {
+    this.emails = emails;
   }
 
 
@@ -76,24 +85,24 @@ public class Forbidden {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Forbidden forbidden = (Forbidden) o;
-    return Objects.equals(this.code, forbidden.code) &&
-        Objects.equals(this.message, forbidden.message);
+    EmailNotification emailNotification = (EmailNotification) o;
+    return Objects.equals(this.id, emailNotification.id) &&
+        Objects.equals(this.emails, emailNotification.emails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(id, emails);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Forbidden {\n");
+    sb.append("class EmailNotification {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
     sb.append("}");
     return sb.toString();
   }
