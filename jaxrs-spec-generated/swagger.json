@@ -690,6 +690,307 @@
           }
         }
       }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/emailNotifications" : {
+      "get" : {
+        "tags" : [ "EmailNotifications" ],
+        "summary" : "Lists form email notifications",
+        "description" : "Lists email notifications",
+        "operationId" : "listEmailNotifications",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of email notifications",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EmailNotification"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "EmailNotifications" ],
+        "summary" : "create new form email notification",
+        "description" : "Creates new form email notification",
+        "operationId" : "createEmailNotification",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EmailNotification"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Created email notification",
+            "schema" : {
+              "$ref" : "#/definitions/EmailNotification"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}" : {
+      "get" : {
+        "tags" : [ "EmailNotifications" ],
+        "summary" : "Find a single emai notification",
+        "description" : "Finds single email notification by id",
+        "operationId" : "findEmailNotification",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "emailNotificationId",
+          "in" : "path",
+          "description" : "EmailNotification id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an email notification",
+            "schema" : {
+              "$ref" : "#/definitions/EmailNotification"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "EmailNotifications" ],
+        "summary" : "Updates email notification",
+        "description" : "Updates email notification",
+        "operationId" : "updateEmailNotification",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "emailNotificationId",
+          "in" : "path",
+          "description" : "EmailNotification id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EmailNotification"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an email notification",
+            "schema" : {
+              "$ref" : "#/definitions/EmailNotification"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "EmailNotifications" ],
+        "summary" : "Deletes an email notification",
+        "description" : "Deletes an email notification",
+        "operationId" : "deleteEmailNotification",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "emailNotificationId",
+          "in" : "path",
+          "description" : "Email notification id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Empty response indicating a succesfull removal"
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
     }
   },
   "securityDefinitions" : {
@@ -1029,6 +1330,23 @@
         }
       },
       "description" : "Rule that defines whether specified object is visible"
+    },
+    "EmailNotification" : {
+      "type" : "object",
+      "required" : [ "emails" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "emails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Email notification"
     },
     "InternalServerError" : {
       "type" : "object",
