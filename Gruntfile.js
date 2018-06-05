@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   
   const SWAGGER_SRC = "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/swagger-codegen-cli/3.0.0-SNAPSHOT/swagger-codegen-cli-3.0.0-20180112.231857-20.jar";
-  const PHP_CLIENT_VERSION = "0.0.3";
+  const PHP_CLIENT_VERSION = "0.0.4";
  
   grunt.initConfig({
     'curl': {
