@@ -27,10 +27,16 @@ import java.util.UUID;
  * Email notification
  */
 @ApiModel(description = "Email notification")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T10:48:47.188+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T13:48:07.395+03:00")
 public class EmailNotification {
   @JsonProperty("id")
   private UUID id = null;
+
+  @JsonProperty("subjectTemplate")
+  private String subjectTemplate = null;
+
+  @JsonProperty("contentTemplate")
+  private String contentTemplate = null;
 
   @JsonProperty("emails")
   private List<String> emails = new ArrayList<String>();
@@ -51,6 +57,42 @@ public class EmailNotification {
 
   public void setId(UUID id) {
     this.id = id;
+  }
+
+  public EmailNotification subjectTemplate(String subjectTemplate) {
+    this.subjectTemplate = subjectTemplate;
+    return this;
+  }
+
+   /**
+   * Get subjectTemplate
+   * @return subjectTemplate
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public String getSubjectTemplate() {
+    return subjectTemplate;
+  }
+
+  public void setSubjectTemplate(String subjectTemplate) {
+    this.subjectTemplate = subjectTemplate;
+  }
+
+  public EmailNotification contentTemplate(String contentTemplate) {
+    this.contentTemplate = contentTemplate;
+    return this;
+  }
+
+   /**
+   * Get contentTemplate
+   * @return contentTemplate
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public String getContentTemplate() {
+    return contentTemplate;
+  }
+
+  public void setContentTemplate(String contentTemplate) {
+    this.contentTemplate = contentTemplate;
   }
 
   public EmailNotification emails(List<String> emails) {
@@ -87,12 +129,14 @@ public class EmailNotification {
     }
     EmailNotification emailNotification = (EmailNotification) o;
     return Objects.equals(this.id, emailNotification.id) &&
+        Objects.equals(this.subjectTemplate, emailNotification.subjectTemplate) &&
+        Objects.equals(this.contentTemplate, emailNotification.contentTemplate) &&
         Objects.equals(this.emails, emailNotification.emails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, emails);
+    return Objects.hash(id, subjectTemplate, contentTemplate, emails);
   }
 
 
@@ -102,6 +146,8 @@ public class EmailNotification {
     sb.append("class EmailNotification {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    subjectTemplate: ").append(toIndentedString(subjectTemplate)).append("\n");
+    sb.append("    contentTemplate: ").append(toIndentedString(contentTemplate)).append("\n");
     sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
     sb.append("}");
     return sb.toString();
