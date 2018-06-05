@@ -1042,10 +1042,16 @@ definitions:
     description: Email notification
     required: 
       - emails
+      - subjectTemplate
+      - contentTemplate
     properties:
       id:
         type: "string"
         format: "uuid"
+      subjectTemplate:
+        type: "string"
+      contentTemplate:
+        type: "string"
       emails:
         type: "array"
         items: 
