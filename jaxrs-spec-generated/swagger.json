@@ -1333,11 +1333,17 @@
     },
     "EmailNotification" : {
       "type" : "object",
-      "required" : [ "emails" ],
+      "required" : [ "contentTemplate", "emails", "subjectTemplate" ],
       "properties" : {
         "id" : {
           "type" : "string",
           "format" : "uuid"
+        },
+        "subjectTemplate" : {
+          "type" : "string"
+        },
+        "contentTemplate" : {
+          "type" : "string"
         },
         "emails" : {
           "type" : "array",

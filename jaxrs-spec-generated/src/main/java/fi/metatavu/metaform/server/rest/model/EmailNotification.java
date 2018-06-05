@@ -18,6 +18,8 @@ import java.util.Objects;
 public class EmailNotification   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("subjectTemplate") String subjectTemplate = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("contentTemplate") String contentTemplate = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("emails") List<String> emails = new ArrayList<String>();
 
   /**
@@ -34,6 +36,40 @@ public class EmailNotification   {
   }
   public void setId(UUID id) {
     this.id = id;
+  }
+
+  /**
+   **/
+  public EmailNotification subjectTemplate(String subjectTemplate) {
+    this.subjectTemplate = subjectTemplate;
+    return this;
+  }
+
+  
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+  public String getSubjectTemplate() {
+    return subjectTemplate;
+  }
+  public void setSubjectTemplate(String subjectTemplate) {
+    this.subjectTemplate = subjectTemplate;
+  }
+
+  /**
+   **/
+  public EmailNotification contentTemplate(String contentTemplate) {
+    this.contentTemplate = contentTemplate;
+    return this;
+  }
+
+  
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+  public String getContentTemplate() {
+    return contentTemplate;
+  }
+  public void setContentTemplate(String contentTemplate) {
+    this.contentTemplate = contentTemplate;
   }
 
   /**
@@ -64,12 +100,14 @@ public class EmailNotification   {
     }
     EmailNotification emailNotification = (EmailNotification) o;
     return Objects.equals(id, emailNotification.id) &&
+        Objects.equals(subjectTemplate, emailNotification.subjectTemplate) &&
+        Objects.equals(contentTemplate, emailNotification.contentTemplate) &&
         Objects.equals(emails, emailNotification.emails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, emails);
+    return Objects.hash(id, subjectTemplate, contentTemplate, emails);
   }
 
   @Override
@@ -78,6 +116,8 @@ public class EmailNotification   {
     sb.append("class EmailNotification {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    subjectTemplate: ").append(toIndentedString(subjectTemplate)).append("\n");
+    sb.append("    contentTemplate: ").append(toIndentedString(contentTemplate)).append("\n");
     sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
     sb.append("}");
     return sb.toString();
