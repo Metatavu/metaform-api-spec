@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T13:48:07.395+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:32:57.651+03:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -137,6 +137,58 @@ public interface RepliesApi extends ApiClient.Api {
    */
   public static class ExportQueryParams extends HashMap<String, Object> {
     public ExportQueryParams format(final String value) {
+      put("format", EncodingUtils.encode(value));
+      return this;
+    }
+  }
+
+  /**
+   * Exports metaform data
+   * Exports metaform data
+    * @param realmId realm id (required)
+    * @param metaformId Metaform id (required)
+    * @param replyId Reply id (required)
+    * @param format Export results in specified format (PDF) (required)
+   * @return byte[]
+   */
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/{replyId}/export?format={format}")
+  @Headers({
+    "Content-Type: application/json",
+    "Accept: application/json",
+  })
+  byte[] export_1(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("replyId") UUID replyId, @Param("format") String format);
+
+  /**
+   * Exports metaform data
+   * Exports metaform data
+   * Note, this is equivalent to the other <code>export_0</code> method,
+   * but with the query parameters collected into a single Map parameter. This
+   * is convenient for services with optional query parameters, especially when
+   * used with the {@link Export0QueryParams} class that allows for
+   * building up this map in a fluent style.
+   * @param realmId realm id (required)
+   * @param metaformId Metaform id (required)
+   * @param replyId Reply id (required)
+   * @param queryParams Map of query parameters as name-value pairs
+   *   <p>The following elements may be specified in the query map:</p>
+   *   <ul>
+   *   <li>format - Export results in specified format (PDF) (required)</li>
+   *   </ul>
+   * @return byte[]
+   */
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/{replyId}/export?format={format}")
+  @Headers({
+  "Content-Type: application/json",
+  "Accept: application/json",
+  })
+  byte[] export_1(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("replyId") UUID replyId, @QueryMap(encoded=true) Map<String, Object> queryParams);
+
+  /**
+   * A convenience class for generating query parameters for the
+   * <code>export_0</code> method in a fluent style.
+   */
+  public static class Export0QueryParams extends HashMap<String, Object> {
+    public Export0QueryParams format(final String value) {
       put("format", EncodingUtils.encode(value));
       return this;
     }

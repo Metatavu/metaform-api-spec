@@ -27,7 +27,7 @@ import java.util.UUID;
  * Email notification
  */
 @ApiModel(description = "Email notification")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-06-05T13:48:07.395+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:32:57.651+03:00")
 public class EmailNotification {
   @JsonProperty("id")
   private UUID id = null;

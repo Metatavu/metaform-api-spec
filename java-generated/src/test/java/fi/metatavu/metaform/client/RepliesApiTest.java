@@ -117,6 +117,42 @@ public class RepliesApiTest {
     }
     
     /**
+     * Exports metaform data
+     *
+     * Exports metaform data
+     */
+    @Test
+    public void export_0Test() {
+        String realmId = null;
+        UUID metaformId = null;
+        UUID replyId = null;
+        String format = null;
+        // byte[] response = api.export_0(realmId, metaformId, replyId, format);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Exports metaform data
+     *
+     * Exports metaform data
+     *
+     * This tests the overload of the method that uses a Map for query parameters instead of
+     * listing them out individually.
+     */
+    @Test
+    public void export_0TestQueryMap() {
+        String realmId = null;
+        UUID metaformId = null;
+        UUID replyId = null;
+        RepliesApi.Export0QueryParams queryParams = new RepliesApi.Export0QueryParams()
+            .format(null);
+        // byte[] response = api.export_0(realmId, metaformId, replyId, queryParams);
+
+    // TODO: test validations
+    }
+    
+    /**
      * Find a single reply
      *
      * Finds single reply by id
