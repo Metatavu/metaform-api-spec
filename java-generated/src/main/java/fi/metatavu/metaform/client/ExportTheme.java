@@ -24,7 +24,7 @@ import java.util.UUID;
 /**
  * ExportTheme
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T14:10:16.792+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T14:43:50.131+03:00")
 public class ExportTheme {
   @JsonProperty("id")
   private UUID id = null;
