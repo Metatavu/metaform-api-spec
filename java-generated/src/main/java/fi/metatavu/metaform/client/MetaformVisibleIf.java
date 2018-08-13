@@ -27,7 +27,7 @@ import java.util.List;
  * Rule that defines whether specified object is visible
  */
 @ApiModel(description = "Rule that defines whether specified object is visible")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:32:57.651+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:38:59.598+03:00")
 public class MetaformVisibleIf {
   @JsonProperty("field")
   private String field = null;

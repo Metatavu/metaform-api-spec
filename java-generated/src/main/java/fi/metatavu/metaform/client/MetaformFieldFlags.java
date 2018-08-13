@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MetaformFieldFlags
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:32:57.651+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T12:38:59.598+03:00")
 public class MetaformFieldFlags {
   @JsonProperty("managementEditable")
   private Boolean managementEditable = false;
