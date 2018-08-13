@@ -5,6 +5,7 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**callExport**](RepliesApi.md#callExport) | **GET** /realms/{realmId}/metaforms/{metaformId}/export | Exports metaform data
+[**callExport_0**](RepliesApi.md#callExport_0) | **GET** /realms/{realmId}/metaforms/{metaformId}/{replyId}/export | Exports metaform data
 [**createReply**](RepliesApi.md#createReply) | **POST** /realms/{realmId}/metaforms/{metaformId}/replies | create new form reply
 [**deleteReply**](RepliesApi.md#deleteReply) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Deletes a reply
 [**findReply**](RepliesApi.md#findReply) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Find a single reply
@@ -54,6 +55,65 @@ Name | Type | Description  | Notes
  **realmId** | **String**| realm id | 
  **metaformId** | **String**| Metaform id | 
  **format** | **String**| Export results in specified format (XLSX) | 
+
+### Return type
+
+**&#39;Blob&#39;**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json;charset=utf-8
+ - **Accept**: application/json;charset=utf-8
+
+<a name="callExport_0"></a>
+# **callExport_0**
+> &#39;Blob&#39; callExport_0(realmId, metaformId, replyId, format)
+
+Exports metaform data
+
+Exports metaform data
+
+### Example
+```javascript
+var MetaformApiClient = require('metaform-api-client');
+var defaultClient = MetaformApiClient.ApiClient.instance;
+
+// Configure API key authorization: bearer
+var bearer = defaultClient.authentications['bearer'];
+bearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//bearer.apiKeyPrefix = 'Token';
+
+var apiInstance = new MetaformApiClient.RepliesApi();
+
+var realmId = "realmId_example"; // String | realm id
+
+var metaformId = "metaformId_example"; // String | Metaform id
+
+var replyId = "replyId_example"; // String | Reply id
+
+var format = "format_example"; // String | Export results in specified format (PDF)
+
+apiInstance.callExport_0(realmId, metaformId, replyId, format).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
+ **metaformId** | **String**| Metaform id | 
+ **replyId** | **String**| Reply id | 
+ **format** | **String**| Export results in specified format (PDF) | 
 
 ### Return type
 
