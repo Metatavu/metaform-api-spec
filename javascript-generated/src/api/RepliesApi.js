@@ -33,7 +33,7 @@
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.0.13
+   * @version 0.0.14
    */
 
   /**

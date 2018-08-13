@@ -25,7 +25,7 @@
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.ExportThemeFile = factory(root.MetaformApiClient.ApiClient);
+    root.MetaformApiClient.Attachment = factory(root.MetaformApiClient.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -34,34 +34,30 @@
 
 
   /**
-   * The ExportThemeFile model module.
-   * @module model/ExportThemeFile
+   * The Attachment model module.
+   * @module model/Attachment
    * @version 0.0.14
    */
 
   /**
-   * Constructs a new <code>ExportThemeFile</code>.
-   * @alias module:model/ExportThemeFile
+   * Constructs a new <code>Attachment</code>.
+   * @alias module:model/Attachment
    * @class
-   * @param path {String} 
-   * @param themeId {String} 
-   * @param content {String} 
    */
-  var exports = function(path, themeId, content) {
+  var exports = function() {
     var _this = this;
 
 
-    _this['path'] = path;
-    _this['themeId'] = themeId;
-    _this['content'] = content;
+
+
   };
 
   /**
-   * Constructs a <code>ExportThemeFile</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>Attachment</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ExportThemeFile} obj Optional instance to populate.
-   * @return {module:model/ExportThemeFile} The populated <code>ExportThemeFile</code> instance.
+   * @param {module:model/Attachment} obj Optional instance to populate.
+   * @return {module:model/Attachment} The populated <code>Attachment</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -70,35 +66,31 @@
       if (data.hasOwnProperty('id')) {
         obj['id'] = ApiClient.convertToType(data['id'], 'String');
       }
-      if (data.hasOwnProperty('path')) {
-        obj['path'] = ApiClient.convertToType(data['path'], 'String');
+      if (data.hasOwnProperty('name')) {
+        obj['name'] = ApiClient.convertToType(data['name'], 'String');
       }
-      if (data.hasOwnProperty('themeId')) {
-        obj['themeId'] = ApiClient.convertToType(data['themeId'], 'String');
-      }
-      if (data.hasOwnProperty('content')) {
-        obj['content'] = ApiClient.convertToType(data['content'], 'String');
+      if (data.hasOwnProperty('contentType')) {
+        obj['contentType'] = ApiClient.convertToType(data['contentType'], 'String');
       }
     }
     return obj;
   }
 
   /**
+   * Entity identifier
    * @member {String} id
    */
   exports.prototype['id'] = undefined;
   /**
-   * @member {String} path
+   * Attachment's name
+   * @member {String} name
    */
-  exports.prototype['path'] = undefined;
+  exports.prototype['name'] = undefined;
   /**
-   * @member {String} themeId
+   * Attachment's content type (e.g. application/pdf)
+   * @member {String} contentType
    */
-  exports.prototype['themeId'] = undefined;
-  /**
-   * @member {String} content
-   */
-  exports.prototype['content'] = undefined;
+  exports.prototype['contentType'] = undefined;
 
 
 

@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.13
+   * @version 0.0.14
    */
 
   /**
@@ -51,7 +51,6 @@
 
 
     _this['type'] = type;
-
 
 
 
@@ -145,9 +144,6 @@
       }
       if (data.hasOwnProperty('source-url')) {
         obj['source-url'] = ApiClient.convertToType(data['source-url'], 'String');
-      }
-      if (data.hasOwnProperty('upload-url')) {
-        obj['upload-url'] = ApiClient.convertToType(data['upload-url'], 'String');
       }
       if (data.hasOwnProperty('single-file')) {
         obj['single-file'] = ApiClient.convertToType(data['single-file'], 'Boolean');
@@ -262,11 +258,6 @@
    * @member {String} source-url
    */
   exports.prototype['source-url'] = undefined;
-  /**
-   * Upload url for files field.
-   * @member {String} upload-url
-   */
-  exports.prototype['upload-url'] = undefined;
   /**
    * Defines whether file fields allow multiple files or just one
    * @member {Boolean} single-file

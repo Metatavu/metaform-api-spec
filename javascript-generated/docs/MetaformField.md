@@ -22,7 +22,6 @@ Name | Type | Description | Notes
 **printable** | **Boolean** | Defines whether field is printable or not. Only for table fields | [optional] 
 **options** | [**[MetaformFieldOption]**](MetaformFieldOption.md) | Options for radio, checklist, select fields | [optional] 
 **sourceUrl** | **String** | Source url for autocomplete and autocomplete-multiple fields | [optional] 
-**uploadUrl** | **String** | Upload url for files field. | [optional] 
 **singleFile** | **Boolean** | Defines whether file fields allow multiple files or just one | [optional] 
 **onlyImages** | **Boolean** | Defines whether file fields allow only images | [optional] 
 **maxFileSize** | **Number** | Maximum upload size for image filds | [optional] 
