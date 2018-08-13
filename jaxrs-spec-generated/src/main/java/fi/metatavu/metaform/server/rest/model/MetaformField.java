@@ -36,7 +36,6 @@ public class MetaformField   {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("printable") Boolean printable = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("options") List<MetaformFieldOption> options = new ArrayList<MetaformFieldOption>();
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("source-url") String sourceUrl = null;
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("upload-url") String uploadUrl = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("single-file") Boolean singleFile = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("only-images") Boolean onlyImages = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("max-file-size") Long maxFileSize = null;
@@ -361,23 +360,6 @@ public class MetaformField   {
   }
 
   /**
-   * Upload url for files field.
-   **/
-  public MetaformField uploadUrl(String uploadUrl) {
-    this.uploadUrl = uploadUrl;
-    return this;
-  }
-
-  
-  @ApiModelProperty(value = "Upload url for files field.")
-  public String getUploadUrl() {
-    return uploadUrl;
-  }
-  public void setUploadUrl(String uploadUrl) {
-    this.uploadUrl = uploadUrl;
-  }
-
-  /**
    * Defines whether file fields allow multiple files or just one
    **/
   public MetaformField singleFile(Boolean singleFile) {
@@ -542,7 +524,6 @@ public class MetaformField   {
         Objects.equals(printable, metaformField.printable) &&
         Objects.equals(options, metaformField.options) &&
         Objects.equals(sourceUrl, metaformField.sourceUrl) &&
-        Objects.equals(uploadUrl, metaformField.uploadUrl) &&
         Objects.equals(singleFile, metaformField.singleFile) &&
         Objects.equals(onlyImages, metaformField.onlyImages) &&
         Objects.equals(maxFileSize, metaformField.maxFileSize) &&
@@ -555,7 +536,7 @@ public class MetaformField   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
+    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
   }
 
   @Override
@@ -582,7 +563,6 @@ public class MetaformField   {
     sb.append("    printable: ").append(toIndentedString(printable)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    sourceUrl: ").append(toIndentedString(sourceUrl)).append("\n");
-    sb.append("    uploadUrl: ").append(toIndentedString(uploadUrl)).append("\n");
     sb.append("    singleFile: ").append(toIndentedString(singleFile)).append("\n");
     sb.append("    onlyImages: ").append(toIndentedString(onlyImages)).append("\n");
     sb.append("    maxFileSize: ").append(toIndentedString(maxFileSize)).append("\n");

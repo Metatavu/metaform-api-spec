@@ -1566,6 +1566,91 @@
           }
         }
       }
+    },
+    "/attachments/{attachmentId}" : {
+      "get" : {
+        "tags" : [ "Attachments" ],
+        "summary" : "Find a attachment by id",
+        "description" : "Returns single attachment",
+        "operationId" : "findAttachment",
+        "parameters" : [ {
+          "name" : "attachmentId",
+          "in" : "path",
+          "description" : "Attachment id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an attachment",
+            "schema" : {
+              "$ref" : "#/definitions/Attachment"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/attachments/{attachmentId}/data" : {
+      "get" : {
+        "tags" : [ "Attachments" ],
+        "summary" : "Find a attachment data by id",
+        "description" : "Returns attachment data",
+        "operationId" : "findAttachmentData",
+        "parameters" : [ {
+          "name" : "attachmentId",
+          "in" : "path",
+          "description" : "Attachment id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns an attachment data",
+            "schema" : {
+              "type" : "string",
+              "format" : "binary"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
     }
   },
   "securityDefinitions" : {
@@ -1725,11 +1810,6 @@
           "type" : "string",
           "format" : "url",
           "description" : "Source url for autocomplete and autocomplete-multiple fields"
-        },
-        "upload-url" : {
-          "type" : "string",
-          "format" : "url",
-          "description" : "Upload url for files field."
         },
         "single-file" : {
           "type" : "boolean",
@@ -1928,6 +2008,24 @@
         }
       },
       "description" : "Email notification"
+    },
+    "Attachment" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Entity identifier"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Attachment's name"
+        },
+        "contentType" : {
+          "type" : "string",
+          "description" : "Attachment's content type (e.g. application/pdf)"
+        }
+      }
     },
     "ExportTheme" : {
       "type" : "object",
