@@ -694,9 +694,9 @@
     "/realms/{realmId}/metaforms/{metaformId}/{replyId}/export" : {
       "get" : {
         "tags" : [ "Replies" ],
-        "summary" : "Exports metaform data",
-        "description" : "Exports metaform data",
-        "operationId" : "export",
+        "summary" : "Exports reply data",
+        "description" : "Exports reply data",
+        "operationId" : "replyExport",
         "parameters" : [ {
           "name" : "realmId",
           "in" : "path",
@@ -726,7 +726,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Exported Metaform",
+            "description" : "Exported reply",
             "schema" : {
               "type" : "string",
               "format" : "binary"
@@ -1031,7 +1031,514 @@
         } ],
         "responses" : {
           "204" : {
-            "description" : "Empty response indicating a succesfull removal"
+            "description" : "Empty response indicating a successful removal"
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/exportThemes" : {
+      "get" : {
+        "tags" : [ "ExportThemes" ],
+        "summary" : "Lists form export themes",
+        "description" : "Lists export themes",
+        "operationId" : "listExportThemes",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of export themes",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ExportTheme"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ExportThemes" ],
+        "summary" : "create new form export theme",
+        "description" : "Creates new form export theme",
+        "operationId" : "createExportTheme",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ExportTheme"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Created export theme",
+            "schema" : {
+              "$ref" : "#/definitions/ExportTheme"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/exportThemes/{exportThemeId}" : {
+      "get" : {
+        "tags" : [ "ExportThemes" ],
+        "summary" : "Finds single export theme",
+        "description" : "Finds single export theme",
+        "operationId" : "findExportTheme",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "single export theme",
+            "schema" : {
+              "$ref" : "#/definitions/ExportTheme"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "ExportThemes" ],
+        "summary" : "Updates export theme",
+        "description" : "Updates export theme",
+        "operationId" : "updateExportTheme",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "ExportTheme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ExportTheme"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an updated export theme",
+            "schema" : {
+              "$ref" : "#/definitions/ExportTheme"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "ExportThemes" ],
+        "summary" : "Deletes an export theme",
+        "description" : "Deletes an export theme",
+        "operationId" : "deleteExportTheme",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Empty response indicating a successful removal"
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/exportThemes/{exportThemeId}/files" : {
+      "get" : {
+        "tags" : [ "ExportThemes", "ExportThemeFiles" ],
+        "summary" : "Lists files of export theme",
+        "description" : "Lists files of export theme",
+        "operationId" : "listExportThemeFiles",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of export theme files",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ExportThemeFile"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ExportThemes", "ExportThemeFiles" ],
+        "summary" : "create new export theme file",
+        "description" : "Creates new export theme file",
+        "operationId" : "createExportThemeFile",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ExportThemeFile"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Created export theme file",
+            "schema" : {
+              "$ref" : "#/definitions/ExportThemeFile"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/exportThemes/{exportThemeId}/files/{exportThemeFileId}" : {
+      "get" : {
+        "tags" : [ "ExportThemes", "ExportThemeFiles" ],
+        "summary" : "Finds single export theme file",
+        "description" : "Finds single export theme file",
+        "operationId" : "findExportThemeFile",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "exportThemeFileId",
+          "in" : "path",
+          "description" : "export theme file id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "single export theme file",
+            "schema" : {
+              "$ref" : "#/definitions/ExportThemeFile"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "ExportThemes", "ExportThemeFiles" ],
+        "summary" : "Updates export theme file",
+        "description" : "Updates export theme file",
+        "operationId" : "updateExportThemeFile",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "ExportTheme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "exportThemeFileId",
+          "in" : "path",
+          "description" : "ExportThemeFile file id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ExportThemeFile"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "an updated export theme file",
+            "schema" : {
+              "$ref" : "#/definitions/ExportThemeFile"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "ExportThemes", "ExportThemeFiles" ],
+        "summary" : "Deletes an export theme file",
+        "description" : "Deletes an export theme file",
+        "operationId" : "deleteExportThemeFile",
+        "parameters" : [ {
+          "name" : "exportThemeId",
+          "in" : "path",
+          "description" : "export theme id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "exportThemeFileId",
+          "in" : "path",
+          "description" : "export theme file id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Empty response indicating a successful removal"
           },
           "400" : {
             "description" : "Invalid request was sent to the server",
@@ -1421,6 +1928,46 @@
         }
       },
       "description" : "Email notification"
+    },
+    "ExportTheme" : {
+      "type" : "object",
+      "required" : [ "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "parentId" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "locales" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ExportThemeFile" : {
+      "type" : "object",
+      "required" : [ "content", "path", "themeId" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "path" : {
+          "type" : "string"
+        },
+        "themeId" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "content" : {
+          "type" : "string"
+        }
+      }
     },
     "ReplyExportFormat" : {
       "type" : "string",
