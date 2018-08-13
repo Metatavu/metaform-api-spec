@@ -33,7 +33,7 @@
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.0.12
+   * @version 0.0.13
    */
 
   /**
@@ -111,83 +111,6 @@
      */
     this.callExport = function(realmId, metaformId, format) {
       return this.callExportWithHttpInfo(realmId, metaformId, format)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Exports metaform data
-     * Exports metaform data
-     * @param {String} realmId realm id
-     * @param {String} metaformId Metaform id
-     * @param {String} replyId Reply id
-     * @param {String} format Export results in specified format (PDF)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link 'Blob'} and HTTP response
-     */
-    this.callExport_0WithHttpInfo = function(realmId, metaformId, replyId, format) {
-      var postBody = null;
-
-      // verify the required parameter 'realmId' is set
-      if (realmId === undefined || realmId === null) {
-        throw new Error("Missing the required parameter 'realmId' when calling callExport_0");
-      }
-
-      // verify the required parameter 'metaformId' is set
-      if (metaformId === undefined || metaformId === null) {
-        throw new Error("Missing the required parameter 'metaformId' when calling callExport_0");
-      }
-
-      // verify the required parameter 'replyId' is set
-      if (replyId === undefined || replyId === null) {
-        throw new Error("Missing the required parameter 'replyId' when calling callExport_0");
-      }
-
-      // verify the required parameter 'format' is set
-      if (format === undefined || format === null) {
-        throw new Error("Missing the required parameter 'format' when calling callExport_0");
-      }
-
-
-      var pathParams = {
-        'realmId': realmId,
-        'metaformId': metaformId,
-        'replyId': replyId
-      };
-      var queryParams = {
-        'format': format,
-      };
-      var collectionQueryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['bearer'];
-      var contentTypes = ['application/json;charset=utf-8'];
-      var accepts = ['application/json;charset=utf-8'];
-      var returnType = 'Blob';
-
-      return this.apiClient.callApi(
-        '/realms/{realmId}/metaforms/{metaformId}/{replyId}/export', 'GET',
-        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-    /**
-     * Exports metaform data
-     * Exports metaform data
-     * @param {String} realmId realm id
-     * @param {String} metaformId Metaform id
-     * @param {String} replyId Reply id
-     * @param {String} format Export results in specified format (PDF)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link 'Blob'}
-     */
-    this.callExport_0 = function(realmId, metaformId, replyId, format) {
-      return this.callExport_0WithHttpInfo(realmId, metaformId, replyId, format)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -491,6 +414,83 @@
      */
     this.listReplies = function(realmId, metaformId, opts) {
       return this.listRepliesWithHttpInfo(realmId, metaformId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Exports reply data
+     * Exports reply data
+     * @param {String} realmId realm id
+     * @param {String} metaformId Metaform id
+     * @param {String} replyId Reply id
+     * @param {String} format Export results in specified format (PDF)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link 'Blob'} and HTTP response
+     */
+    this.replyExportWithHttpInfo = function(realmId, metaformId, replyId, format) {
+      var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling replyExport");
+      }
+
+      // verify the required parameter 'metaformId' is set
+      if (metaformId === undefined || metaformId === null) {
+        throw new Error("Missing the required parameter 'metaformId' when calling replyExport");
+      }
+
+      // verify the required parameter 'replyId' is set
+      if (replyId === undefined || replyId === null) {
+        throw new Error("Missing the required parameter 'replyId' when calling replyExport");
+      }
+
+      // verify the required parameter 'format' is set
+      if (format === undefined || format === null) {
+        throw new Error("Missing the required parameter 'format' when calling replyExport");
+      }
+
+
+      var pathParams = {
+        'realmId': realmId,
+        'metaformId': metaformId,
+        'replyId': replyId
+      };
+      var queryParams = {
+        'format': format,
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['bearer'];
+      var contentTypes = ['application/json;charset=utf-8'];
+      var accepts = ['application/json;charset=utf-8'];
+      var returnType = 'Blob';
+
+      return this.apiClient.callApi(
+        '/realms/{realmId}/metaforms/{metaformId}/{replyId}/export', 'GET',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Exports reply data
+     * Exports reply data
+     * @param {String} realmId realm id
+     * @param {String} metaformId Metaform id
+     * @param {String} replyId Reply id
+     * @param {String} format Export results in specified format (PDF)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link 'Blob'}
+     */
+    this.replyExport = function(realmId, metaformId, replyId, format) {
+      return this.replyExportWithHttpInfo(realmId, metaformId, replyId, format)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

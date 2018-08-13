@@ -25,7 +25,7 @@
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.MetaformTableColumnValues = factory(root.MetaformApiClient.ApiClient);
+    root.MetaformApiClient.ExportTheme = factory(root.MetaformApiClient.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -34,61 +34,69 @@
 
 
   /**
-   * The MetaformTableColumnValues model module.
-   * @module model/MetaformTableColumnValues
+   * The ExportTheme model module.
+   * @module model/ExportTheme
    * @version 0.0.13
    */
 
   /**
-   * Constructs a new <code>MetaformTableColumnValues</code>.
-   * Values for enum columns
-   * @alias module:model/MetaformTableColumnValues
+   * Constructs a new <code>ExportTheme</code>.
+   * @alias module:model/ExportTheme
    * @class
+   * @param name {String} 
    */
-  var exports = function() {
+  var exports = function(name) {
     var _this = this;
 
 
+    _this['name'] = name;
 
 
   };
 
   /**
-   * Constructs a <code>MetaformTableColumnValues</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ExportTheme</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MetaformTableColumnValues} obj Optional instance to populate.
-   * @return {module:model/MetaformTableColumnValues} The populated <code>MetaformTableColumnValues</code> instance.
+   * @param {module:model/ExportTheme} obj Optional instance to populate.
+   * @return {module:model/ExportTheme} The populated <code>ExportTheme</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('value')) {
-        obj['value'] = ApiClient.convertToType(data['value'], 'String');
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
       }
-      if (data.hasOwnProperty('other')) {
-        obj['other'] = ApiClient.convertToType(data['other'], 'String');
+      if (data.hasOwnProperty('name')) {
+        obj['name'] = ApiClient.convertToType(data['name'], 'String');
       }
-      if (data.hasOwnProperty('text')) {
-        obj['text'] = ApiClient.convertToType(data['text'], 'String');
+      if (data.hasOwnProperty('parentId')) {
+        obj['parentId'] = ApiClient.convertToType(data['parentId'], 'String');
+      }
+      if (data.hasOwnProperty('locales')) {
+        obj['locales'] = ApiClient.convertToType(data['locales'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {String} value
+   * @member {String} id
    */
-  exports.prototype['value'] = undefined;
+  exports.prototype['id'] = undefined;
   /**
-   * @member {String} other
+   * @member {String} name
    */
-  exports.prototype['other'] = undefined;
+  exports.prototype['name'] = undefined;
   /**
-   * @member {String} text
+   * @member {String} parentId
    */
-  exports.prototype['text'] = undefined;
+  exports.prototype['parentId'] = undefined;
+  /**
+   * @member {String} locales
+   */
+  exports.prototype['locales'] = undefined;
 
 
 

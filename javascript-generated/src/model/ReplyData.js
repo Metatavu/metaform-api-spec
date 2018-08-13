@@ -36,7 +36,7 @@
   /**
    * The ReplyData model module.
    * @module model/ReplyData
-   * @version 0.0.12
+   * @version 0.0.13
    */
 
   /**

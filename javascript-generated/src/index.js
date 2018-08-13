@@ -16,12 +16,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BadRequest', 'model/EmailNotification', 'model/Forbidden', 'model/InternalServerError', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'model/ReplyExportFormat', 'api/EmailNotificationsApi', 'api/MetaformsApi', 'api/RepliesApi'], factory);
+    define(['ApiClient', 'model/BadRequest', 'model/EmailNotification', 'model/ExportTheme', 'model/ExportThemeFile', 'model/Forbidden', 'model/InternalServerError', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'model/ReplyExportFormat', 'api/EmailNotificationsApi', 'api/ExportThemeFilesApi', 'api/ExportThemesApi', 'api/MetaformsApi', 'api/RepliesApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/BadRequest'), require('./model/EmailNotification'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldFlags'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./model/ReplyExportFormat'), require('./api/EmailNotificationsApi'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/BadRequest'), require('./model/EmailNotification'), require('./model/ExportTheme'), require('./model/ExportThemeFile'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldFlags'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./model/ReplyExportFormat'), require('./api/EmailNotificationsApi'), require('./api/ExportThemeFilesApi'), require('./api/ExportThemesApi'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
   }
-}(function(ApiClient, BadRequest, EmailNotification, Forbidden, InternalServerError, Metaform, MetaformField, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, ReplyExportFormat, EmailNotificationsApi, MetaformsApi, RepliesApi) {
+}(function(ApiClient, BadRequest, EmailNotification, ExportTheme, ExportThemeFile, Forbidden, InternalServerError, Metaform, MetaformField, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, ReplyExportFormat, EmailNotificationsApi, ExportThemeFilesApi, ExportThemesApi, MetaformsApi, RepliesApi) {
   'use strict';
 
   /**
@@ -53,7 +53,7 @@
    * </pre>
    * </p>
    * @module index
-   * @version 0.0.12
+   * @version 0.0.13
    */
   var exports = {
     /**
@@ -71,6 +71,16 @@
      * @property {module:model/EmailNotification}
      */
     EmailNotification: EmailNotification,
+    /**
+     * The ExportTheme model constructor.
+     * @property {module:model/ExportTheme}
+     */
+    ExportTheme: ExportTheme,
+    /**
+     * The ExportThemeFile model constructor.
+     * @property {module:model/ExportThemeFile}
+     */
+    ExportThemeFile: ExportThemeFile,
     /**
      * The Forbidden model constructor.
      * @property {module:model/Forbidden}
@@ -161,6 +171,16 @@
      * @property {module:api/EmailNotificationsApi}
      */
     EmailNotificationsApi: EmailNotificationsApi,
+    /**
+     * The ExportThemeFilesApi service constructor.
+     * @property {module:api/ExportThemeFilesApi}
+     */
+    ExportThemeFilesApi: ExportThemeFilesApi,
+    /**
+     * The ExportThemesApi service constructor.
+     * @property {module:api/ExportThemesApi}
+     */
+    ExportThemesApi: ExportThemesApi,
     /**
      * The MetaformsApi service constructor.
      * @property {module:api/MetaformsApi}
