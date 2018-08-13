@@ -17,30 +17,28 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import fi.metatavu.metaform.client.ReplyData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
- * Reply
+ * ExportThemeFile
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T14:10:16.792+03:00")
-public class Reply {
+public class ExportThemeFile {
   @JsonProperty("id")
   private UUID id = null;
 
-  @JsonProperty("userId")
-  private UUID userId = null;
+  @JsonProperty("path")
+  private String path = null;
 
-  @JsonProperty("revision")
-  private OffsetDateTime revision = null;
+  @JsonProperty("themeId")
+  private UUID themeId = null;
 
-  @JsonProperty("data")
-  private ReplyData data = null;
+  @JsonProperty("content")
+  private String content = null;
 
-  public Reply id(UUID id) {
+  public ExportThemeFile id(UUID id) {
     this.id = id;
     return this;
   }
@@ -58,58 +56,58 @@ public class Reply {
     this.id = id;
   }
 
-  public Reply userId(UUID userId) {
-    this.userId = userId;
+  public ExportThemeFile path(String path) {
+    this.path = path;
     return this;
   }
 
    /**
-   * Get userId
-   * @return userId
+   * Get path
+   * @return path
   **/
-  @ApiModelProperty(value = "")
-  public UUID getUserId() {
-    return userId;
+  @ApiModelProperty(required = true, value = "")
+  public String getPath() {
+    return path;
   }
 
-  public void setUserId(UUID userId) {
-    this.userId = userId;
+  public void setPath(String path) {
+    this.path = path;
   }
 
-  public Reply revision(OffsetDateTime revision) {
-    this.revision = revision;
+  public ExportThemeFile themeId(UUID themeId) {
+    this.themeId = themeId;
     return this;
   }
 
    /**
-   * Get revision
-   * @return revision
+   * Get themeId
+   * @return themeId
   **/
-  @ApiModelProperty(value = "")
-  public OffsetDateTime getRevision() {
-    return revision;
+  @ApiModelProperty(required = true, value = "")
+  public UUID getThemeId() {
+    return themeId;
   }
 
-  public void setRevision(OffsetDateTime revision) {
-    this.revision = revision;
+  public void setThemeId(UUID themeId) {
+    this.themeId = themeId;
   }
 
-  public Reply data(ReplyData data) {
-    this.data = data;
+  public ExportThemeFile content(String content) {
+    this.content = content;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get content
+   * @return content
   **/
-  @ApiModelProperty(value = "")
-  public ReplyData getData() {
-    return data;
+  @ApiModelProperty(required = true, value = "")
+  public String getContent() {
+    return content;
   }
 
-  public void setData(ReplyData data) {
-    this.data = data;
+  public void setContent(String content) {
+    this.content = content;
   }
 
 
@@ -121,28 +119,28 @@ public class Reply {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Reply reply = (Reply) o;
-    return Objects.equals(this.id, reply.id) &&
-        Objects.equals(this.userId, reply.userId) &&
-        Objects.equals(this.revision, reply.revision) &&
-        Objects.equals(this.data, reply.data);
+    ExportThemeFile exportThemeFile = (ExportThemeFile) o;
+    return Objects.equals(this.id, exportThemeFile.id) &&
+        Objects.equals(this.path, exportThemeFile.path) &&
+        Objects.equals(this.themeId, exportThemeFile.themeId) &&
+        Objects.equals(this.content, exportThemeFile.content);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, revision, data);
+    return Objects.hash(id, path, themeId, content);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Reply {\n");
+    sb.append("class ExportThemeFile {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    path: ").append(toIndentedString(path)).append("\n");
+    sb.append("    themeId: ").append(toIndentedString(themeId)).append("\n");
+    sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("}");
     return sb.toString();
   }
