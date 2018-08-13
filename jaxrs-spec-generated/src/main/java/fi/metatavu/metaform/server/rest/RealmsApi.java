@@ -25,7 +25,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-06-05T13:40:52.438+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-08-13T12:30:42.237+03:00")
 
 
 public interface RealmsApi  {
@@ -134,6 +134,21 @@ public interface RealmsApi  {
         @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
         @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
     public Response export(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@QueryParam("format") @NotNull   @ApiParam("Export results in specified format (XLSX)")  String format) throws Exception;
+
+    @GET
+    @Path("/{realmId}/metaforms/{metaformId}/{replyId}/export")
+    @Consumes({ "application/json;charset&#x3D;utf-8" })
+    @Produces({ "application/json;charset&#x3D;utf-8" })
+    @ApiOperation(value = "Exports metaform data", notes = "Exports metaform data", response = byte[].class, authorizations = {
+        @Authorization(value = "bearer")
+    }, tags={ "Replies",  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Exported Metaform", response = byte[].class),
+        @ApiResponse(code = 400, message = "Invalid request was sent to the server", response = BadRequest.class),
+        @ApiResponse(code = 403, message = "Attempted to make a call with unauthorized client", response = Forbidden.class),
+        @ApiResponse(code = 404, message = "Attempted to make a call to an non existant metaform", response = NotFound.class),
+        @ApiResponse(code = 500, message = "Internal server error", response = InternalServerError.class) })
+    public Response export_1(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@PathParam("replyId") @ApiParam("Reply id") UUID replyId,@QueryParam("format") @NotNull   @ApiParam("Export results in specified format (PDF)")  String format) throws Exception;
 
     @GET
     @Path("/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}")

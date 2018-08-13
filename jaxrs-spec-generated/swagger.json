@@ -691,6 +691,74 @@
         }
       }
     },
+    "/realms/{realmId}/metaforms/{metaformId}/{replyId}/export" : {
+      "get" : {
+        "tags" : [ "Replies" ],
+        "summary" : "Exports metaform data",
+        "description" : "Exports metaform data",
+        "operationId" : "export",
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "metaformId",
+          "in" : "path",
+          "description" : "Metaform id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "replyId",
+          "in" : "path",
+          "description" : "Reply id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Export results in specified format (PDF)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Exported Metaform",
+            "schema" : {
+              "type" : "string",
+              "format" : "binary"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request was sent to the server",
+            "schema" : {
+              "$ref" : "#/definitions/BadRequest"
+            }
+          },
+          "403" : {
+            "description" : "Attempted to make a call with unauthorized client",
+            "schema" : {
+              "$ref" : "#/definitions/Forbidden"
+            }
+          },
+          "404" : {
+            "description" : "Attempted to make a call to an non existant metaform",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
     "/realms/{realmId}/metaforms/{metaformId}/emailNotifications" : {
       "get" : {
         "tags" : [ "EmailNotifications" ],
@@ -1353,6 +1421,10 @@
         }
       },
       "description" : "Email notification"
+    },
+    "ReplyExportFormat" : {
+      "type" : "string",
+      "enum" : [ "XLSX", "PDF" ]
     },
     "InternalServerError" : {
       "type" : "object",
