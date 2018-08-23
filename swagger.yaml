@@ -1187,12 +1187,17 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerError'
 
-  /attachments/{attachmentId}:
+  /realms/{realmId}/attachments/{attachmentId}:
     get:
       operationId: findAttachment
       summary: Find a attachment by id
       description: Returns single attachment
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: attachmentId
           in: path
           description: Attachment id
@@ -1219,12 +1224,17 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerError'
   
-  /attachments/{attachmentId}/data:
+  /realms/{realmId}/attachments/{attachmentId}/data:
     get:
       operationId: findAttachmentData
       summary: Find a attachment data by id
       description: Returns attachment data
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: attachmentId
           in: path
           description: Attachment id
