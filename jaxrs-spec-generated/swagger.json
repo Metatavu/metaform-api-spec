@@ -1567,13 +1567,19 @@
         }
       }
     },
-    "/attachments/{attachmentId}" : {
+    "/realms/{realmId}/attachments/{attachmentId}" : {
       "get" : {
         "tags" : [ "Attachments" ],
         "summary" : "Find a attachment by id",
         "description" : "Returns single attachment",
         "operationId" : "findAttachment",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "attachmentId",
           "in" : "path",
           "description" : "Attachment id",
@@ -1609,13 +1615,19 @@
         }
       }
     },
-    "/attachments/{attachmentId}/data" : {
+    "/realms/{realmId}/attachments/{attachmentId}/data" : {
       "get" : {
         "tags" : [ "Attachments" ],
         "summary" : "Find a attachment data by id",
         "description" : "Returns attachment data",
         "operationId" : "findAttachmentData",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "attachmentId",
           "in" : "path",
           "description" : "Attachment id",

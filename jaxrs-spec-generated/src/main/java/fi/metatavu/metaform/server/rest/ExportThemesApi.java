@@ -24,7 +24,7 @@ import java.lang.Exception;
 @Api(description = "the exportThemes API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-08-13T14:41:50.989+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-08-23T09:14:44.221+03:00")
 
 
 public interface ExportThemesApi  {
