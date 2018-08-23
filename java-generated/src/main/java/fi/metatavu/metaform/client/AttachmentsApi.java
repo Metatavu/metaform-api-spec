@@ -15,33 +15,35 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T14:43:50.131+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-23T09:17:48.400+03:00")
 public interface AttachmentsApi extends ApiClient.Api {
 
 
   /**
    * Find a attachment by id
    * Returns single attachment
+    * @param realmId realm id (required)
     * @param attachmentId Attachment id (required)
    * @return Attachment
    */
-  @RequestLine("GET /attachments/{attachmentId}")
+  @RequestLine("GET /realms/{realmId}/attachments/{attachmentId}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  Attachment findAttachment(@Param("attachmentId") UUID attachmentId);
+  Attachment findAttachment(@Param("realmId") String realmId, @Param("attachmentId") UUID attachmentId);
 
   /**
    * Find a attachment data by id
    * Returns attachment data
+    * @param realmId realm id (required)
     * @param attachmentId Attachment id (required)
    * @return byte[]
    */
-  @RequestLine("GET /attachments/{attachmentId}/data")
+  @RequestLine("GET /realms/{realmId}/attachments/{attachmentId}/data")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  byte[] findAttachmentData(@Param("attachmentId") UUID attachmentId);
+  byte[] findAttachmentData(@Param("realmId") String realmId, @Param("attachmentId") UUID attachmentId);
 }

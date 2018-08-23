@@ -27,7 +27,7 @@ import java.util.UUID;
 /**
  * Metaform
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-13T14:43:50.131+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-23T09:17:48.400+03:00")
 public class Metaform {
   @JsonProperty("id")
   private UUID id = null;

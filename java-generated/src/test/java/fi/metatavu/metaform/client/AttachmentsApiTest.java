@@ -34,8 +34,9 @@ public class AttachmentsApiTest {
      */
     @Test
     public void findAttachmentTest() {
+        String realmId = null;
         UUID attachmentId = null;
-        // Attachment response = api.findAttachment(attachmentId);
+        // Attachment response = api.findAttachment(realmId, attachmentId);
 
         // TODO: test validations
     }
@@ -48,8 +49,9 @@ public class AttachmentsApiTest {
      */
     @Test
     public void findAttachmentDataTest() {
+        String realmId = null;
         UUID attachmentId = null;
-        // byte[] response = api.findAttachmentData(attachmentId);
+        // byte[] response = api.findAttachmentData(realmId, attachmentId);
 
         // TODO: test validations
     }
