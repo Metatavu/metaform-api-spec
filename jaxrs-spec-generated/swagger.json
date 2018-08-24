@@ -1060,13 +1060,19 @@
         }
       }
     },
-    "/exportThemes" : {
+    "/realms/{realmId}/exportThemes" : {
       "get" : {
         "tags" : [ "ExportThemes" ],
         "summary" : "Lists form export themes",
         "description" : "Lists export themes",
         "operationId" : "listExportThemes",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        } ],
         "responses" : {
           "200" : {
             "description" : "A list of export themes",
@@ -1109,6 +1115,12 @@
         "description" : "Creates new form export theme",
         "operationId" : "createExportTheme",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "in" : "body",
           "name" : "payload",
           "description" : "Payload",
@@ -1151,13 +1163,19 @@
         }
       }
     },
-    "/exportThemes/{exportThemeId}" : {
+    "/realms/{realmId}/exportThemes/{exportThemeId}" : {
       "get" : {
         "tags" : [ "ExportThemes" ],
         "summary" : "Finds single export theme",
         "description" : "Finds single export theme",
         "operationId" : "findExportTheme",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
@@ -1204,6 +1222,12 @@
         "description" : "Updates export theme",
         "operationId" : "updateExportTheme",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "ExportTheme id",
@@ -1258,6 +1282,12 @@
         "description" : "Deletes an export theme",
         "operationId" : "deleteExportTheme",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
@@ -1296,13 +1326,19 @@
         }
       }
     },
-    "/exportThemes/{exportThemeId}/files" : {
+    "/realms/{realmId}/exportThemes/{exportThemeId}/files" : {
       "get" : {
         "tags" : [ "ExportThemes", "ExportThemeFiles" ],
         "summary" : "Lists files of export theme",
         "description" : "Lists files of export theme",
         "operationId" : "listExportThemeFiles",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
@@ -1352,6 +1388,12 @@
         "description" : "Creates new export theme file",
         "operationId" : "createExportThemeFile",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
@@ -1401,13 +1443,19 @@
         }
       }
     },
-    "/exportThemes/{exportThemeId}/files/{exportThemeFileId}" : {
+    "/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}" : {
       "get" : {
         "tags" : [ "ExportThemes", "ExportThemeFiles" ],
         "summary" : "Finds single export theme file",
         "description" : "Finds single export theme file",
         "operationId" : "findExportThemeFile",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
@@ -1461,6 +1509,12 @@
         "description" : "Updates export theme file",
         "operationId" : "updateExportThemeFile",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "ExportTheme id",
@@ -1522,6 +1576,12 @@
         "description" : "Deletes an export theme file",
         "operationId" : "deleteExportThemeFile",
         "parameters" : [ {
+          "name" : "realmId",
+          "in" : "path",
+          "description" : "realm id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "exportThemeId",
           "in" : "path",
           "description" : "export theme id",
