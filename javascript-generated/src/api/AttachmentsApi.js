@@ -33,7 +33,7 @@
   /**
    * Attachments service.
    * @module api/AttachmentsApi
-   * @version 0.0.14
+   * @version 0.0.15
    */
 
   /**
@@ -51,11 +51,17 @@
     /**
      * Find a attachment by id
      * Returns single attachment
+     * @param {String} realmId realm id
      * @param {String} attachmentId Attachment id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Attachment} and HTTP response
      */
-    this.findAttachmentWithHttpInfo = function(attachmentId) {
+    this.findAttachmentWithHttpInfo = function(realmId, attachmentId) {
       var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling findAttachment");
+      }
 
       // verify the required parameter 'attachmentId' is set
       if (attachmentId === undefined || attachmentId === null) {
@@ -64,6 +70,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'attachmentId': attachmentId
       };
       var queryParams = {
@@ -81,7 +88,7 @@
       var returnType = Attachment;
 
       return this.apiClient.callApi(
-        '/attachments/{attachmentId}', 'GET',
+        '/realms/{realmId}/attachments/{attachmentId}', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -90,11 +97,12 @@
     /**
      * Find a attachment by id
      * Returns single attachment
+     * @param {String} realmId realm id
      * @param {String} attachmentId Attachment id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Attachment}
      */
-    this.findAttachment = function(attachmentId) {
-      return this.findAttachmentWithHttpInfo(attachmentId)
+    this.findAttachment = function(realmId, attachmentId) {
+      return this.findAttachmentWithHttpInfo(realmId, attachmentId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -104,11 +112,17 @@
     /**
      * Find a attachment data by id
      * Returns attachment data
+     * @param {String} realmId realm id
      * @param {String} attachmentId Attachment id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link 'Blob'} and HTTP response
      */
-    this.findAttachmentDataWithHttpInfo = function(attachmentId) {
+    this.findAttachmentDataWithHttpInfo = function(realmId, attachmentId) {
       var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling findAttachmentData");
+      }
 
       // verify the required parameter 'attachmentId' is set
       if (attachmentId === undefined || attachmentId === null) {
@@ -117,6 +131,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'attachmentId': attachmentId
       };
       var queryParams = {
@@ -134,7 +149,7 @@
       var returnType = 'Blob';
 
       return this.apiClient.callApi(
-        '/attachments/{attachmentId}/data', 'GET',
+        '/realms/{realmId}/attachments/{attachmentId}/data', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -143,11 +158,12 @@
     /**
      * Find a attachment data by id
      * Returns attachment data
+     * @param {String} realmId realm id
      * @param {String} attachmentId Attachment id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link 'Blob'}
      */
-    this.findAttachmentData = function(attachmentId) {
-      return this.findAttachmentDataWithHttpInfo(attachmentId)
+    this.findAttachmentData = function(realmId, attachmentId) {
+      return this.findAttachmentDataWithHttpInfo(realmId, attachmentId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

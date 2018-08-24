@@ -4,16 +4,16 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createExportThemeFile**](ExportThemeFilesApi.md#createExportThemeFile) | **POST** /exportThemes/{exportThemeId}/files | create new export theme file
-[**deleteExportThemeFile**](ExportThemeFilesApi.md#deleteExportThemeFile) | **DELETE** /exportThemes/{exportThemeId}/files/{exportThemeFileId} | Deletes an export theme file
-[**findExportThemeFile**](ExportThemeFilesApi.md#findExportThemeFile) | **GET** /exportThemes/{exportThemeId}/files/{exportThemeFileId} | Finds single export theme file
-[**listExportThemeFiles**](ExportThemeFilesApi.md#listExportThemeFiles) | **GET** /exportThemes/{exportThemeId}/files | Lists files of export theme
-[**updateExportThemeFile**](ExportThemeFilesApi.md#updateExportThemeFile) | **PUT** /exportThemes/{exportThemeId}/files/{exportThemeFileId} | Updates export theme file
+[**createExportThemeFile**](ExportThemeFilesApi.md#createExportThemeFile) | **POST** /realms/{realmId}/exportThemes/{exportThemeId}/files | create new export theme file
+[**deleteExportThemeFile**](ExportThemeFilesApi.md#deleteExportThemeFile) | **DELETE** /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId} | Deletes an export theme file
+[**findExportThemeFile**](ExportThemeFilesApi.md#findExportThemeFile) | **GET** /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId} | Finds single export theme file
+[**listExportThemeFiles**](ExportThemeFilesApi.md#listExportThemeFiles) | **GET** /realms/{realmId}/exportThemes/{exportThemeId}/files | Lists files of export theme
+[**updateExportThemeFile**](ExportThemeFilesApi.md#updateExportThemeFile) | **PUT** /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId} | Updates export theme file
 
 
 <a name="createExportThemeFile"></a>
 # **createExportThemeFile**
-> ExportThemeFile createExportThemeFile(exportThemeId, payload)
+> ExportThemeFile createExportThemeFile(realmId, exportThemeId, payload)
 
 create new export theme file
 
@@ -32,11 +32,13 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.ExportThemeFilesApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var exportThemeId = "exportThemeId_example"; // String | export theme id
 
 var payload = new MetaformApiClient.ExportThemeFile(); // ExportThemeFile | Payload
 
-apiInstance.createExportThemeFile(exportThemeId, payload).then(function(data) {
+apiInstance.createExportThemeFile(realmId, exportThemeId, payload).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -48,6 +50,7 @@ apiInstance.createExportThemeFile(exportThemeId, payload).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **exportThemeId** | **String**| export theme id | 
  **payload** | [**ExportThemeFile**](ExportThemeFile.md)| Payload | 
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteExportThemeFile"></a>
 # **deleteExportThemeFile**
-> deleteExportThemeFile(exportThemeId, exportThemeFileId)
+> deleteExportThemeFile(realmId, exportThemeId, exportThemeFileId)
 
 Deletes an export theme file
 
@@ -85,11 +88,13 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.ExportThemeFilesApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var exportThemeId = "exportThemeId_example"; // String | export theme id
 
 var exportThemeFileId = "exportThemeFileId_example"; // String | export theme file id
 
-apiInstance.deleteExportThemeFile(exportThemeId, exportThemeFileId).then(function() {
+apiInstance.deleteExportThemeFile(realmId, exportThemeId, exportThemeFileId).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -101,6 +106,7 @@ apiInstance.deleteExportThemeFile(exportThemeId, exportThemeFileId).then(functio
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **exportThemeId** | **String**| export theme id | 
  **exportThemeFileId** | **String**| export theme file id | 
 
@@ -119,7 +125,7 @@ null (empty response body)
 
 <a name="findExportThemeFile"></a>
 # **findExportThemeFile**
-> ExportThemeFile findExportThemeFile(exportThemeId, exportThemeFileId)
+> ExportThemeFile findExportThemeFile(realmId, exportThemeId, exportThemeFileId)
 
 Finds single export theme file
 
@@ -138,11 +144,13 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.ExportThemeFilesApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var exportThemeId = "exportThemeId_example"; // String | export theme id
 
 var exportThemeFileId = "exportThemeFileId_example"; // String | export theme file id
 
-apiInstance.findExportThemeFile(exportThemeId, exportThemeFileId).then(function(data) {
+apiInstance.findExportThemeFile(realmId, exportThemeId, exportThemeFileId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -154,6 +162,7 @@ apiInstance.findExportThemeFile(exportThemeId, exportThemeFileId).then(function(
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **exportThemeId** | **String**| export theme id | 
  **exportThemeFileId** | **String**| export theme file id | 
 
@@ -172,7 +181,7 @@ Name | Type | Description  | Notes
 
 <a name="listExportThemeFiles"></a>
 # **listExportThemeFiles**
-> [ExportThemeFile] listExportThemeFiles(exportThemeId)
+> [ExportThemeFile] listExportThemeFiles(realmId, exportThemeId)
 
 Lists files of export theme
 
@@ -191,9 +200,11 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.ExportThemeFilesApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var exportThemeId = "exportThemeId_example"; // String | export theme id
 
-apiInstance.listExportThemeFiles(exportThemeId).then(function(data) {
+apiInstance.listExportThemeFiles(realmId, exportThemeId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -205,6 +216,7 @@ apiInstance.listExportThemeFiles(exportThemeId).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **exportThemeId** | **String**| export theme id | 
 
 ### Return type
@@ -222,7 +234,7 @@ Name | Type | Description  | Notes
 
 <a name="updateExportThemeFile"></a>
 # **updateExportThemeFile**
-> ExportThemeFile updateExportThemeFile(exportThemeId, exportThemeFileId, payload)
+> ExportThemeFile updateExportThemeFile(realmId, exportThemeId, exportThemeFileId, payload)
 
 Updates export theme file
 
@@ -241,13 +253,15 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.ExportThemeFilesApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var exportThemeId = "exportThemeId_example"; // String | ExportTheme id
 
 var exportThemeFileId = "exportThemeFileId_example"; // String | ExportThemeFile file id
 
 var payload = new MetaformApiClient.ExportThemeFile(); // ExportThemeFile | Payload
 
-apiInstance.updateExportThemeFile(exportThemeId, exportThemeFileId, payload).then(function(data) {
+apiInstance.updateExportThemeFile(realmId, exportThemeId, exportThemeFileId, payload).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -259,6 +273,7 @@ apiInstance.updateExportThemeFile(exportThemeId, exportThemeFileId, payload).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **exportThemeId** | **String**| ExportTheme id | 
  **exportThemeFileId** | **String**| ExportThemeFile file id | 
  **payload** | [**ExportThemeFile**](ExportThemeFile.md)| Payload | 

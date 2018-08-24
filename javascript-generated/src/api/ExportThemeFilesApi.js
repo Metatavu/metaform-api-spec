@@ -33,7 +33,7 @@
   /**
    * ExportThemeFiles service.
    * @module api/ExportThemeFilesApi
-   * @version 0.0.14
+   * @version 0.0.15
    */
 
   /**
@@ -51,12 +51,18 @@
     /**
      * create new export theme file
      * Creates new export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {module:model/ExportThemeFile} payload Payload
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExportThemeFile} and HTTP response
      */
-    this.createExportThemeFileWithHttpInfo = function(exportThemeId, payload) {
+    this.createExportThemeFileWithHttpInfo = function(realmId, exportThemeId, payload) {
       var postBody = payload;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling createExportThemeFile");
+      }
 
       // verify the required parameter 'exportThemeId' is set
       if (exportThemeId === undefined || exportThemeId === null) {
@@ -70,6 +76,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'exportThemeId': exportThemeId
       };
       var queryParams = {
@@ -87,7 +94,7 @@
       var returnType = ExportThemeFile;
 
       return this.apiClient.callApi(
-        '/exportThemes/{exportThemeId}/files', 'POST',
+        '/realms/{realmId}/exportThemes/{exportThemeId}/files', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -96,12 +103,13 @@
     /**
      * create new export theme file
      * Creates new export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {module:model/ExportThemeFile} payload Payload
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExportThemeFile}
      */
-    this.createExportThemeFile = function(exportThemeId, payload) {
-      return this.createExportThemeFileWithHttpInfo(exportThemeId, payload)
+    this.createExportThemeFile = function(realmId, exportThemeId, payload) {
+      return this.createExportThemeFileWithHttpInfo(realmId, exportThemeId, payload)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -111,12 +119,18 @@
     /**
      * Deletes an export theme file
      * Deletes an export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {String} exportThemeFileId export theme file id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    this.deleteExportThemeFileWithHttpInfo = function(exportThemeId, exportThemeFileId) {
+    this.deleteExportThemeFileWithHttpInfo = function(realmId, exportThemeId, exportThemeFileId) {
       var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling deleteExportThemeFile");
+      }
 
       // verify the required parameter 'exportThemeId' is set
       if (exportThemeId === undefined || exportThemeId === null) {
@@ -130,6 +144,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'exportThemeId': exportThemeId,
         'exportThemeFileId': exportThemeFileId
       };
@@ -148,7 +163,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'DELETE',
+        '/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'DELETE',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -157,12 +172,13 @@
     /**
      * Deletes an export theme file
      * Deletes an export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {String} exportThemeFileId export theme file id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteExportThemeFile = function(exportThemeId, exportThemeFileId) {
-      return this.deleteExportThemeFileWithHttpInfo(exportThemeId, exportThemeFileId)
+    this.deleteExportThemeFile = function(realmId, exportThemeId, exportThemeFileId) {
+      return this.deleteExportThemeFileWithHttpInfo(realmId, exportThemeId, exportThemeFileId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -172,12 +188,18 @@
     /**
      * Finds single export theme file
      * Finds single export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {String} exportThemeFileId export theme file id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExportThemeFile} and HTTP response
      */
-    this.findExportThemeFileWithHttpInfo = function(exportThemeId, exportThemeFileId) {
+    this.findExportThemeFileWithHttpInfo = function(realmId, exportThemeId, exportThemeFileId) {
       var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling findExportThemeFile");
+      }
 
       // verify the required parameter 'exportThemeId' is set
       if (exportThemeId === undefined || exportThemeId === null) {
@@ -191,6 +213,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'exportThemeId': exportThemeId,
         'exportThemeFileId': exportThemeFileId
       };
@@ -209,7 +232,7 @@
       var returnType = ExportThemeFile;
 
       return this.apiClient.callApi(
-        '/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'GET',
+        '/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -218,12 +241,13 @@
     /**
      * Finds single export theme file
      * Finds single export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @param {String} exportThemeFileId export theme file id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExportThemeFile}
      */
-    this.findExportThemeFile = function(exportThemeId, exportThemeFileId) {
-      return this.findExportThemeFileWithHttpInfo(exportThemeId, exportThemeFileId)
+    this.findExportThemeFile = function(realmId, exportThemeId, exportThemeFileId) {
+      return this.findExportThemeFileWithHttpInfo(realmId, exportThemeId, exportThemeFileId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -233,11 +257,17 @@
     /**
      * Lists files of export theme
      * Lists files of export theme
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExportThemeFile>} and HTTP response
      */
-    this.listExportThemeFilesWithHttpInfo = function(exportThemeId) {
+    this.listExportThemeFilesWithHttpInfo = function(realmId, exportThemeId) {
       var postBody = null;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling listExportThemeFiles");
+      }
 
       // verify the required parameter 'exportThemeId' is set
       if (exportThemeId === undefined || exportThemeId === null) {
@@ -246,6 +276,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'exportThemeId': exportThemeId
       };
       var queryParams = {
@@ -263,7 +294,7 @@
       var returnType = [ExportThemeFile];
 
       return this.apiClient.callApi(
-        '/exportThemes/{exportThemeId}/files', 'GET',
+        '/realms/{realmId}/exportThemes/{exportThemeId}/files', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -272,11 +303,12 @@
     /**
      * Lists files of export theme
      * Lists files of export theme
+     * @param {String} realmId realm id
      * @param {String} exportThemeId export theme id
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExportThemeFile>}
      */
-    this.listExportThemeFiles = function(exportThemeId) {
-      return this.listExportThemeFilesWithHttpInfo(exportThemeId)
+    this.listExportThemeFiles = function(realmId, exportThemeId) {
+      return this.listExportThemeFilesWithHttpInfo(realmId, exportThemeId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -286,13 +318,19 @@
     /**
      * Updates export theme file
      * Updates export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId ExportTheme id
      * @param {String} exportThemeFileId ExportThemeFile file id
      * @param {module:model/ExportThemeFile} payload Payload
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExportThemeFile} and HTTP response
      */
-    this.updateExportThemeFileWithHttpInfo = function(exportThemeId, exportThemeFileId, payload) {
+    this.updateExportThemeFileWithHttpInfo = function(realmId, exportThemeId, exportThemeFileId, payload) {
       var postBody = payload;
+
+      // verify the required parameter 'realmId' is set
+      if (realmId === undefined || realmId === null) {
+        throw new Error("Missing the required parameter 'realmId' when calling updateExportThemeFile");
+      }
 
       // verify the required parameter 'exportThemeId' is set
       if (exportThemeId === undefined || exportThemeId === null) {
@@ -311,6 +349,7 @@
 
 
       var pathParams = {
+        'realmId': realmId,
         'exportThemeId': exportThemeId,
         'exportThemeFileId': exportThemeFileId
       };
@@ -329,7 +368,7 @@
       var returnType = ExportThemeFile;
 
       return this.apiClient.callApi(
-        '/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'PUT',
+        '/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}', 'PUT',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -338,13 +377,14 @@
     /**
      * Updates export theme file
      * Updates export theme file
+     * @param {String} realmId realm id
      * @param {String} exportThemeId ExportTheme id
      * @param {String} exportThemeFileId ExportThemeFile file id
      * @param {module:model/ExportThemeFile} payload Payload
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExportThemeFile}
      */
-    this.updateExportThemeFile = function(exportThemeId, exportThemeFileId, payload) {
-      return this.updateExportThemeFileWithHttpInfo(exportThemeId, exportThemeFileId, payload)
+    this.updateExportThemeFile = function(realmId, exportThemeId, exportThemeFileId, payload) {
+      return this.updateExportThemeFileWithHttpInfo(realmId, exportThemeId, exportThemeFileId, payload)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

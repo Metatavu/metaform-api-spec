@@ -4,13 +4,13 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**findAttachment**](AttachmentsApi.md#findAttachment) | **GET** /attachments/{attachmentId} | Find a attachment by id
-[**findAttachmentData**](AttachmentsApi.md#findAttachmentData) | **GET** /attachments/{attachmentId}/data | Find a attachment data by id
+[**findAttachment**](AttachmentsApi.md#findAttachment) | **GET** /realms/{realmId}/attachments/{attachmentId} | Find a attachment by id
+[**findAttachmentData**](AttachmentsApi.md#findAttachmentData) | **GET** /realms/{realmId}/attachments/{attachmentId}/data | Find a attachment data by id
 
 
 <a name="findAttachment"></a>
 # **findAttachment**
-> Attachment findAttachment(attachmentId)
+> Attachment findAttachment(realmId, attachmentId)
 
 Find a attachment by id
 
@@ -29,9 +29,11 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.AttachmentsApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var attachmentId = "attachmentId_example"; // String | Attachment id
 
-apiInstance.findAttachment(attachmentId).then(function(data) {
+apiInstance.findAttachment(realmId, attachmentId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -43,6 +45,7 @@ apiInstance.findAttachment(attachmentId).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **attachmentId** | **String**| Attachment id | 
 
 ### Return type
@@ -60,7 +63,7 @@ Name | Type | Description  | Notes
 
 <a name="findAttachmentData"></a>
 # **findAttachmentData**
-> &#39;Blob&#39; findAttachmentData(attachmentId)
+> &#39;Blob&#39; findAttachmentData(realmId, attachmentId)
 
 Find a attachment data by id
 
@@ -79,9 +82,11 @@ bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new MetaformApiClient.AttachmentsApi();
 
+var realmId = "realmId_example"; // String | realm id
+
 var attachmentId = "attachmentId_example"; // String | Attachment id
 
-apiInstance.findAttachmentData(attachmentId).then(function(data) {
+apiInstance.findAttachmentData(realmId, attachmentId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -93,6 +98,7 @@ apiInstance.findAttachmentData(attachmentId).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **realmId** | **String**| realm id | 
  **attachmentId** | **String**| Attachment id | 
 
 ### Return type

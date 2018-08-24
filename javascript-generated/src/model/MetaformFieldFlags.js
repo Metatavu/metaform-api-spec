@@ -36,7 +36,7 @@
   /**
    * The MetaformFieldFlags model module.
    * @module model/MetaformFieldFlags
-   * @version 0.0.14
+   * @version 0.0.15
    */
 
   /**
