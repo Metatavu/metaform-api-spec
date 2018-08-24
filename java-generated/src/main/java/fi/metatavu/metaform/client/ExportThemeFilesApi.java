@@ -16,76 +16,81 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-23T09:17:48.400+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-24T10:33:13.167+03:00")
 public interface ExportThemeFilesApi extends ApiClient.Api {
 
 
   /**
    * create new export theme file
    * Creates new export theme file
+    * @param realmId realm id (required)
     * @param exportThemeId export theme id (required)
     * @param payload Payload (required)
    * @return ExportThemeFile
    */
-  @RequestLine("POST /exportThemes/{exportThemeId}/files")
+  @RequestLine("POST /realms/{realmId}/exportThemes/{exportThemeId}/files")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  ExportThemeFile createExportThemeFile(@Param("exportThemeId") UUID exportThemeId, ExportThemeFile payload);
+  ExportThemeFile createExportThemeFile(@Param("realmId") String realmId, @Param("exportThemeId") UUID exportThemeId, ExportThemeFile payload);
 
   /**
    * Deletes an export theme file
    * Deletes an export theme file
+    * @param realmId realm id (required)
     * @param exportThemeId export theme id (required)
     * @param exportThemeFileId export theme file id (required)
    */
-  @RequestLine("DELETE /exportThemes/{exportThemeId}/files/{exportThemeFileId}")
+  @RequestLine("DELETE /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  void deleteExportThemeFile(@Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId);
+  void deleteExportThemeFile(@Param("realmId") String realmId, @Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId);
 
   /**
    * Finds single export theme file
    * Finds single export theme file
+    * @param realmId realm id (required)
     * @param exportThemeId export theme id (required)
     * @param exportThemeFileId export theme file id (required)
    * @return ExportThemeFile
    */
-  @RequestLine("GET /exportThemes/{exportThemeId}/files/{exportThemeFileId}")
+  @RequestLine("GET /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  ExportThemeFile findExportThemeFile(@Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId);
+  ExportThemeFile findExportThemeFile(@Param("realmId") String realmId, @Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId);
 
   /**
    * Lists files of export theme
    * Lists files of export theme
+    * @param realmId realm id (required)
     * @param exportThemeId export theme id (required)
    * @return List&lt;ExportThemeFile&gt;
    */
-  @RequestLine("GET /exportThemes/{exportThemeId}/files")
+  @RequestLine("GET /realms/{realmId}/exportThemes/{exportThemeId}/files")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  List<ExportThemeFile> listExportThemeFiles(@Param("exportThemeId") UUID exportThemeId);
+  List<ExportThemeFile> listExportThemeFiles(@Param("realmId") String realmId, @Param("exportThemeId") UUID exportThemeId);
 
   /**
    * Updates export theme file
    * Updates export theme file
+    * @param realmId realm id (required)
     * @param exportThemeId ExportTheme id (required)
     * @param exportThemeFileId ExportThemeFile file id (required)
     * @param payload Payload (required)
    * @return ExportThemeFile
    */
-  @RequestLine("PUT /exportThemes/{exportThemeId}/files/{exportThemeFileId}")
+  @RequestLine("PUT /realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  ExportThemeFile updateExportThemeFile(@Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId, ExportThemeFile payload);
+  ExportThemeFile updateExportThemeFile(@Param("realmId") String realmId, @Param("exportThemeId") UUID exportThemeId, @Param("exportThemeFileId") UUID exportThemeFileId, ExportThemeFile payload);
 }

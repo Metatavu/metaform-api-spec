@@ -36,8 +36,9 @@ public class ExportThemesApiTest {
      */
     @Test
     public void createExportThemeTest() {
+        String realmId = null;
         ExportTheme payload = null;
-        // ExportTheme response = api.createExportTheme(payload);
+        // ExportTheme response = api.createExportTheme(realmId, payload);
 
         // TODO: test validations
     }
@@ -50,9 +51,10 @@ public class ExportThemesApiTest {
      */
     @Test
     public void createExportThemeFileTest() {
+        String realmId = null;
         UUID exportThemeId = null;
         ExportThemeFile payload = null;
-        // ExportThemeFile response = api.createExportThemeFile(exportThemeId, payload);
+        // ExportThemeFile response = api.createExportThemeFile(realmId, exportThemeId, payload);
 
         // TODO: test validations
     }
@@ -65,8 +67,9 @@ public class ExportThemesApiTest {
      */
     @Test
     public void deleteExportThemeTest() {
+        String realmId = null;
         UUID exportThemeId = null;
-        // api.deleteExportTheme(exportThemeId);
+        // api.deleteExportTheme(realmId, exportThemeId);
 
         // TODO: test validations
     }
@@ -79,9 +82,10 @@ public class ExportThemesApiTest {
      */
     @Test
     public void deleteExportThemeFileTest() {
+        String realmId = null;
         UUID exportThemeId = null;
         UUID exportThemeFileId = null;
-        // api.deleteExportThemeFile(exportThemeId, exportThemeFileId);
+        // api.deleteExportThemeFile(realmId, exportThemeId, exportThemeFileId);
 
         // TODO: test validations
     }
@@ -94,8 +98,9 @@ public class ExportThemesApiTest {
      */
     @Test
     public void findExportThemeTest() {
+        String realmId = null;
         UUID exportThemeId = null;
-        // ExportTheme response = api.findExportTheme(exportThemeId);
+        // ExportTheme response = api.findExportTheme(realmId, exportThemeId);
 
         // TODO: test validations
     }
@@ -108,9 +113,10 @@ public class ExportThemesApiTest {
      */
     @Test
     public void findExportThemeFileTest() {
+        String realmId = null;
         UUID exportThemeId = null;
         UUID exportThemeFileId = null;
-        // ExportThemeFile response = api.findExportThemeFile(exportThemeId, exportThemeFileId);
+        // ExportThemeFile response = api.findExportThemeFile(realmId, exportThemeId, exportThemeFileId);
 
         // TODO: test validations
     }
@@ -123,8 +129,9 @@ public class ExportThemesApiTest {
      */
     @Test
     public void listExportThemeFilesTest() {
+        String realmId = null;
         UUID exportThemeId = null;
-        // List<ExportThemeFile> response = api.listExportThemeFiles(exportThemeId);
+        // List<ExportThemeFile> response = api.listExportThemeFiles(realmId, exportThemeId);
 
         // TODO: test validations
     }
@@ -137,7 +144,8 @@ public class ExportThemesApiTest {
      */
     @Test
     public void listExportThemesTest() {
-        // List<ExportTheme> response = api.listExportThemes();
+        String realmId = null;
+        // List<ExportTheme> response = api.listExportThemes(realmId);
 
         // TODO: test validations
     }
@@ -150,9 +158,10 @@ public class ExportThemesApiTest {
      */
     @Test
     public void updateExportThemeTest() {
+        String realmId = null;
         UUID exportThemeId = null;
         ExportTheme payload = null;
-        // ExportTheme response = api.updateExportTheme(exportThemeId, payload);
+        // ExportTheme response = api.updateExportTheme(realmId, exportThemeId, payload);
 
         // TODO: test validations
     }
@@ -165,10 +174,11 @@ public class ExportThemesApiTest {
      */
     @Test
     public void updateExportThemeFileTest() {
+        String realmId = null;
         UUID exportThemeId = null;
         UUID exportThemeFileId = null;
         ExportThemeFile payload = null;
-        // ExportThemeFile response = api.updateExportThemeFile(exportThemeId, exportThemeFileId, payload);
+        // ExportThemeFile response = api.updateExportThemeFile(realmId, exportThemeId, exportThemeFileId, payload);
 
         // TODO: test validations
     }
