@@ -806,13 +806,19 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerError'
 
-  '/exportThemes':
+  '/realms/{realmId}/exportThemes':
     get:
       operationId: listExportThemes
       summary: Lists form export themes 
       description: Lists export themes
       tags:
         - ExportThemes
+      parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
       responses:
         '200':
           description: A list of export themes
@@ -843,6 +849,11 @@ paths:
       tags:
         - ExportThemes
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: payload
           in: body
           description: Payload
@@ -871,7 +882,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerError'
 
-  '/exportThemes/{exportThemeId}':
+  '/realms/{realmId}/exportThemes/{exportThemeId}':
     get:
       operationId: findExportTheme
       summary: Finds single export theme
@@ -879,6 +890,11 @@ paths:
       tags:
         - ExportThemes
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -913,6 +929,11 @@ paths:
       tags:
         - ExportThemes
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -953,6 +974,11 @@ paths:
       tags:
         - ExportThemes
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -978,7 +1004,7 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
-  '/exportThemes/{exportThemeId}/files':
+  '/realms/{realmId}/exportThemes/{exportThemeId}/files':
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
@@ -987,6 +1013,11 @@ paths:
         - ExportThemes
         - ExportThemeFiles
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1024,6 +1055,11 @@ paths:
         - ExportThemes
         - ExportThemeFiles
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1058,7 +1094,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerError'
 
-  '/exportThemes/{exportThemeId}/files/{exportThemeFileId}':
+  '/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}':
     get:
       operationId: findExportThemeFile
       summary: Finds single export theme file
@@ -1067,6 +1103,11 @@ paths:
         - ExportThemes
         - ExportThemeFiles
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1108,6 +1149,11 @@ paths:
         - ExportThemes
         - ExportThemeFiles
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1155,6 +1201,11 @@ paths:
         - ExportThemes
         - ExportThemeFiles
       parameters:
+        - name: realmId
+          required: true
+          in: path
+          description: realm id
+          type: string
         - name: exportThemeId
           required: true
           in: path
