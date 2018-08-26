@@ -33,7 +33,7 @@
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.0.15
+   * @version 0.0.16
    */
 
   /**
@@ -474,7 +474,7 @@
       var returnType = 'Blob';
 
       return this.apiClient.callApi(
-        '/realms/{realmId}/metaforms/{metaformId}/{replyId}/export', 'GET',
+        '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

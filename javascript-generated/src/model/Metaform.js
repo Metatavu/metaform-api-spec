@@ -36,7 +36,7 @@
   /**
    * The Metaform model module.
    * @module model/Metaform
-   * @version 0.0.15
+   * @version 0.0.16
    */
 
   /**
@@ -46,6 +46,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -71,6 +72,9 @@
       if (data.hasOwnProperty('replyStrategy')) {
         obj['replyStrategy'] = ApiClient.convertToType(data['replyStrategy'], 'String');
       }
+      if (data.hasOwnProperty('exportThemeId')) {
+        obj['exportThemeId'] = ApiClient.convertToType(data['exportThemeId'], 'String');
+      }
       if (data.hasOwnProperty('allowAnonymous')) {
         obj['allowAnonymous'] = ApiClient.convertToType(data['allowAnonymous'], 'Boolean');
       }
@@ -92,6 +96,10 @@
    * @member {module:model/Metaform.ReplyStrategyEnum} replyStrategy
    */
   exports.prototype['replyStrategy'] = undefined;
+  /**
+   * @member {String} exportThemeId
+   */
+  exports.prototype['exportThemeId'] = undefined;
   /**
    * Are anonymous replies allowed or not
    * @member {Boolean} allowAnonymous

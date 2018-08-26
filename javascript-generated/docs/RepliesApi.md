@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**deleteReply**](RepliesApi.md#deleteReply) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Deletes a reply
 [**findReply**](RepliesApi.md#findReply) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Find a single reply
 [**listReplies**](RepliesApi.md#listReplies) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies | Lists form replies
-[**replyExport**](RepliesApi.md#replyExport) | **GET** /realms/{realmId}/metaforms/{metaformId}/{replyId}/export | Exports reply data
+[**replyExport**](RepliesApi.md#replyExport) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export | Exports reply data
 [**updateReply**](RepliesApi.md#updateReply) | **PUT** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Updates reply
 
 
