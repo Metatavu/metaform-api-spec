@@ -691,7 +691,7 @@
         }
       }
     },
-    "/realms/{realmId}/metaforms/{metaformId}/{replyId}/export" : {
+    "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export" : {
       "get" : {
         "tags" : [ "Replies" ],
         "summary" : "Exports reply data",
@@ -1770,6 +1770,10 @@
         "replyStrategy" : {
           "type" : "string",
           "enum" : [ "PUBLIC", "PRIVATE" ]
+        },
+        "exportThemeId" : {
+          "type" : "string",
+          "format" : "uuid"
         },
         "allowAnonymous" : {
           "type" : "boolean",

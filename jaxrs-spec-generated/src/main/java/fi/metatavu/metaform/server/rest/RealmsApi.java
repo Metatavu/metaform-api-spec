@@ -28,7 +28,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-08-24T10:27:38.539+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2018-08-26T10:37:47.347+03:00")
 
 
 public interface RealmsApi  {
@@ -376,7 +376,7 @@ public interface RealmsApi  {
     public Response listReplies(@PathParam("realmId") @ApiParam("realm id") String realmId,@PathParam("metaformId") @ApiParam("Metaform id") UUID metaformId,@QueryParam("userId")   @ApiParam("Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so")  UUID userId,@QueryParam("createdBefore")   @ApiParam("Filter results created before specified time")  String createdBefore,@QueryParam("createdAfter")   @ApiParam("Filter results created after specified time")  String createdAfter,@QueryParam("modifiedBefore")   @ApiParam("Filter results modified before specified time")  String modifiedBefore,@QueryParam("modifiedAfter")   @ApiParam("Filter results modified after specified time")  String modifiedAfter,@QueryParam("includeRevisions")   @ApiParam("Specifies that revisions should be included into response")  Boolean includeRevisions,@QueryParam("fields")   @ApiParam("Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another")  List<String> fields) throws Exception;
 
     @GET
-    @Path("/{realmId}/metaforms/{metaformId}/{replyId}/export")
+    @Path("/{realmId}/metaforms/{metaformId}/replies/{replyId}/export")
     @Consumes({ "application/json;charset&#x3D;utf-8" })
     @Produces({ "application/json;charset&#x3D;utf-8" })
     @ApiOperation(value = "Exports reply data", notes = "Exports reply data", response = byte[].class, authorizations = {
