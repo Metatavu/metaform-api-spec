@@ -525,7 +525,7 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/InternalServerError'
-  '/realms/{realmId}/metaforms/{metaformId}/{replyId}/export':
+  '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export':
     get:
       operationId: replyExport
       summary: Exports reply data 
@@ -1345,6 +1345,9 @@ definitions:
         enum:
           - PUBLIC
           - PRIVATE
+      exportThemeId:
+        type: "string"
+        format: "uuid"
       allowAnonymous:
         type: "boolean"
         description: Are anonymous replies allowed or not
