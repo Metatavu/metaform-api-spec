@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-24T10:33:13.167+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-26T10:40:42.927+03:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -252,7 +252,7 @@ public interface RepliesApi extends ApiClient.Api {
     * @param format Export results in specified format (PDF) (required)
    * @return byte[]
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/{replyId}/export?format={format}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export?format={format}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
@@ -277,7 +277,7 @@ public interface RepliesApi extends ApiClient.Api {
    *   </ul>
    * @return byte[]
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/{replyId}/export?format={format}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export?format={format}")
   @Headers({
   "Content-Type: application/json",
   "Accept: application/json",
