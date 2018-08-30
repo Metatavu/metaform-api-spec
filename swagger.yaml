@@ -1430,6 +1430,10 @@ definitions:
         type: "string"
         description: Source url for autocomplete and autocomplete-multiple fields
         format: "url"
+      upload-url:
+        type: "string"
+        description: Upload url for files field.
+        format: "url"
       single-file:
         type: "boolean"
         description: Defines whether file fields allow multiple files or just one
