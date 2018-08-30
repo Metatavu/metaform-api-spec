@@ -1887,6 +1887,11 @@
           "format" : "url",
           "description" : "Source url for autocomplete and autocomplete-multiple fields"
         },
+        "upload-url" : {
+          "type" : "string",
+          "format" : "url",
+          "description" : "Upload url for files field."
+        },
         "single-file" : {
           "type" : "boolean",
           "description" : "Defines whether file fields allow multiple files or just one"
