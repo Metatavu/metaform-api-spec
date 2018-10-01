@@ -1444,6 +1444,9 @@ definitions:
         type: "integer"
         format: int64
         description: Maximum upload size for image filds
+      add-rows:
+        type: "boolean"
+        description: Defines whether user can add more table rows.
       draggable:
         type: "boolean"
         description: Defines whether table rows should be draggable.
@@ -1497,9 +1500,15 @@ definitions:
 
   MetaformTableColumn:
     type: "object"
+    required:
+      - type
+      - name
     properties:
       type:
         $ref: '#/definitions/MetaformTableColumnType'
+      name:
+        type: "string"
+        description: Column name
       title:
         type: "string"
         description: Column title
