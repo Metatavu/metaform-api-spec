@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * MetaformField
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-30T07:26:59.563+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-01T19:17:18.500+03:00")
 public class MetaformField {
   @JsonProperty("visible-if")
   private MetaformVisibleIf visibleIf = null;
@@ -100,6 +100,9 @@ public class MetaformField {
 
   @JsonProperty("max-file-size")
   private Long maxFileSize = null;
+
+  @JsonProperty("add-rows")
+  private Boolean addRows = null;
 
   @JsonProperty("draggable")
   private Boolean draggable = null;
@@ -546,6 +549,24 @@ public class MetaformField {
     this.maxFileSize = maxFileSize;
   }
 
+  public MetaformField addRows(Boolean addRows) {
+    this.addRows = addRows;
+    return this;
+  }
+
+   /**
+   * Defines whether user can add more table rows.
+   * @return addRows
+  **/
+  @ApiModelProperty(value = "Defines whether user can add more table rows.")
+  public Boolean isAddRows() {
+    return addRows;
+  }
+
+  public void setAddRows(Boolean addRows) {
+    this.addRows = addRows;
+  }
+
   public MetaformField draggable(Boolean draggable) {
     this.draggable = draggable;
     return this;
@@ -677,6 +698,7 @@ public class MetaformField {
         Objects.equals(this.singleFile, metaformField.singleFile) &&
         Objects.equals(this.onlyImages, metaformField.onlyImages) &&
         Objects.equals(this.maxFileSize, metaformField.maxFileSize) &&
+        Objects.equals(this.addRows, metaformField.addRows) &&
         Objects.equals(this.draggable, metaformField.draggable) &&
         Objects.equals(this.columns, metaformField.columns) &&
         Objects.equals(this.src, metaformField.src) &&
@@ -686,7 +708,7 @@ public class MetaformField {
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, draggable, columns, src, text, html);
+    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, addRows, draggable, columns, src, text, html);
   }
 
 
@@ -718,6 +740,7 @@ public class MetaformField {
     sb.append("    singleFile: ").append(toIndentedString(singleFile)).append("\n");
     sb.append("    onlyImages: ").append(toIndentedString(onlyImages)).append("\n");
     sb.append("    maxFileSize: ").append(toIndentedString(maxFileSize)).append("\n");
+    sb.append("    addRows: ").append(toIndentedString(addRows)).append("\n");
     sb.append("    draggable: ").append(toIndentedString(draggable)).append("\n");
     sb.append("    columns: ").append(toIndentedString(columns)).append("\n");
     sb.append("    src: ").append(toIndentedString(src)).append("\n");

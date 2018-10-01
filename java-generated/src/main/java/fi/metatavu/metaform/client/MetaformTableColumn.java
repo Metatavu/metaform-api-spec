@@ -25,10 +25,13 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MetaformTableColumn
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-08-30T07:26:59.563+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-01T19:17:18.500+03:00")
 public class MetaformTableColumn {
   @JsonProperty("type")
   private MetaformTableColumnType type = null;
+
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("title")
   private String title = null;
@@ -72,13 +75,31 @@ public class MetaformTableColumn {
    * Get type
    * @return type
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public MetaformTableColumnType getType() {
     return type;
   }
 
   public void setType(MetaformTableColumnType type) {
     this.type = type;
+  }
+
+  public MetaformTableColumn name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Column name
+   * @return name
+  **/
+  @ApiModelProperty(required = true, value = "Column name")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public MetaformTableColumn title(String title) {
@@ -290,6 +311,7 @@ public class MetaformTableColumn {
     }
     MetaformTableColumn metaformTableColumn = (MetaformTableColumn) o;
     return Objects.equals(this.type, metaformTableColumn.type) &&
+        Objects.equals(this.name, metaformTableColumn.name) &&
         Objects.equals(this.title, metaformTableColumn.title) &&
         Objects.equals(this.calculateSum, metaformTableColumn.calculateSum) &&
         Objects.equals(this.sumPostfix, metaformTableColumn.sumPostfix) &&
@@ -305,7 +327,7 @@ public class MetaformTableColumn {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, title, calculateSum, sumPostfix, columnWidth, placeholder, readonly, required, sourceUrl, html, action, values);
+    return Objects.hash(type, name, title, calculateSum, sumPostfix, columnWidth, placeholder, readonly, required, sourceUrl, html, action, values);
   }
 
 
@@ -315,6 +337,7 @@ public class MetaformTableColumn {
     sb.append("class MetaformTableColumn {\n");
     
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    calculateSum: ").append(toIndentedString(calculateSum)).append("\n");
     sb.append("    sumPostfix: ").append(toIndentedString(sumPostfix)).append("\n");
