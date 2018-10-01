@@ -13,6 +13,7 @@ import java.util.Objects;
 public class MetaformTableColumn   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") MetaformTableColumnType type = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("calculate-sum") Boolean calculateSum = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sum-postfix") String sumPostfix = null;
@@ -33,12 +34,31 @@ public class MetaformTableColumn   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
   public MetaformTableColumnType getType() {
     return type;
   }
   public void setType(MetaformTableColumnType type) {
     this.type = type;
+  }
+
+  /**
+   * Column name
+   **/
+  public MetaformTableColumn name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  
+  @ApiModelProperty(required = true, value = "Column name")
+  @NotNull
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -238,6 +258,7 @@ public class MetaformTableColumn   {
     }
     MetaformTableColumn metaformTableColumn = (MetaformTableColumn) o;
     return Objects.equals(type, metaformTableColumn.type) &&
+        Objects.equals(name, metaformTableColumn.name) &&
         Objects.equals(title, metaformTableColumn.title) &&
         Objects.equals(calculateSum, metaformTableColumn.calculateSum) &&
         Objects.equals(sumPostfix, metaformTableColumn.sumPostfix) &&
@@ -253,7 +274,7 @@ public class MetaformTableColumn   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, title, calculateSum, sumPostfix, columnWidth, placeholder, readonly, required, sourceUrl, html, action, values);
+    return Objects.hash(type, name, title, calculateSum, sumPostfix, columnWidth, placeholder, readonly, required, sourceUrl, html, action, values);
   }
 
   @Override
@@ -262,6 +283,7 @@ public class MetaformTableColumn   {
     sb.append("class MetaformTableColumn {\n");
     
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    calculateSum: ").append(toIndentedString(calculateSum)).append("\n");
     sb.append("    sumPostfix: ").append(toIndentedString(sumPostfix)).append("\n");
