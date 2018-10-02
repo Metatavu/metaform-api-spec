@@ -36,18 +36,21 @@
   /**
    * The MetaformTableColumn model module.
    * @module model/MetaformTableColumn
-   * @version 0.0.16
+   * @version 0.0.17
    */
 
   /**
    * Constructs a new <code>MetaformTableColumn</code>.
    * @alias module:model/MetaformTableColumn
    * @class
+   * @param type {module:model/MetaformTableColumnType} 
+   * @param name {String} Column name
    */
-  var exports = function() {
+  var exports = function(type, name) {
     var _this = this;
 
-
+    _this['type'] = type;
+    _this['name'] = name;
 
 
 
@@ -74,6 +77,9 @@
 
       if (data.hasOwnProperty('type')) {
         obj['type'] = MetaformTableColumnType.constructFromObject(data['type']);
+      }
+      if (data.hasOwnProperty('name')) {
+        obj['name'] = ApiClient.convertToType(data['name'], 'String');
       }
       if (data.hasOwnProperty('title')) {
         obj['title'] = ApiClient.convertToType(data['title'], 'String');
@@ -116,6 +122,11 @@
    * @member {module:model/MetaformTableColumnType} type
    */
   exports.prototype['type'] = undefined;
+  /**
+   * Column name
+   * @member {String} name
+   */
+  exports.prototype['name'] = undefined;
   /**
    * Column title
    * @member {String} title

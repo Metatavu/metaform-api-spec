@@ -3,7 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**MetaformTableColumnType**](MetaformTableColumnType.md) |  | [optional] 
+**type** | [**MetaformTableColumnType**](MetaformTableColumnType.md) |  | 
+**name** | **String** | Column name | 
 **title** | **String** | Column title | [optional] 
 **calculateSum** | **Boolean** | Defines column should automatically calculate sum | [optional] 
 **sumPostfix** | **String** | Postfix for calculated sum | [optional] 

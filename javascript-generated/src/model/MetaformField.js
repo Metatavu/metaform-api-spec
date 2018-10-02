@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.16
+   * @version 0.0.17
    */
 
   /**
@@ -51,6 +51,8 @@
 
 
     _this['type'] = type;
+
+
 
 
 
@@ -145,6 +147,9 @@
       if (data.hasOwnProperty('source-url')) {
         obj['source-url'] = ApiClient.convertToType(data['source-url'], 'String');
       }
+      if (data.hasOwnProperty('upload-url')) {
+        obj['upload-url'] = ApiClient.convertToType(data['upload-url'], 'String');
+      }
       if (data.hasOwnProperty('single-file')) {
         obj['single-file'] = ApiClient.convertToType(data['single-file'], 'Boolean');
       }
@@ -153,6 +158,9 @@
       }
       if (data.hasOwnProperty('max-file-size')) {
         obj['max-file-size'] = ApiClient.convertToType(data['max-file-size'], 'Number');
+      }
+      if (data.hasOwnProperty('add-rows')) {
+        obj['add-rows'] = ApiClient.convertToType(data['add-rows'], 'Boolean');
       }
       if (data.hasOwnProperty('draggable')) {
         obj['draggable'] = ApiClient.convertToType(data['draggable'], 'Boolean');
@@ -259,6 +267,11 @@
    */
   exports.prototype['source-url'] = undefined;
   /**
+   * Upload url for files field.
+   * @member {String} upload-url
+   */
+  exports.prototype['upload-url'] = undefined;
+  /**
    * Defines whether file fields allow multiple files or just one
    * @member {Boolean} single-file
    */
@@ -273,6 +286,11 @@
    * @member {Number} max-file-size
    */
   exports.prototype['max-file-size'] = undefined;
+  /**
+   * Defines whether user can add more table rows.
+   * @member {Boolean} add-rows
+   */
+  exports.prototype['add-rows'] = undefined;
   /**
    * Defines whether table rows should be draggable.
    * @member {Boolean} draggable
