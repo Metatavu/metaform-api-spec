@@ -49,6 +49,7 @@ public enum ReplyStrategyEnum {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("replyStrategy") ReplyStrategyEnum replyStrategy = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("exportThemeId") UUID exportThemeId = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("allowAnonymous") Boolean allowAnonymous = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("allowDrafts") Boolean allowDrafts = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sections") List<MetaformSection> sections = new ArrayList<MetaformSection>();
 
@@ -118,6 +119,23 @@ public enum ReplyStrategyEnum {
   }
 
   /**
+   * Are drafts allowed or not
+   **/
+  public Metaform allowDrafts(Boolean allowDrafts) {
+    this.allowDrafts = allowDrafts;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "Are drafts allowed or not")
+  public Boolean isAllowDrafts() {
+    return allowDrafts;
+  }
+  public void setAllowDrafts(Boolean allowDrafts) {
+    this.allowDrafts = allowDrafts;
+  }
+
+  /**
    **/
   public Metaform title(String title) {
     this.title = title;
@@ -163,13 +181,14 @@ public enum ReplyStrategyEnum {
         Objects.equals(replyStrategy, metaform.replyStrategy) &&
         Objects.equals(exportThemeId, metaform.exportThemeId) &&
         Objects.equals(allowAnonymous, metaform.allowAnonymous) &&
+        Objects.equals(allowDrafts, metaform.allowDrafts) &&
         Objects.equals(title, metaform.title) &&
         Objects.equals(sections, metaform.sections);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, title, sections);
+    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
   }
 
   @Override
@@ -181,6 +200,7 @@ public enum ReplyStrategyEnum {
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    exportThemeId: ").append(toIndentedString(exportThemeId)).append("\n");
     sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
+    sb.append("    allowDrafts: ").append(toIndentedString(allowDrafts)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
     sb.append("}");
