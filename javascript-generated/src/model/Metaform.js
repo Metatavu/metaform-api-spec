@@ -36,7 +36,7 @@
   /**
    * The Metaform model module.
    * @module model/Metaform
-   * @version 0.0.17
+   * @version 0.0.18
    */
 
   /**
@@ -46,6 +46,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -78,6 +79,9 @@
       if (data.hasOwnProperty('allowAnonymous')) {
         obj['allowAnonymous'] = ApiClient.convertToType(data['allowAnonymous'], 'Boolean');
       }
+      if (data.hasOwnProperty('allowDrafts')) {
+        obj['allowDrafts'] = ApiClient.convertToType(data['allowDrafts'], 'Boolean');
+      }
       if (data.hasOwnProperty('title')) {
         obj['title'] = ApiClient.convertToType(data['title'], 'String');
       }
@@ -105,6 +109,11 @@
    * @member {Boolean} allowAnonymous
    */
   exports.prototype['allowAnonymous'] = undefined;
+  /**
+   * Are drafts allowed or not
+   * @member {Boolean} allowDrafts
+   */
+  exports.prototype['allowDrafts'] = undefined;
   /**
    * @member {String} title
    */

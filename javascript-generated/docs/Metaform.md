@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **replyStrategy** | **String** |  | [optional] 
 **exportThemeId** | **String** |  | [optional] 
 **allowAnonymous** | **Boolean** | Are anonymous replies allowed or not | [optional] 
+**allowDrafts** | **Boolean** | Are drafts allowed or not | [optional] 
 **title** | **String** |  | [optional] 
 **sections** | [**[MetaformSection]**](MetaformSection.md) |  | [optional] 
 
