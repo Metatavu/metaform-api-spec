@@ -1351,6 +1351,9 @@ definitions:
       allowAnonymous:
         type: "boolean"
         description: Are anonymous replies allowed or not
+      allowDrafts:
+        type: "boolean"
+        description: Are drafts allowed or not
       title: 
         type: "string"
       sections: 
