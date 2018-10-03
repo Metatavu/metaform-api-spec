@@ -27,7 +27,7 @@ import java.util.UUID;
 /**
  * Metaform
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-02T18:24:54.049+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-03T15:52:07.692+03:00")
 public class Metaform {
   @JsonProperty("id")
   private UUID id = null;
@@ -75,6 +75,9 @@ public class Metaform {
 
   @JsonProperty("allowAnonymous")
   private Boolean allowAnonymous = null;
+
+  @JsonProperty("allowDrafts")
+  private Boolean allowDrafts = null;
 
   @JsonProperty("title")
   private String title = null;
@@ -154,6 +157,24 @@ public class Metaform {
     this.allowAnonymous = allowAnonymous;
   }
 
+  public Metaform allowDrafts(Boolean allowDrafts) {
+    this.allowDrafts = allowDrafts;
+    return this;
+  }
+
+   /**
+   * Are drafts allowed or not
+   * @return allowDrafts
+  **/
+  @ApiModelProperty(value = "Are drafts allowed or not")
+  public Boolean isAllowDrafts() {
+    return allowDrafts;
+  }
+
+  public void setAllowDrafts(Boolean allowDrafts) {
+    this.allowDrafts = allowDrafts;
+  }
+
   public Metaform title(String title) {
     this.title = title;
     return this;
@@ -212,13 +233,14 @@ public class Metaform {
         Objects.equals(this.replyStrategy, metaform.replyStrategy) &&
         Objects.equals(this.exportThemeId, metaform.exportThemeId) &&
         Objects.equals(this.allowAnonymous, metaform.allowAnonymous) &&
+        Objects.equals(this.allowDrafts, metaform.allowDrafts) &&
         Objects.equals(this.title, metaform.title) &&
         Objects.equals(this.sections, metaform.sections);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, title, sections);
+    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
   }
 
 
@@ -231,6 +253,7 @@ public class Metaform {
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    exportThemeId: ").append(toIndentedString(exportThemeId)).append("\n");
     sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
+    sb.append("    allowDrafts: ").append(toIndentedString(allowDrafts)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
     sb.append("}");
