@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Values for enum columns
  */
 @ApiModel(description = "Values for enum columns")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-03T15:52:07.692+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-10-04T09:14:04.433+03:00")
 public class MetaformTableColumnValues {
   @JsonProperty("value")
   private String value = null;
