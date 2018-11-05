@@ -1818,6 +1818,26 @@
         "visible-if" : {
           "$ref" : "#/definitions/MetaformVisibleIf"
         },
+        "permission-contexts" : {
+          "type" : "object",
+          "properties" : {
+            "view-group" : {
+              "type" : "boolean",
+              "description" : "Field value is used as security group with view permission",
+              "default" : false
+            },
+            "edit-group" : {
+              "type" : "boolean",
+              "description" : "Field value is used as security group with edit permission",
+              "default" : false
+            },
+            "notify-group" : {
+              "type" : "boolean",
+              "description" : "Field value is used as security group with notification permission",
+              "default" : false
+            }
+          }
+        },
         "name" : {
           "type" : "string",
           "description" : "Field name"

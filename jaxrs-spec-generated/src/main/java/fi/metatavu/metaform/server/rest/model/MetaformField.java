@@ -2,6 +2,7 @@ package fi.metatavu.metaform.server.rest.model;
 
 import fi.metatavu.metaform.server.rest.model.MetaformFieldFlags;
 import fi.metatavu.metaform.server.rest.model.MetaformFieldOption;
+import fi.metatavu.metaform.server.rest.model.MetaformFieldPermissioncontexts;
 import fi.metatavu.metaform.server.rest.model.MetaformFieldType;
 import fi.metatavu.metaform.server.rest.model.MetaformTableColumn;
 import fi.metatavu.metaform.server.rest.model.MetaformVisibleIf;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class MetaformField   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("visible-if") MetaformVisibleIf visibleIf = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("permission-contexts") MetaformFieldPermissioncontexts permissionContexts = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") MetaformFieldType type = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
@@ -61,6 +63,22 @@ public class MetaformField   {
   }
   public void setVisibleIf(MetaformVisibleIf visibleIf) {
     this.visibleIf = visibleIf;
+  }
+
+  /**
+   **/
+  public MetaformField permissionContexts(MetaformFieldPermissioncontexts permissionContexts) {
+    this.permissionContexts = permissionContexts;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public MetaformFieldPermissioncontexts getPermissionContexts() {
+    return permissionContexts;
+  }
+  public void setPermissionContexts(MetaformFieldPermissioncontexts permissionContexts) {
+    this.permissionContexts = permissionContexts;
   }
 
   /**
@@ -542,6 +560,7 @@ public class MetaformField   {
     }
     MetaformField metaformField = (MetaformField) o;
     return Objects.equals(visibleIf, metaformField.visibleIf) &&
+        Objects.equals(permissionContexts, metaformField.permissionContexts) &&
         Objects.equals(name, metaformField.name) &&
         Objects.equals(type, metaformField.type) &&
         Objects.equals(title, metaformField.title) &&
@@ -574,7 +593,7 @@ public class MetaformField   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(visibleIf, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, addRows, draggable, columns, src, text, html);
+    return Objects.hash(visibleIf, permissionContexts, name, type, title, required, contexts, flags, placeholder, propertyClass, readonly, help, _default, min, max, step, checked, printable, options, sourceUrl, uploadUrl, singleFile, onlyImages, maxFileSize, addRows, draggable, columns, src, text, html);
   }
 
   @Override
@@ -583,6 +602,7 @@ public class MetaformField   {
     sb.append("class MetaformField {\n");
     
     sb.append("    visibleIf: ").append(toIndentedString(visibleIf)).append("\n");
+    sb.append("    permissionContexts: ").append(toIndentedString(permissionContexts)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
