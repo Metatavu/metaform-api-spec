@@ -16,12 +16,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Attachment', 'model/BadRequest', 'model/EmailNotification', 'model/ExportTheme', 'model/ExportThemeFile', 'model/Forbidden', 'model/InternalServerError', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'model/ReplyExportFormat', 'api/AttachmentsApi', 'api/EmailNotificationsApi', 'api/ExportThemeFilesApi', 'api/ExportThemesApi', 'api/MetaformsApi', 'api/RepliesApi'], factory);
+    define(['ApiClient', 'model/Attachment', 'model/BadRequest', 'model/EmailNotification', 'model/ExportTheme', 'model/ExportThemeFile', 'model/Forbidden', 'model/InternalServerError', 'model/Metaform', 'model/MetaformField', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldPermissioncontexts', 'model/MetaformFieldType', 'model/MetaformSection', 'model/MetaformTableColumn', 'model/MetaformTableColumnType', 'model/MetaformTableColumnValues', 'model/MetaformVisibleIf', 'model/NotFound', 'model/NotImplemented', 'model/Reply', 'model/ReplyData', 'model/ReplyExportFormat', 'api/AttachmentsApi', 'api/EmailNotificationsApi', 'api/ExportThemeFilesApi', 'api/ExportThemesApi', 'api/MetaformsApi', 'api/RepliesApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/Attachment'), require('./model/BadRequest'), require('./model/EmailNotification'), require('./model/ExportTheme'), require('./model/ExportThemeFile'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldFlags'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./model/ReplyExportFormat'), require('./api/AttachmentsApi'), require('./api/EmailNotificationsApi'), require('./api/ExportThemeFilesApi'), require('./api/ExportThemesApi'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/Attachment'), require('./model/BadRequest'), require('./model/EmailNotification'), require('./model/ExportTheme'), require('./model/ExportThemeFile'), require('./model/Forbidden'), require('./model/InternalServerError'), require('./model/Metaform'), require('./model/MetaformField'), require('./model/MetaformFieldFlags'), require('./model/MetaformFieldOption'), require('./model/MetaformFieldPermissioncontexts'), require('./model/MetaformFieldType'), require('./model/MetaformSection'), require('./model/MetaformTableColumn'), require('./model/MetaformTableColumnType'), require('./model/MetaformTableColumnValues'), require('./model/MetaformVisibleIf'), require('./model/NotFound'), require('./model/NotImplemented'), require('./model/Reply'), require('./model/ReplyData'), require('./model/ReplyExportFormat'), require('./api/AttachmentsApi'), require('./api/EmailNotificationsApi'), require('./api/ExportThemeFilesApi'), require('./api/ExportThemesApi'), require('./api/MetaformsApi'), require('./api/RepliesApi'));
   }
-}(function(ApiClient, Attachment, BadRequest, EmailNotification, ExportTheme, ExportThemeFile, Forbidden, InternalServerError, Metaform, MetaformField, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, ReplyExportFormat, AttachmentsApi, EmailNotificationsApi, ExportThemeFilesApi, ExportThemesApi, MetaformsApi, RepliesApi) {
+}(function(ApiClient, Attachment, BadRequest, EmailNotification, ExportTheme, ExportThemeFile, Forbidden, InternalServerError, Metaform, MetaformField, MetaformFieldFlags, MetaformFieldOption, MetaformFieldPermissioncontexts, MetaformFieldType, MetaformSection, MetaformTableColumn, MetaformTableColumnType, MetaformTableColumnValues, MetaformVisibleIf, NotFound, NotImplemented, Reply, ReplyData, ReplyExportFormat, AttachmentsApi, EmailNotificationsApi, ExportThemeFilesApi, ExportThemesApi, MetaformsApi, RepliesApi) {
   'use strict';
 
   /**
@@ -53,7 +53,7 @@
    * </pre>
    * </p>
    * @module index
-   * @version 0.0.19
+   * @version 0.0.20
    */
   var exports = {
     /**
@@ -116,6 +116,11 @@
      * @property {module:model/MetaformFieldOption}
      */
     MetaformFieldOption: MetaformFieldOption,
+    /**
+     * The MetaformFieldPermissioncontexts model constructor.
+     * @property {module:model/MetaformFieldPermissioncontexts}
+     */
+    MetaformFieldPermissioncontexts: MetaformFieldPermissioncontexts,
     /**
      * The MetaformFieldType model constructor.
      * @property {module:model/MetaformFieldType}

@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **visibleIf** | [**MetaformVisibleIf**](MetaformVisibleIf.md) |  | [optional] 
+**permissionContexts** | [**MetaformFieldPermissioncontexts**](MetaformFieldPermissioncontexts.md) |  | [optional] 
 **name** | **String** | Field name | [optional] 
 **type** | [**MetaformFieldType**](MetaformFieldType.md) |  | 
 **title** | **String** |  | [optional] 

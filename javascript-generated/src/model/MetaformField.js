@@ -16,18 +16,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldType', 'model/MetaformTableColumn', 'model/MetaformVisibleIf'], factory);
+    define(['ApiClient', 'model/MetaformFieldFlags', 'model/MetaformFieldOption', 'model/MetaformFieldPermissioncontexts', 'model/MetaformFieldType', 'model/MetaformTableColumn', 'model/MetaformVisibleIf'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MetaformFieldFlags'), require('./MetaformFieldOption'), require('./MetaformFieldType'), require('./MetaformTableColumn'), require('./MetaformVisibleIf'));
+    module.exports = factory(require('../ApiClient'), require('./MetaformFieldFlags'), require('./MetaformFieldOption'), require('./MetaformFieldPermissioncontexts'), require('./MetaformFieldType'), require('./MetaformTableColumn'), require('./MetaformVisibleIf'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.MetaformField = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformFieldFlags, root.MetaformApiClient.MetaformFieldOption, root.MetaformApiClient.MetaformFieldType, root.MetaformApiClient.MetaformTableColumn, root.MetaformApiClient.MetaformVisibleIf);
+    root.MetaformApiClient.MetaformField = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformFieldFlags, root.MetaformApiClient.MetaformFieldOption, root.MetaformApiClient.MetaformFieldPermissioncontexts, root.MetaformApiClient.MetaformFieldType, root.MetaformApiClient.MetaformTableColumn, root.MetaformApiClient.MetaformVisibleIf);
   }
-}(this, function(ApiClient, MetaformFieldFlags, MetaformFieldOption, MetaformFieldType, MetaformTableColumn, MetaformVisibleIf) {
+}(this, function(ApiClient, MetaformFieldFlags, MetaformFieldOption, MetaformFieldPermissioncontexts, MetaformFieldType, MetaformTableColumn, MetaformVisibleIf) {
   'use strict';
 
 
@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.19
+   * @version 0.0.20
    */
 
   /**
@@ -47,6 +47,7 @@
    */
   var exports = function(type) {
     var _this = this;
+
 
 
 
@@ -92,6 +93,9 @@
 
       if (data.hasOwnProperty('visible-if')) {
         obj['visible-if'] = MetaformVisibleIf.constructFromObject(data['visible-if']);
+      }
+      if (data.hasOwnProperty('permission-contexts')) {
+        obj['permission-contexts'] = MetaformFieldPermissioncontexts.constructFromObject(data['permission-contexts']);
       }
       if (data.hasOwnProperty('name')) {
         obj['name'] = ApiClient.convertToType(data['name'], 'String');
@@ -185,6 +189,10 @@
    * @member {module:model/MetaformVisibleIf} visible-if
    */
   exports.prototype['visible-if'] = undefined;
+  /**
+   * @member {module:model/MetaformFieldPermissioncontexts} permission-contexts
+   */
+  exports.prototype['permission-contexts'] = undefined;
   /**
    * Field name
    * @member {String} name

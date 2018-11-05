@@ -36,7 +36,7 @@
   /**
    * The Reply model module.
    * @module model/Reply
-   * @version 0.0.19
+   * @version 0.0.20
    */
 
   /**

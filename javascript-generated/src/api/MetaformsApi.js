@@ -33,7 +33,7 @@
   /**
    * Metaforms service.
    * @module api/MetaformsApi
-   * @version 0.0.19
+   * @version 0.0.20
    */
 
   /**
