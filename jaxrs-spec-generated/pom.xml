@@ -4,7 +4,7 @@
   <artifactId>metaform-api-spec</artifactId>
   <packaging>jar</packaging>
   <name>metaform-api-spec</name>
-  <version>0.0.36-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <description>Metaform API specifications</description>
   <url>https://github.com/Metatavu/metaform-api-spec</url>
 
