@@ -1336,10 +1336,14 @@ definitions:
 
   Metaform:
     type: object
+    required:
+      - slug
     properties:
       id:
         type: "string"
-        format: "uuid"
+        format: "uuid" 
+      slug: 
+        type: "string"
       replyStrategy:
         type: "string"
         enum:
