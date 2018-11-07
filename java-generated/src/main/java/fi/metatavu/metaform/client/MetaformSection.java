@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * MetaformSection
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-11-05T13:01:06.261+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-11-07T13:10:54.353+02:00")
 public class MetaformSection {
   @JsonProperty("title")
   private String title = null;
