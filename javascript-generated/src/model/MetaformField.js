@@ -36,7 +36,7 @@
   /**
    * The MetaformField model module.
    * @module model/MetaformField
-   * @version 0.0.22
+   * @version 0.1.0
    */
 
   /**

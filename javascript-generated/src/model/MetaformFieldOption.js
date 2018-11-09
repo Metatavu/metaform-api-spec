@@ -36,7 +36,7 @@
   /**
    * The MetaformFieldOption model module.
    * @module model/MetaformFieldOption
-   * @version 0.0.22
+   * @version 0.1.0
    */
 
   /**
