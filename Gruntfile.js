@@ -108,6 +108,7 @@ module.exports = function(grunt) {
         command : 'java -jar swagger-codegen-cli.jar generate ' +
           '-i ./swagger.yaml ' +
           '-l javascript ' +
+          '--template-dir javascript-templates ' +
           '-o javascript-generated/ ' +
           '--additional-properties useES6=false,usePromises=true,projectName=metaform-api-client,projectVersion='  + require('./javascript-generated/package.json').version
       },
