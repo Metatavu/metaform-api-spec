@@ -36,7 +36,7 @@
   /**
    * The ExportTheme model module.
    * @module model/ExportTheme
-   * @version 0.1.0
+   * @version 0.1.1
    */
 
   /**

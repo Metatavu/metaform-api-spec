@@ -36,7 +36,7 @@
   /**
    * The NotFound model module.
    * @module model/NotFound
-   * @version 0.1.0
+   * @version 0.1.1
    */
 
   /**

@@ -32,7 +32,7 @@
 
   /**
    * @module ApiClient
-   * @version 0.1.0
+   * @version 0.1.1
    */
 
   /**
@@ -491,7 +491,7 @@
           }
         }
       });
-    });
+    }); 
   };
 
   /**
@@ -585,8 +585,9 @@
           obj[k] = exports.convertToType(data[k], itemType);
       }
     }
+  };
 
-    /**
+  /**
    * Returns UMA ticket from www-authenticate header or null if not found
    * 
    * @param {object} errorResponse 401 or 403 error response from api call
@@ -636,7 +637,6 @@
         return rptResponse.body;
       });
   }
-  };
 
   /**
    * The default API client implementation.

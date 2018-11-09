@@ -36,7 +36,7 @@
   /**
    * The MetaformSection model module.
    * @module model/MetaformSection
-   * @version 0.1.0
+   * @version 0.1.1
    */
 
   /**

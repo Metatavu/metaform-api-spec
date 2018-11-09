@@ -36,7 +36,7 @@
   /**
    * The EmailNotification model module.
    * @module model/EmailNotification
-   * @version 0.1.0
+   * @version 0.1.1
    */
 
   /**
