@@ -497,7 +497,7 @@
           }
         }
       });
-    });{{/usePromises}}
+    }); {{/usePromises}}
 {{^usePromises}}    request.end(function(error, response) {
       if (callback) {
         var data = null;
@@ -609,8 +609,9 @@
           obj[k] = exports.convertToType(data[k], itemType);
       }
     }
+  };
 
-    /**
+  /**
    * Returns UMA ticket from www-authenticate header or null if not found
    * 
    * @param {object} errorResponse 401 or 403 error response from api call
@@ -660,7 +661,6 @@
         return rptResponse.body;
       });
   }
-  };
 
 {{#emitJSDoc}}  /**
    * The default API client implementation.
