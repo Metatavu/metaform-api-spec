@@ -486,6 +486,7 @@ use {{invokerPackage}}\ObjectSerializer;
             $httpBody
         );
     }
+    {{/operation}}
 
     private function getUMATicket($response) {
         $result = []; 
@@ -554,6 +555,5 @@ use {{invokerPackage}}\ObjectSerializer;
 
         return null;
     }
-    {{/operation}}
 }
 {{/operations}}
