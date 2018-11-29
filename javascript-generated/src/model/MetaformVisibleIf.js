@@ -36,7 +36,7 @@
   /**
    * The MetaformVisibleIf model module.
    * @module model/MetaformVisibleIf
-   * @version 0.1.1
+   * @version 0.1.2
    */
 
   /**

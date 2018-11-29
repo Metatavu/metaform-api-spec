@@ -32,7 +32,7 @@
 
   /**
    * @module ApiClient
-   * @version 0.1.1
+   * @version 0.1.2
    */
 
   /**
@@ -467,6 +467,7 @@
 
               _this.callApi(path, httpMethod, pathParams, queryParams, collectionQueryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts, returnType)
                 .then((yeah) => {
+                  _this.retrying = false;
                   resolve(yeah);
                 })
                 .catch(reject);
