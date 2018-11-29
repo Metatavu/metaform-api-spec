@@ -473,6 +473,7 @@
 
               _this.callApi(path, httpMethod, pathParams, queryParams, collectionQueryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts, returnType)
                 .then((yeah) => {
+                  _this.retrying = false;
                   resolve(yeah);
                 })
                 .catch(reject);
