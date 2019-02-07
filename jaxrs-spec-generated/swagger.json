@@ -339,6 +339,16 @@
             "type" : "string"
           },
           "collectionFormat" : "csv"
+        }, {
+          "name" : "firstResult",
+          "in" : "query",
+          "description" : "First index of results to be returned",
+          "required" : false
+        }, {
+          "name" : "maxResults",
+          "in" : "query",
+          "description" : "How many items to return at one time",
+          "required" : false
         } ],
         "responses" : {
           "200" : {
@@ -1762,14 +1772,10 @@
     },
     "Metaform" : {
       "type" : "object",
-      "required" : [ "slug" ],
       "properties" : {
         "id" : {
           "type" : "string",
           "format" : "uuid"
-        },
-        "slug" : {
-          "type" : "string"
         },
         "replyStrategy" : {
           "type" : "string",

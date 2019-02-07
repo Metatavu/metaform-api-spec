@@ -15,7 +15,6 @@ import java.util.Objects;
 public class Metaform   {
   
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("slug") String slug = null;
 
 public enum ReplyStrategyEnum {
 
@@ -68,23 +67,6 @@ public enum ReplyStrategyEnum {
   }
   public void setId(UUID id) {
     this.id = id;
-  }
-
-  /**
-   **/
-  public Metaform slug(String slug) {
-    this.slug = slug;
-    return this;
-  }
-
-  
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-  public String getSlug() {
-    return slug;
-  }
-  public void setSlug(String slug) {
-    this.slug = slug;
   }
 
   /**
@@ -196,7 +178,6 @@ public enum ReplyStrategyEnum {
     }
     Metaform metaform = (Metaform) o;
     return Objects.equals(id, metaform.id) &&
-        Objects.equals(slug, metaform.slug) &&
         Objects.equals(replyStrategy, metaform.replyStrategy) &&
         Objects.equals(exportThemeId, metaform.exportThemeId) &&
         Objects.equals(allowAnonymous, metaform.allowAnonymous) &&
@@ -207,7 +188,7 @@ public enum ReplyStrategyEnum {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, slug, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
+    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
   }
 
   @Override
@@ -216,7 +197,6 @@ public enum ReplyStrategyEnum {
     sb.append("class Metaform {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    replyStrategy: ").append(toIndentedString(replyStrategy)).append("\n");
     sb.append("    exportThemeId: ").append(toIndentedString(exportThemeId)).append("\n");
     sb.append("    allowAnonymous: ").append(toIndentedString(allowAnonymous)).append("\n");
