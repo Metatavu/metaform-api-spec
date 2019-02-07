@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-11-07T13:10:54.353+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-07T12:59:49.521+02:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -169,14 +169,16 @@ public interface RepliesApi extends ApiClient.Api {
     * @param modifiedAfter Filter results modified after specified time (optional)
     * @param includeRevisions Specifies that revisions should be included into response (optional)
     * @param fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+    * @param firstResult First index of results to be returned (optional)
+    * @param maxResults How many items to return at one time (optional)
    * @return List&lt;Reply&gt;
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}&firstResult={firstResult}&maxResults={maxResults}")
   @Headers({
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions, @Param("fields") List<String> fields);
+  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions, @Param("fields") List<String> fields, @Param("firstResult") String firstResult, @Param("maxResults") String maxResults);
 
   /**
    * Lists form replies
@@ -198,10 +200,12 @@ public interface RepliesApi extends ApiClient.Api {
    *   <li>modifiedAfter - Filter results modified after specified time (optional)</li>
    *   <li>includeRevisions - Specifies that revisions should be included into response (optional)</li>
    *   <li>fields - Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)</li>
+   *   <li>firstResult - First index of results to be returned (optional)</li>
+   *   <li>maxResults - How many items to return at one time (optional)</li>
    *   </ul>
    * @return List&lt;Reply&gt;
    */
-  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}")
+  @RequestLine("GET /realms/{realmId}/metaforms/{metaformId}/replies?userId={userId}&createdBefore={createdBefore}&createdAfter={createdAfter}&modifiedBefore={modifiedBefore}&modifiedAfter={modifiedAfter}&includeRevisions={includeRevisions}&fields={fields}&firstResult={firstResult}&maxResults={maxResults}")
   @Headers({
   "Content-Type: application/json",
   "Accept: application/json",
@@ -239,6 +243,14 @@ public interface RepliesApi extends ApiClient.Api {
     }
     public ListRepliesQueryParams fields(final List<String> value) {
       put("fields", EncodingUtils.encodeCollection(value, "csv"));
+      return this;
+    }
+    public ListRepliesQueryParams firstResult(final String value) {
+      put("firstResult", EncodingUtils.encode(value));
+      return this;
+    }
+    public ListRepliesQueryParams maxResults(final String value) {
+      put("maxResults", EncodingUtils.encode(value));
       return this;
     }
   }

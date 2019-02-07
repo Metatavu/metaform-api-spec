@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Option object for Metaform field
  */
 @ApiModel(description = "Option object for Metaform field")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-11-07T13:10:54.353+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-07T12:59:49.521+02:00")
 public class MetaformFieldOption {
   @JsonProperty("name")
   private String name = null;

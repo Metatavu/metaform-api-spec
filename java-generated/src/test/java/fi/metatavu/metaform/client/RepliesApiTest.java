@@ -148,7 +148,9 @@ public class RepliesApiTest {
         String modifiedAfter = null;
         Boolean includeRevisions = null;
         List<String> fields = null;
-        // List<Reply> response = api.listReplies(realmId, metaformId, userId, createdBefore, createdAfter, modifiedBefore, modifiedAfter, includeRevisions, fields);
+        String firstResult = null;
+        String maxResults = null;
+        // List<Reply> response = api.listReplies(realmId, metaformId, userId, createdBefore, createdAfter, modifiedBefore, modifiedAfter, includeRevisions, fields, firstResult, maxResults);
 
         // TODO: test validations
     }
@@ -172,7 +174,9 @@ public class RepliesApiTest {
             .modifiedBefore(null)
             .modifiedAfter(null)
             .includeRevisions(null)
-            .fields(null);
+            .fields(null)
+            .firstResult(null)
+            .maxResults(null);
         // List<Reply> response = api.listReplies(realmId, metaformId, queryParams);
 
     // TODO: test validations
