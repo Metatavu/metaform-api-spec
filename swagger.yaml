@@ -264,6 +264,20 @@ paths:
           description: Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
           items:
             type: string
+        - name: firstResult
+          in: query
+          description: First index of results to be returned
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: maxResults
+          in: query
+          description: How many items to return at one time
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: A list of replies
