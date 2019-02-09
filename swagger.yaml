@@ -1589,6 +1589,7 @@ definitions:
     enum:
       - hidden
       - text
+      - url
       - autocomplete
       - number
       - enum
