@@ -1510,6 +1510,7 @@ definitions:
     type: "string"
     enum:
       - text
+      - url
       - hidden
       - email
       - number
