@@ -1591,6 +1591,7 @@ definitions:
       - hidden
       - text
       - url
+      - email
       - autocomplete
       - number
       - enum
