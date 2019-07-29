@@ -16,70 +16,62 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/MetaformScript'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./MetaformScript'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.Forbidden = factory(root.MetaformApiClient.ApiClient);
+    root.MetaformApiClient.MetaformScripts = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformScript);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, MetaformScript) {
   'use strict';
 
 
 
 
   /**
-   * The Forbidden model module.
-   * @module model/Forbidden
+   * The MetaformScripts model module.
+   * @module model/MetaformScripts
    * @version 0.1.3
    */
 
   /**
-   * Constructs a new <code>Forbidden</code>.
-   * @alias module:model/Forbidden
+   * Constructs a new <code>MetaformScripts</code>.
+   * @alias module:model/MetaformScripts
    * @class
    */
   var exports = function() {
     var _this = this;
 
 
-
   };
 
   /**
-   * Constructs a <code>Forbidden</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>MetaformScripts</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/Forbidden} obj Optional instance to populate.
-   * @return {module:model/Forbidden} The populated <code>Forbidden</code> instance.
+   * @param {module:model/MetaformScripts} obj Optional instance to populate.
+   * @return {module:model/MetaformScripts} The populated <code>MetaformScripts</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'Number');
-      }
-      if (data.hasOwnProperty('message')) {
-        obj['message'] = ApiClient.convertToType(data['message'], 'String');
+      if (data.hasOwnProperty('afterSubmit')) {
+        obj['afterSubmit'] = MetaformScript.constructFromObject(data['afterSubmit']);
       }
     }
     return obj;
   }
 
   /**
-   * @member {Number} code
+   * @member {module:model/MetaformScript} afterSubmit
    */
-  exports.prototype['code'] = undefined;
-  /**
-   * @member {String} message
-   */
-  exports.prototype['message'] = undefined;
+  exports.prototype['afterSubmit'] = undefined;
 
 
 

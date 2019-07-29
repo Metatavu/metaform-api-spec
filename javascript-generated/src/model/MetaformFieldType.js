@@ -43,6 +43,11 @@
      */
     "text": "text",
     /**
+     * value: "url"
+     * @const
+     */
+    "url": "url",
+    /**
      * value: "hidden"
      * @const
      */

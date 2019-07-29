@@ -48,6 +48,16 @@
      */
     "text": "text",
     /**
+     * value: "url"
+     * @const
+     */
+    "url": "url",
+    /**
+     * value: "email"
+     * @const
+     */
+    "email": "email",
+    /**
      * value: "autocomplete"
      * @const
      */

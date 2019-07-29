@@ -7,6 +7,10 @@
 
 * `text` (value: `"text"`)
 
+* `url` (value: `"url"`)
+
+* `email` (value: `"email"`)
+
 * `autocomplete` (value: `"autocomplete"`)
 
 * `number` (value: `"number"`)

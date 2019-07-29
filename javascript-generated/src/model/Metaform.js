@@ -16,18 +16,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MetaformSection'], factory);
+    define(['ApiClient', 'model/MetaformScripts', 'model/MetaformSection'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MetaformSection'));
+    module.exports = factory(require('../ApiClient'), require('./MetaformScripts'), require('./MetaformSection'));
   } else {
     // Browser globals (root is window)
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.Metaform = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformSection);
+    root.MetaformApiClient.Metaform = factory(root.MetaformApiClient.ApiClient, root.MetaformApiClient.MetaformScripts, root.MetaformApiClient.MetaformSection);
   }
-}(this, function(ApiClient, MetaformSection) {
+}(this, function(ApiClient, MetaformScripts, MetaformSection) {
   'use strict';
 
 
@@ -36,7 +36,7 @@
   /**
    * The Metaform model module.
    * @module model/Metaform
-   * @version 0.1.2
+   * @version 0.1.3
    */
 
   /**
@@ -46,6 +46,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -88,6 +89,9 @@
       if (data.hasOwnProperty('sections')) {
         obj['sections'] = ApiClient.convertToType(data['sections'], [MetaformSection]);
       }
+      if (data.hasOwnProperty('scripts')) {
+        obj['scripts'] = MetaformScripts.constructFromObject(data['scripts']);
+      }
     }
     return obj;
   }
@@ -122,6 +126,10 @@
    * @member {Array.<module:model/MetaformSection>} sections
    */
   exports.prototype['sections'] = undefined;
+  /**
+   * @member {module:model/MetaformScripts} scripts
+   */
+  exports.prototype['scripts'] = undefined;
 
 
   /**

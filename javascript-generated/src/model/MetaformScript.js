@@ -25,7 +25,7 @@
     if (!root.MetaformApiClient) {
       root.MetaformApiClient = {};
     }
-    root.MetaformApiClient.Attachment = factory(root.MetaformApiClient.ApiClient);
+    root.MetaformApiClient.MetaformScript = factory(root.MetaformApiClient.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -34,63 +34,54 @@
 
 
   /**
-   * The Attachment model module.
-   * @module model/Attachment
+   * The MetaformScript model module.
+   * @module model/MetaformScript
    * @version 0.1.3
    */
 
   /**
-   * Constructs a new <code>Attachment</code>.
-   * @alias module:model/Attachment
+   * Constructs a new <code>MetaformScript</code>.
+   * @alias module:model/MetaformScript
    * @class
+   * @param type {String} 
+   * @param data {String} 
    */
-  var exports = function() {
+  var exports = function(type, data) {
     var _this = this;
 
-
-
-
+    _this['type'] = type;
+    _this['data'] = data;
   };
 
   /**
-   * Constructs a <code>Attachment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>MetaformScript</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/Attachment} obj Optional instance to populate.
-   * @return {module:model/Attachment} The populated <code>Attachment</code> instance.
+   * @param {module:model/MetaformScript} obj Optional instance to populate.
+   * @return {module:model/MetaformScript} The populated <code>MetaformScript</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      if (data.hasOwnProperty('type')) {
+        obj['type'] = ApiClient.convertToType(data['type'], 'String');
       }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
-      }
-      if (data.hasOwnProperty('contentType')) {
-        obj['contentType'] = ApiClient.convertToType(data['contentType'], 'String');
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = ApiClient.convertToType(data['data'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * Entity identifier
-   * @member {String} id
+   * @member {String} type
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype['type'] = undefined;
   /**
-   * Attachment's name
-   * @member {String} name
+   * @member {String} data
    */
-  exports.prototype['name'] = undefined;
-  /**
-   * Attachment's content type (e.g. application/pdf)
-   * @member {String} contentType
-   */
-  exports.prototype['contentType'] = undefined;
+  exports.prototype['data'] = undefined;
 
 
 

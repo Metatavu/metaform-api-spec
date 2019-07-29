@@ -5,6 +5,8 @@
 
 * `text` (value: `"text"`)
 
+* `url` (value: `"url"`)
+
 * `hidden` (value: `"hidden"`)
 
 * `email` (value: `"email"`)

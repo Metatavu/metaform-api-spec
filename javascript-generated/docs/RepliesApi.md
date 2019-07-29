@@ -275,7 +275,9 @@ var opts = {
   'modifiedBefore': "modifiedBefore_example", // String | Filter results modified before specified time
   'modifiedAfter': "modifiedAfter_example", // String | Filter results modified after specified time
   'includeRevisions': true, // Boolean | Specifies that revisions should be included into response
-  'fields': ["fields_example"] // [String] | Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
+  'fields': ["fields_example"], // [String] | Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
+  'firstResult': 56, // Number | First index of results to be returned
+  'maxResults': 56 // Number | How many items to return at one time
 };
 apiInstance.listReplies(realmId, metaformId, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -298,6 +300,8 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **String**| Filter results modified after specified time | [optional] 
  **includeRevisions** | **Boolean**| Specifies that revisions should be included into response | [optional] 
  **fields** | [**[String]**](String.md)| Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another | [optional] 
+ **firstResult** | **Number**| First index of results to be returned | [optional] 
+ **maxResults** | **Number**| How many items to return at one time | [optional] 
 
 ### Return type
 

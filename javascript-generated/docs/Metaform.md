@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **allowDrafts** | **Boolean** | Are drafts allowed or not | [optional] 
 **title** | **String** |  | [optional] 
 **sections** | [**[MetaformSection]**](MetaformSection.md) |  | [optional] 
+**scripts** | [**MetaformScripts**](MetaformScripts.md) |  | [optional] 
 
 
 <a name="ReplyStrategyEnum"></a>

@@ -33,7 +33,7 @@
   /**
    * Attachments service.
    * @module api/AttachmentsApi
-   * @version 0.1.2
+   * @version 0.1.3
    */
 
   /**

@@ -33,7 +33,7 @@
   /**
    * Replies service.
    * @module api/RepliesApi
-   * @version 0.1.2
+   * @version 0.1.3
    */
 
   /**
@@ -345,6 +345,8 @@
      * @param {String} opts.modifiedAfter Filter results modified after specified time
      * @param {Boolean} opts.includeRevisions Specifies that revisions should be included into response
      * @param {Array.<String>} opts.fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another
+     * @param {Number} opts.firstResult First index of results to be returned
+     * @param {Number} opts.maxResults How many items to return at one time
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Reply>} and HTTP response
      */
     this.listRepliesWithHttpInfo = function(realmId, metaformId, opts) {
@@ -373,6 +375,8 @@
         'modifiedBefore': opts['modifiedBefore'],
         'modifiedAfter': opts['modifiedAfter'],
         'includeRevisions': opts['includeRevisions'],
+        'firstResult': opts['firstResult'],
+        'maxResults': opts['maxResults'],
       };
       var collectionQueryParams = {
         'fields': {
@@ -410,6 +414,8 @@
      * @param {String} opts.modifiedAfter Filter results modified after specified time
      * @param {Boolean} opts.includeRevisions Specifies that revisions should be included into response
      * @param {Array.<String>} opts.fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another
+     * @param {Number} opts.firstResult First index of results to be returned
+     * @param {Number} opts.maxResults How many items to return at one time
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Reply>}
      */
     this.listReplies = function(realmId, metaformId, opts) {
