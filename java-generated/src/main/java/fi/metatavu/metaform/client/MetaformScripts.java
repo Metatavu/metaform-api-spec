@@ -20,17 +20,27 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import fi.metatavu.metaform.client.MetaformScript;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MetaformScripts
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T14:02:51.404+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T17:41:58.082+03:00")
 public class MetaformScripts {
   @JsonProperty("afterSubmit")
-  private MetaformScript afterSubmit = null;
+  private List<MetaformScript> afterSubmit = null;
 
-  public MetaformScripts afterSubmit(MetaformScript afterSubmit) {
+  public MetaformScripts afterSubmit(List<MetaformScript> afterSubmit) {
     this.afterSubmit = afterSubmit;
+    return this;
+  }
+
+  public MetaformScripts addAfterSubmitItem(MetaformScript afterSubmitItem) {
+    if (this.afterSubmit == null) {
+      this.afterSubmit = new ArrayList<MetaformScript>();
+    }
+    this.afterSubmit.add(afterSubmitItem);
     return this;
   }
 
@@ -39,11 +49,11 @@ public class MetaformScripts {
    * @return afterSubmit
   **/
   @ApiModelProperty(value = "")
-  public MetaformScript getAfterSubmit() {
+  public List<MetaformScript> getAfterSubmit() {
     return afterSubmit;
   }
 
-  public void setAfterSubmit(MetaformScript afterSubmit) {
+  public void setAfterSubmit(List<MetaformScript> afterSubmit) {
     this.afterSubmit = afterSubmit;
   }
 
