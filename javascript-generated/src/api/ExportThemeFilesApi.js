@@ -33,7 +33,7 @@
   /**
    * ExportThemeFiles service.
    * @module api/ExportThemeFilesApi
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
   /**

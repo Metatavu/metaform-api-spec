@@ -36,7 +36,7 @@
   /**
    * The MetaformScripts model module.
    * @module model/MetaformScripts
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
   /**
@@ -46,6 +46,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
   };
@@ -61,17 +62,26 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('afterSubmit')) {
-        obj['afterSubmit'] = ApiClient.convertToType(data['afterSubmit'], [MetaformScript]);
+      if (data.hasOwnProperty('afterCreateReply')) {
+        obj['afterCreateReply'] = ApiClient.convertToType(data['afterCreateReply'], [MetaformScript]);
+      }
+      if (data.hasOwnProperty('afterUpdateReply')) {
+        obj['afterUpdateReply'] = ApiClient.convertToType(data['afterUpdateReply'], [MetaformScript]);
       }
     }
     return obj;
   }
 
   /**
-   * @member {Array.<module:model/MetaformScript>} afterSubmit
+   * List of scripts run after new reply is created
+   * @member {Array.<module:model/MetaformScript>} afterCreateReply
    */
-  exports.prototype['afterSubmit'] = undefined;
+  exports.prototype['afterCreateReply'] = undefined;
+  /**
+   * List of scripts run after a reply is updated
+   * @member {Array.<module:model/MetaformScript>} afterUpdateReply
+   */
+  exports.prototype['afterUpdateReply'] = undefined;
 
 
 
