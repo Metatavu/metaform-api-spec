@@ -13,22 +13,41 @@ import java.util.Objects;
 
 public class MetaformScripts   {
   
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("afterSubmit") List<MetaformScript> afterSubmit = new ArrayList<MetaformScript>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("afterCreateReply") List<MetaformScript> afterCreateReply = new ArrayList<MetaformScript>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("afterUpdateReply") List<MetaformScript> afterUpdateReply = new ArrayList<MetaformScript>();
 
   /**
+   * List of scripts run after new reply is created
    **/
-  public MetaformScripts afterSubmit(List<MetaformScript> afterSubmit) {
-    this.afterSubmit = afterSubmit;
+  public MetaformScripts afterCreateReply(List<MetaformScript> afterCreateReply) {
+    this.afterCreateReply = afterCreateReply;
     return this;
   }
 
   
-  @ApiModelProperty(value = "")
-  public List<MetaformScript> getAfterSubmit() {
-    return afterSubmit;
+  @ApiModelProperty(value = "List of scripts run after new reply is created")
+  public List<MetaformScript> getAfterCreateReply() {
+    return afterCreateReply;
   }
-  public void setAfterSubmit(List<MetaformScript> afterSubmit) {
-    this.afterSubmit = afterSubmit;
+  public void setAfterCreateReply(List<MetaformScript> afterCreateReply) {
+    this.afterCreateReply = afterCreateReply;
+  }
+
+  /**
+   * List of scripts run after a reply is updated
+   **/
+  public MetaformScripts afterUpdateReply(List<MetaformScript> afterUpdateReply) {
+    this.afterUpdateReply = afterUpdateReply;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "List of scripts run after a reply is updated")
+  public List<MetaformScript> getAfterUpdateReply() {
+    return afterUpdateReply;
+  }
+  public void setAfterUpdateReply(List<MetaformScript> afterUpdateReply) {
+    this.afterUpdateReply = afterUpdateReply;
   }
 
 
@@ -41,12 +60,13 @@ public class MetaformScripts   {
       return false;
     }
     MetaformScripts metaformScripts = (MetaformScripts) o;
-    return Objects.equals(afterSubmit, metaformScripts.afterSubmit);
+    return Objects.equals(afterCreateReply, metaformScripts.afterCreateReply) &&
+        Objects.equals(afterUpdateReply, metaformScripts.afterUpdateReply);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(afterSubmit);
+    return Objects.hash(afterCreateReply, afterUpdateReply);
   }
 
   @Override
@@ -54,7 +74,8 @@ public class MetaformScripts   {
     StringBuilder sb = new StringBuilder();
     sb.append("class MetaformScripts {\n");
     
-    sb.append("    afterSubmit: ").append(toIndentedString(afterSubmit)).append("\n");
+    sb.append("    afterCreateReply: ").append(toIndentedString(afterCreateReply)).append("\n");
+    sb.append("    afterUpdateReply: ").append(toIndentedString(afterUpdateReply)).append("\n");
     sb.append("}");
     return sb.toString();
   }

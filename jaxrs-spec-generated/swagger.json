@@ -1809,8 +1809,16 @@
         "scripts" : {
           "type" : "object",
           "properties" : {
-            "afterSubmit" : {
+            "afterCreateReply" : {
               "type" : "array",
+              "description" : "List of scripts run after new reply is created",
+              "items" : {
+                "$ref" : "#/definitions/MetaformScript"
+              }
+            },
+            "afterUpdateReply" : {
+              "type" : "array",
+              "description" : "List of scripts run after a reply is updated",
               "items" : {
                 "$ref" : "#/definitions/MetaformScript"
               }
