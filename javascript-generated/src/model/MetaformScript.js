@@ -36,21 +36,23 @@
   /**
    * The MetaformScript model module.
    * @module model/MetaformScript
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
   /**
    * Constructs a new <code>MetaformScript</code>.
    * @alias module:model/MetaformScript
    * @class
-   * @param type {String} 
-   * @param data {String} 
+   * @param name {String} 
+   * @param language {String} 
+   * @param content {String} 
    */
-  var exports = function(type, data) {
+  var exports = function(name, language, content) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['data'] = data;
+    _this['name'] = name;
+    _this['language'] = language;
+    _this['content'] = content;
   };
 
   /**
@@ -64,24 +66,31 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+      if (data.hasOwnProperty('name')) {
+        obj['name'] = ApiClient.convertToType(data['name'], 'String');
       }
-      if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], 'String');
+      if (data.hasOwnProperty('language')) {
+        obj['language'] = ApiClient.convertToType(data['language'], 'String');
+      }
+      if (data.hasOwnProperty('content')) {
+        obj['content'] = ApiClient.convertToType(data['content'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {String} type
+   * @member {String} name
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype['name'] = undefined;
   /**
-   * @member {String} data
+   * @member {String} language
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype['language'] = undefined;
+  /**
+   * @member {String} content
+   */
+  exports.prototype['content'] = undefined;
 
 
 

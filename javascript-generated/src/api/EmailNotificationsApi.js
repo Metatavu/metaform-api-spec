@@ -33,7 +33,7 @@
   /**
    * EmailNotifications service.
    * @module api/EmailNotificationsApi
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
   /**
