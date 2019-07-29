@@ -1389,12 +1389,15 @@ definitions:
   MetaformScript:
     type: object
     required:
-      - type
-      - data
+      - name
+      - language
+      - content
     properties: 
-      type: 
+      name: 
         type: string
-      data: 
+      language: 
+        type: string
+      content: 
         type: string
 
   MetaformSection:
