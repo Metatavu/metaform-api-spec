@@ -28,7 +28,7 @@ import java.lang.Exception;
 @Api(description = "the realms API")
 @Consumes({ "application/json;charset=utf-8" })
 @Produces({ "application/json;charset=utf-8" })
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2019-07-29T18:00:46.326+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2019-07-29T18:17:24.412+03:00")
 
 
 public interface RealmsApi  {

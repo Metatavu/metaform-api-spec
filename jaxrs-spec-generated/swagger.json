@@ -1829,12 +1829,15 @@
     },
     "MetaformScript" : {
       "type" : "object",
-      "required" : [ "data", "type" ],
+      "required" : [ "content", "language", "name" ],
       "properties" : {
-        "type" : {
+        "name" : {
           "type" : "string"
         },
-        "data" : {
+        "language" : {
+          "type" : "string"
+        },
+        "content" : {
           "type" : "string"
         }
       }

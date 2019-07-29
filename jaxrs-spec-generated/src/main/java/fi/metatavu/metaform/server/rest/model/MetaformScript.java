@@ -10,41 +10,59 @@ import java.util.Objects;
 
 public class MetaformScript   {
   
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("type") String type = null;
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("data") String data = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("name") String name = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("language") String language = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("content") String content = null;
 
   /**
    **/
-  public MetaformScript type(String type) {
-    this.type = type;
+  public MetaformScript name(String name) {
+    this.name = name;
     return this;
   }
 
   
   @ApiModelProperty(required = true, value = "")
   @NotNull
-  public String getType() {
-    return type;
+  public String getName() {
+    return name;
   }
-  public void setType(String type) {
-    this.type = type;
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
    **/
-  public MetaformScript data(String data) {
-    this.data = data;
+  public MetaformScript language(String language) {
+    this.language = language;
     return this;
   }
 
   
   @ApiModelProperty(required = true, value = "")
   @NotNull
-  public String getData() {
-    return data;
+  public String getLanguage() {
+    return language;
   }
-  public void setData(String data) {
-    this.data = data;
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
+  /**
+   **/
+  public MetaformScript content(String content) {
+    this.content = content;
+    return this;
+  }
+
+  
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+  public String getContent() {
+    return content;
+  }
+  public void setContent(String content) {
+    this.content = content;
   }
 
 
@@ -57,13 +75,14 @@ public class MetaformScript   {
       return false;
     }
     MetaformScript metaformScript = (MetaformScript) o;
-    return Objects.equals(type, metaformScript.type) &&
-        Objects.equals(data, metaformScript.data);
+    return Objects.equals(name, metaformScript.name) &&
+        Objects.equals(language, metaformScript.language) &&
+        Objects.equals(content, metaformScript.content);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, data);
+    return Objects.hash(name, language, content);
   }
 
   @Override
@@ -71,8 +90,9 @@ public class MetaformScript   {
     StringBuilder sb = new StringBuilder();
     sb.append("class MetaformScript {\n");
     
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    language: ").append(toIndentedString(language)).append("\n");
+    sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("}");
     return sb.toString();
   }
