@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * ReplyData
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T17:41:58.082+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:07:31.883+03:00")
 public class ReplyData extends HashMap<String, Object> {
 
   @Override

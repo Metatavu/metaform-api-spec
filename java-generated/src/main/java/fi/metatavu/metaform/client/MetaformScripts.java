@@ -26,35 +26,64 @@ import java.util.List;
 /**
  * MetaformScripts
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T17:41:58.082+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:07:31.883+03:00")
 public class MetaformScripts {
-  @JsonProperty("afterSubmit")
-  private List<MetaformScript> afterSubmit = null;
+  @JsonProperty("afterCreateReply")
+  private List<MetaformScript> afterCreateReply = null;
 
-  public MetaformScripts afterSubmit(List<MetaformScript> afterSubmit) {
-    this.afterSubmit = afterSubmit;
+  @JsonProperty("afterUpdateReply")
+  private List<MetaformScript> afterUpdateReply = null;
+
+  public MetaformScripts afterCreateReply(List<MetaformScript> afterCreateReply) {
+    this.afterCreateReply = afterCreateReply;
     return this;
   }
 
-  public MetaformScripts addAfterSubmitItem(MetaformScript afterSubmitItem) {
-    if (this.afterSubmit == null) {
-      this.afterSubmit = new ArrayList<MetaformScript>();
+  public MetaformScripts addAfterCreateReplyItem(MetaformScript afterCreateReplyItem) {
+    if (this.afterCreateReply == null) {
+      this.afterCreateReply = new ArrayList<MetaformScript>();
     }
-    this.afterSubmit.add(afterSubmitItem);
+    this.afterCreateReply.add(afterCreateReplyItem);
     return this;
   }
 
    /**
-   * Get afterSubmit
-   * @return afterSubmit
+   * List of scripts run after new reply is created
+   * @return afterCreateReply
   **/
-  @ApiModelProperty(value = "")
-  public List<MetaformScript> getAfterSubmit() {
-    return afterSubmit;
+  @ApiModelProperty(value = "List of scripts run after new reply is created")
+  public List<MetaformScript> getAfterCreateReply() {
+    return afterCreateReply;
   }
 
-  public void setAfterSubmit(List<MetaformScript> afterSubmit) {
-    this.afterSubmit = afterSubmit;
+  public void setAfterCreateReply(List<MetaformScript> afterCreateReply) {
+    this.afterCreateReply = afterCreateReply;
+  }
+
+  public MetaformScripts afterUpdateReply(List<MetaformScript> afterUpdateReply) {
+    this.afterUpdateReply = afterUpdateReply;
+    return this;
+  }
+
+  public MetaformScripts addAfterUpdateReplyItem(MetaformScript afterUpdateReplyItem) {
+    if (this.afterUpdateReply == null) {
+      this.afterUpdateReply = new ArrayList<MetaformScript>();
+    }
+    this.afterUpdateReply.add(afterUpdateReplyItem);
+    return this;
+  }
+
+   /**
+   * List of scripts run after a reply is updated
+   * @return afterUpdateReply
+  **/
+  @ApiModelProperty(value = "List of scripts run after a reply is updated")
+  public List<MetaformScript> getAfterUpdateReply() {
+    return afterUpdateReply;
+  }
+
+  public void setAfterUpdateReply(List<MetaformScript> afterUpdateReply) {
+    this.afterUpdateReply = afterUpdateReply;
   }
 
 
@@ -67,12 +96,13 @@ public class MetaformScripts {
       return false;
     }
     MetaformScripts metaformScripts = (MetaformScripts) o;
-    return Objects.equals(this.afterSubmit, metaformScripts.afterSubmit);
+    return Objects.equals(this.afterCreateReply, metaformScripts.afterCreateReply) &&
+        Objects.equals(this.afterUpdateReply, metaformScripts.afterUpdateReply);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(afterSubmit);
+    return Objects.hash(afterCreateReply, afterUpdateReply);
   }
 
 
@@ -81,7 +111,8 @@ public class MetaformScripts {
     StringBuilder sb = new StringBuilder();
     sb.append("class MetaformScripts {\n");
     
-    sb.append("    afterSubmit: ").append(toIndentedString(afterSubmit)).append("\n");
+    sb.append("    afterCreateReply: ").append(toIndentedString(afterCreateReply)).append("\n");
+    sb.append("    afterUpdateReply: ").append(toIndentedString(afterUpdateReply)).append("\n");
     sb.append("}");
     return sb.toString();
   }
