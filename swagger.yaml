@@ -268,16 +268,14 @@ paths:
           in: query
           description: First index of results to be returned
           required: false
-          schema:
-            type: integer
-            format: int32
+          type: integer
+          format: int32
         - name: maxResults
           in: query
           description: How many items to return at one time
           required: false
-          schema:
-            type: integer
-            format: int32
+          type: integer
+          format: int32
       responses:
         '200':
           description: A list of replies
@@ -1374,7 +1372,23 @@ definitions:
         type: "array"
         items: 
           $ref: '#/definitions/MetaformSection'
-          
+      scripts:
+        type: object
+        properties:
+          afterSubmit:
+            $ref: '#/definitions/MetaformScript'
+
+  MetaformScript:
+    type: object
+    required:
+      - type
+      - data
+    properties: 
+      type: 
+        type: string
+      data: 
+        type: string
+
   MetaformSection:
     type: "object"
     properties: 
