@@ -23,48 +23,69 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * MetaformScript
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:07:31.883+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:21:47.304+03:00")
 public class MetaformScript {
-  @JsonProperty("type")
-  private String type = null;
+  @JsonProperty("name")
+  private String name = null;
 
-  @JsonProperty("data")
-  private String data = null;
+  @JsonProperty("language")
+  private String language = null;
 
-  public MetaformScript type(String type) {
-    this.type = type;
+  @JsonProperty("content")
+  private String content = null;
+
+  public MetaformScript name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get type
-   * @return type
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(required = true, value = "")
-  public String getType() {
-    return type;
+  public String getName() {
+    return name;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public MetaformScript data(String data) {
-    this.data = data;
+  public MetaformScript language(String language) {
+    this.language = language;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get language
+   * @return language
   **/
   @ApiModelProperty(required = true, value = "")
-  public String getData() {
-    return data;
+  public String getLanguage() {
+    return language;
   }
 
-  public void setData(String data) {
-    this.data = data;
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
+  public MetaformScript content(String content) {
+    this.content = content;
+    return this;
+  }
+
+   /**
+   * Get content
+   * @return content
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
   }
 
 
@@ -77,13 +98,14 @@ public class MetaformScript {
       return false;
     }
     MetaformScript metaformScript = (MetaformScript) o;
-    return Objects.equals(this.type, metaformScript.type) &&
-        Objects.equals(this.data, metaformScript.data);
+    return Objects.equals(this.name, metaformScript.name) &&
+        Objects.equals(this.language, metaformScript.language) &&
+        Objects.equals(this.content, metaformScript.content);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, data);
+    return Objects.hash(name, language, content);
   }
 
 
@@ -92,8 +114,9 @@ public class MetaformScript {
     StringBuilder sb = new StringBuilder();
     sb.append("class MetaformScript {\n");
     
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    language: ").append(toIndentedString(language)).append("\n");
+    sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("}");
     return sb.toString();
   }
