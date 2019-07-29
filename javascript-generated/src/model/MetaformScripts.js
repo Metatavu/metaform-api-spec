@@ -36,7 +36,7 @@
   /**
    * The MetaformScripts model module.
    * @module model/MetaformScripts
-   * @version 0.1.3
+   * @version 0.1.4
    */
 
   /**
@@ -62,14 +62,14 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('afterSubmit')) {
-        obj['afterSubmit'] = MetaformScript.constructFromObject(data['afterSubmit']);
+        obj['afterSubmit'] = ApiClient.convertToType(data['afterSubmit'], [MetaformScript]);
       }
     }
     return obj;
   }
 
   /**
-   * @member {module:model/MetaformScript} afterSubmit
+   * @member {Array.<module:model/MetaformScript>} afterSubmit
    */
   exports.prototype['afterSubmit'] = undefined;
 

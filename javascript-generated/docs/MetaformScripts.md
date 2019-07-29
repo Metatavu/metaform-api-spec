@@ -3,6 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**afterSubmit** | [**MetaformScript**](MetaformScript.md) |  | [optional] 
+**afterSubmit** | [**[MetaformScript]**](MetaformScript.md) |  | [optional] 
 
 
