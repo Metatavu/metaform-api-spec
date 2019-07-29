@@ -148,8 +148,8 @@ public class RepliesApiTest {
         String modifiedAfter = null;
         Boolean includeRevisions = null;
         List<String> fields = null;
-        String firstResult = null;
-        String maxResults = null;
+        Integer firstResult = null;
+        Integer maxResults = null;
         // List<Reply> response = api.listReplies(realmId, metaformId, userId, createdBefore, createdAfter, modifiedBefore, modifiedAfter, includeRevisions, fields, firstResult, maxResults);
 
         // TODO: test validations

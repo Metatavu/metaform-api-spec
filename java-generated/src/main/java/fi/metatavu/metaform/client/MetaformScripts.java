@@ -17,54 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import fi.metatavu.metaform.client.MetaformScript;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * NotImplemented
+ * MetaformScripts
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T14:02:51.404+03:00")
-public class NotImplemented {
-  @JsonProperty("code")
-  private Integer code = null;
+public class MetaformScripts {
+  @JsonProperty("afterSubmit")
+  private MetaformScript afterSubmit = null;
 
-  @JsonProperty("message")
-  private String message = null;
-
-  public NotImplemented code(Integer code) {
-    this.code = code;
+  public MetaformScripts afterSubmit(MetaformScript afterSubmit) {
+    this.afterSubmit = afterSubmit;
     return this;
   }
 
    /**
-   * Get code
-   * @return code
+   * Get afterSubmit
+   * @return afterSubmit
   **/
   @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
+  public MetaformScript getAfterSubmit() {
+    return afterSubmit;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
-  }
-
-  public NotImplemented message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Get message
-   * @return message
-  **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
+  public void setAfterSubmit(MetaformScript afterSubmit) {
+    this.afterSubmit = afterSubmit;
   }
 
 
@@ -76,24 +56,22 @@ public class NotImplemented {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NotImplemented notImplemented = (NotImplemented) o;
-    return Objects.equals(this.code, notImplemented.code) &&
-        Objects.equals(this.message, notImplemented.message);
+    MetaformScripts metaformScripts = (MetaformScripts) o;
+    return Objects.equals(this.afterSubmit, metaformScripts.afterSubmit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(afterSubmit);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NotImplemented {\n");
+    sb.append("class MetaformScripts {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    afterSubmit: ").append(toIndentedString(afterSubmit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

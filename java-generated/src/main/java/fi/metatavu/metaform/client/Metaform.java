@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import fi.metatavu.metaform.client.MetaformScripts;
 import fi.metatavu.metaform.client.MetaformSection;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +28,7 @@ import java.util.UUID;
 /**
  * Metaform
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-07T12:59:49.521+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T14:02:51.404+03:00")
 public class Metaform {
   @JsonProperty("id")
   private UUID id = null;
@@ -84,6 +85,9 @@ public class Metaform {
 
   @JsonProperty("sections")
   private List<MetaformSection> sections = null;
+
+  @JsonProperty("scripts")
+  private MetaformScripts scripts = null;
 
   public Metaform id(UUID id) {
     this.id = id;
@@ -219,6 +223,24 @@ public class Metaform {
     this.sections = sections;
   }
 
+  public Metaform scripts(MetaformScripts scripts) {
+    this.scripts = scripts;
+    return this;
+  }
+
+   /**
+   * Get scripts
+   * @return scripts
+  **/
+  @ApiModelProperty(value = "")
+  public MetaformScripts getScripts() {
+    return scripts;
+  }
+
+  public void setScripts(MetaformScripts scripts) {
+    this.scripts = scripts;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -235,12 +257,13 @@ public class Metaform {
         Objects.equals(this.allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(this.allowDrafts, metaform.allowDrafts) &&
         Objects.equals(this.title, metaform.title) &&
-        Objects.equals(this.sections, metaform.sections);
+        Objects.equals(this.sections, metaform.sections) &&
+        Objects.equals(this.scripts, metaform.scripts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
+    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections, scripts);
   }
 
 
@@ -256,6 +279,7 @@ public class Metaform {
     sb.append("    allowDrafts: ").append(toIndentedString(allowDrafts)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
+    sb.append("    scripts: ").append(toIndentedString(scripts)).append("\n");
     sb.append("}");
     return sb.toString();
   }

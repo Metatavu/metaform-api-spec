@@ -21,50 +21,50 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * NotImplemented
+ * MetaformScript
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T14:02:51.404+03:00")
-public class NotImplemented {
-  @JsonProperty("code")
-  private Integer code = null;
+public class MetaformScript {
+  @JsonProperty("type")
+  private String type = null;
 
-  @JsonProperty("message")
-  private String message = null;
+  @JsonProperty("data")
+  private String data = null;
 
-  public NotImplemented code(Integer code) {
-    this.code = code;
+  public MetaformScript type(String type) {
+    this.type = type;
     return this;
   }
 
    /**
-   * Get code
-   * @return code
+   * Get type
+   * @return type
   **/
-  @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
+  @ApiModelProperty(required = true, value = "")
+  public String getType() {
+    return type;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setType(String type) {
+    this.type = type;
   }
 
-  public NotImplemented message(String message) {
-    this.message = message;
+  public MetaformScript data(String data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * Get message
-   * @return message
+   * Get data
+   * @return data
   **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
+  @ApiModelProperty(required = true, value = "")
+  public String getData() {
+    return data;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setData(String data) {
+    this.data = data;
   }
 
 
@@ -76,24 +76,24 @@ public class NotImplemented {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NotImplemented notImplemented = (NotImplemented) o;
-    return Objects.equals(this.code, notImplemented.code) &&
-        Objects.equals(this.message, notImplemented.message);
+    MetaformScript metaformScript = (MetaformScript) o;
+    return Objects.equals(this.type, metaformScript.type) &&
+        Objects.equals(this.data, metaformScript.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(type, data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NotImplemented {\n");
+    sb.append("class MetaformScript {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

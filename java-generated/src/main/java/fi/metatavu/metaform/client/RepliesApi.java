@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import feign.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-07T12:59:49.521+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T14:02:51.404+03:00")
 public interface RepliesApi extends ApiClient.Api {
 
 
@@ -178,7 +178,7 @@ public interface RepliesApi extends ApiClient.Api {
     "Content-Type: application/json",
     "Accept: application/json",
   })
-  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions, @Param("fields") List<String> fields, @Param("firstResult") String firstResult, @Param("maxResults") String maxResults);
+  List<Reply> listReplies(@Param("realmId") String realmId, @Param("metaformId") UUID metaformId, @Param("userId") UUID userId, @Param("createdBefore") String createdBefore, @Param("createdAfter") String createdAfter, @Param("modifiedBefore") String modifiedBefore, @Param("modifiedAfter") String modifiedAfter, @Param("includeRevisions") Boolean includeRevisions, @Param("fields") List<String> fields, @Param("firstResult") Integer firstResult, @Param("maxResults") Integer maxResults);
 
   /**
    * Lists form replies
@@ -245,11 +245,11 @@ public interface RepliesApi extends ApiClient.Api {
       put("fields", EncodingUtils.encodeCollection(value, "csv"));
       return this;
     }
-    public ListRepliesQueryParams firstResult(final String value) {
+    public ListRepliesQueryParams firstResult(final Integer value) {
       put("firstResult", EncodingUtils.encode(value));
       return this;
     }
-    public ListRepliesQueryParams maxResults(final String value) {
+    public ListRepliesQueryParams maxResults(final Integer value) {
       put("maxResults", EncodingUtils.encode(value));
       return this;
     }
