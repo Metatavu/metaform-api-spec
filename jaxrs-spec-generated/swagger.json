@@ -1810,7 +1810,10 @@
           "type" : "object",
           "properties" : {
             "afterSubmit" : {
-              "$ref" : "#/definitions/MetaformScript"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MetaformScript"
+              }
             }
           }
         }

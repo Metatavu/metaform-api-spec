@@ -1,6 +1,8 @@
 package fi.metatavu.metaform.server.rest.model;
 
 import fi.metatavu.metaform.server.rest.model.MetaformScript;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -11,21 +13,21 @@ import java.util.Objects;
 
 public class MetaformScripts   {
   
-  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("afterSubmit") MetaformScript afterSubmit = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("afterSubmit") List<MetaformScript> afterSubmit = new ArrayList<MetaformScript>();
 
   /**
    **/
-  public MetaformScripts afterSubmit(MetaformScript afterSubmit) {
+  public MetaformScripts afterSubmit(List<MetaformScript> afterSubmit) {
     this.afterSubmit = afterSubmit;
     return this;
   }
 
   
   @ApiModelProperty(value = "")
-  public MetaformScript getAfterSubmit() {
+  public List<MetaformScript> getAfterSubmit() {
     return afterSubmit;
   }
-  public void setAfterSubmit(MetaformScript afterSubmit) {
+  public void setAfterSubmit(List<MetaformScript> afterSubmit) {
     this.afterSubmit = afterSubmit;
   }
 
