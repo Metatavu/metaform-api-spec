@@ -16,6 +16,10 @@ public enum MetaformTableColumnType {
   
   TEXT("text"),
   
+  URL("url"),
+  
+  EMAIL("email"),
+  
   AUTOCOMPLETE("autocomplete"),
   
   NUMBER("number"),

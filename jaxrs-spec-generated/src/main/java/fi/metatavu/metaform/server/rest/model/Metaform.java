@@ -1,5 +1,6 @@
 package fi.metatavu.metaform.server.rest.model;
 
+import fi.metatavu.metaform.server.rest.model.MetaformScripts;
 import fi.metatavu.metaform.server.rest.model.MetaformSection;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public enum ReplyStrategyEnum {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("allowDrafts") Boolean allowDrafts = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("title") String title = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("sections") List<MetaformSection> sections = new ArrayList<MetaformSection>();
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("scripts") MetaformScripts scripts = null;
 
   /**
    **/
@@ -167,6 +169,22 @@ public enum ReplyStrategyEnum {
     this.sections = sections;
   }
 
+  /**
+   **/
+  public Metaform scripts(MetaformScripts scripts) {
+    this.scripts = scripts;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public MetaformScripts getScripts() {
+    return scripts;
+  }
+  public void setScripts(MetaformScripts scripts) {
+    this.scripts = scripts;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -183,12 +201,13 @@ public enum ReplyStrategyEnum {
         Objects.equals(allowAnonymous, metaform.allowAnonymous) &&
         Objects.equals(allowDrafts, metaform.allowDrafts) &&
         Objects.equals(title, metaform.title) &&
-        Objects.equals(sections, metaform.sections);
+        Objects.equals(sections, metaform.sections) &&
+        Objects.equals(scripts, metaform.scripts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections);
+    return Objects.hash(id, replyStrategy, exportThemeId, allowAnonymous, allowDrafts, title, sections, scripts);
   }
 
   @Override
@@ -203,6 +222,7 @@ public enum ReplyStrategyEnum {
     sb.append("    allowDrafts: ").append(toIndentedString(allowDrafts)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    sections: ").append(toIndentedString(sections)).append("\n");
+    sb.append("    scripts: ").append(toIndentedString(scripts)).append("\n");
     sb.append("}");
     return sb.toString();
   }

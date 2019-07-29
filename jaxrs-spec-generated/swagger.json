@@ -343,12 +343,16 @@
           "name" : "firstResult",
           "in" : "query",
           "description" : "First index of results to be returned",
-          "required" : false
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
         }, {
           "name" : "maxResults",
           "in" : "query",
           "description" : "How many items to return at one time",
-          "required" : false
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
         } ],
         "responses" : {
           "200" : {
@@ -1801,6 +1805,26 @@
           "items" : {
             "$ref" : "#/definitions/MetaformSection"
           }
+        },
+        "scripts" : {
+          "type" : "object",
+          "properties" : {
+            "afterSubmit" : {
+              "$ref" : "#/definitions/MetaformScript"
+            }
+          }
+        }
+      }
+    },
+    "MetaformScript" : {
+      "type" : "object",
+      "required" : [ "data", "type" ],
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "data" : {
+          "type" : "string"
         }
       }
     },
@@ -1981,7 +2005,7 @@
     },
     "MetaformFieldType" : {
       "type" : "string",
-      "enum" : [ "text", "hidden", "email", "number", "memo", "boolean", "radio", "checklist", "date", "time", "date-time", "files", "table", "logo", "small-text", "html", "submit", "select", "autocomplete", "autocomplete-multiple" ]
+      "enum" : [ "text", "url", "hidden", "email", "number", "memo", "boolean", "radio", "checklist", "date", "time", "date-time", "files", "table", "logo", "small-text", "html", "submit", "select", "autocomplete", "autocomplete-multiple" ]
     },
     "MetaformTableColumn" : {
       "type" : "object",
@@ -2055,7 +2079,7 @@
     },
     "MetaformTableColumnType" : {
       "type" : "string",
-      "enum" : [ "hidden", "text", "autocomplete", "number", "enum", "date", "time", "html", "button" ]
+      "enum" : [ "hidden", "text", "url", "email", "autocomplete", "number", "enum", "date", "time", "html", "button" ]
     },
     "MetaformFieldOption" : {
       "type" : "object",

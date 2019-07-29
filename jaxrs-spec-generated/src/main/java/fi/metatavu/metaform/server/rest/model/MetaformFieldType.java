@@ -14,6 +14,8 @@ public enum MetaformFieldType {
   
   TEXT("text"),
   
+  URL("url"),
+  
   HIDDEN("hidden"),
   
   EMAIL("email"),
