@@ -16,6 +16,8 @@ public class Reply   {
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("id") UUID id = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("userId") UUID userId = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("revision") OffsetDateTime revision = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("createdAt") OffsetDateTime createdAt = null;
+  private @Valid @com.fasterxml.jackson.annotation.JsonProperty("modifiedAt") OffsetDateTime modifiedAt = null;
   private @Valid @com.fasterxml.jackson.annotation.JsonProperty("data") ReplyData data = null;
 
   /**
@@ -68,6 +70,38 @@ public class Reply   {
 
   /**
    **/
+  public Reply createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  /**
+   **/
+  public Reply modifiedAt(OffsetDateTime modifiedAt) {
+    this.modifiedAt = modifiedAt;
+    return this;
+  }
+
+  
+  @ApiModelProperty(value = "")
+  public OffsetDateTime getModifiedAt() {
+    return modifiedAt;
+  }
+  public void setModifiedAt(OffsetDateTime modifiedAt) {
+    this.modifiedAt = modifiedAt;
+  }
+
+  /**
+   **/
   public Reply data(ReplyData data) {
     this.data = data;
     return this;
@@ -95,12 +129,14 @@ public class Reply   {
     return Objects.equals(id, reply.id) &&
         Objects.equals(userId, reply.userId) &&
         Objects.equals(revision, reply.revision) &&
+        Objects.equals(createdAt, reply.createdAt) &&
+        Objects.equals(modifiedAt, reply.modifiedAt) &&
         Objects.equals(data, reply.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, revision, data);
+    return Objects.hash(id, userId, revision, createdAt, modifiedAt, data);
   }
 
   @Override
@@ -111,6 +147,8 @@ public class Reply   {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
