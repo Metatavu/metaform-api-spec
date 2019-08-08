@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * MetaformScripts
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:21:47.304+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-08T09:39:57.256+03:00")
 public class MetaformScripts {
   @JsonProperty("afterCreateReply")
   private List<MetaformScript> afterCreateReply = null;

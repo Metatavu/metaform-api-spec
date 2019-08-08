@@ -26,7 +26,7 @@ import java.util.UUID;
 /**
  * Reply
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-29T18:21:47.304+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-08T09:39:57.256+03:00")
 public class Reply {
   @JsonProperty("id")
   private UUID id = null;
@@ -36,6 +36,12 @@ public class Reply {
 
   @JsonProperty("revision")
   private OffsetDateTime revision = null;
+
+  @JsonProperty("createdAt")
+  private OffsetDateTime createdAt = null;
+
+  @JsonProperty("modifiedAt")
+  private OffsetDateTime modifiedAt = null;
 
   @JsonProperty("data")
   private ReplyData data = null;
@@ -94,6 +100,42 @@ public class Reply {
     this.revision = revision;
   }
 
+  public Reply createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Reply modifiedAt(OffsetDateTime modifiedAt) {
+    this.modifiedAt = modifiedAt;
+    return this;
+  }
+
+   /**
+   * Get modifiedAt
+   * @return modifiedAt
+  **/
+  @ApiModelProperty(value = "")
+  public OffsetDateTime getModifiedAt() {
+    return modifiedAt;
+  }
+
+  public void setModifiedAt(OffsetDateTime modifiedAt) {
+    this.modifiedAt = modifiedAt;
+  }
+
   public Reply data(ReplyData data) {
     this.data = data;
     return this;
@@ -125,12 +167,14 @@ public class Reply {
     return Objects.equals(this.id, reply.id) &&
         Objects.equals(this.userId, reply.userId) &&
         Objects.equals(this.revision, reply.revision) &&
+        Objects.equals(this.createdAt, reply.createdAt) &&
+        Objects.equals(this.modifiedAt, reply.modifiedAt) &&
         Objects.equals(this.data, reply.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, revision, data);
+    return Objects.hash(id, userId, revision, createdAt, modifiedAt, data);
   }
 
 
@@ -142,6 +186,8 @@ public class Reply {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
