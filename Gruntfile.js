@@ -2,154 +2,87 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const path = require('path');
 
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   
-  const SWAGGER_SRC = "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/swagger-codegen-cli/3.0.0-SNAPSHOT/swagger-codegen-cli-3.0.0-20180112.231857-20.jar";
-  const PHP_CLIENT_VERSION = "0.1.1";
- 
+  const SWAGGER_VERSION = "3.0.4";
+  const SWAGGER_JAR = `swagger-codegen-cli-${SWAGGER_VERSION}.jar`;
+  const SWAGGER_URL = `https://search.maven.org/remotecontent?filepath=io/swagger/codegen/v3/swagger-codegen-cli/${SWAGGER_VERSION}/${SWAGGER_JAR}`;
+  const TYPESCRIPT_CLIENT_PACKAGE = "metaform-api-client";
+  const TYPESCRIPT_CLIENT_VERSION = require("./typescript-client-generated/package.json").version;
+  
+  grunt.registerMultiTask('typescript-client-reply-post-process', 'Post process typescript client reply', function () {
+    const file = `${this.data.folder}/model/replyData.ts`;
+    const contents = fs.readFileSync(file, "utf8");
+    fs.writeFileSync(file, contents.replace(/Map/g, 'any'));
+  });
+
   grunt.initConfig({
-    'curl': {
-      'swagger-codegen':  {
-        src: SWAGGER_SRC,
-        dest: 'swagger-codegen-cli.jar'
+    "curl": {
+      "swagger-codegen":  {
+        src: SWAGGER_URL,
+        dest: SWAGGER_JAR
       }
     },
-    'clean': {
-      'jaxrs-spec-cruft': [
-        'jaxrs-spec-generated/src/main/java/fi/metatavu/metaform/server/RestApplication.java'
-      ],
-      'jaxrs-spec-sources': ['jaxrs-spec-generated/src'],
-      'java-sources': ['java-generated/src']
+    "clean": {
+      "typescript-client": [
+        "typescript-client-generated/typings.json",
+        "typescript-client-generated/api.module.ts",
+        "typescript-client-generated/variables.ts",
+        "typescript-client-generated/encoder.ts",
+        "typescript-client-generated/configuration.ts"
+      ]
     },
-    'shell': {
-      'jaxrs-spec-generate': {
-        command : 'mv jaxrs-spec-generated/pom.xml jaxrs-spec-generated/pom.xml.before && ' +
-          'java -jar swagger-codegen-cli.jar generate ' +
-          '-i ./swagger.yaml ' +
-          '-l jaxrs-spec ' +
-          '--api-package fi.metatavu.metaform.server.rest ' +
-          '--model-package fi.metatavu.metaform.server.rest.model ' +
-          '--group-id fi.metatavu.metaform ' +
-          '--artifact-id metaform-api-spec ' +
-          '--artifact-version `cat jaxrs-spec-generated/pom.xml.before|grep version -m 1|sed -e \'s/.*<version>//\'|sed -e \'s/<.*//\'` ' +
-          '--template-dir jaxrs-spec-templates ' +
-          '--additional-properties dateLibrary=java8,useBeanValidation=true,sourceFolder=src/main/java,interfaceOnly=true ' +
-          '-o jaxrs-spec-generated/'
+    "typescript-api-post-process": {
+      "api": {
+        "folder": "typescript-model-generated"
+      }
+    },
+    "typescript-client-reply-post-process": {
+      "process": {
+        "folder": "typescript-client-generated"
+      }
+    },
+    "shell": {
+      "typescript-client-generate": {
+        command : `java -jar ${SWAGGER_JAR} generate ` +
+          "-i ./swagger.yaml " +
+          "-l typescript-angular " +
+          "-t typescript-client-template/ " +
+          "-o typescript-client-generated/ " +
+          "--template-engine mustache " +
+          `--additional-properties projectName=${TYPESCRIPT_CLIENT_PACKAGE},npmName=${TYPESCRIPT_CLIENT_PACKAGE},npmVersion=${TYPESCRIPT_CLIENT_VERSION}`
       },
-      'jaxrs-spec-install': {
-        command : 'mvn install',
-        options: {
-          execOptions: {
-            cwd: 'jaxrs-spec-generated'
-          }
-        }
-      },
-      'jaxrs-spec-release': {
-        command : 'git add src pom.xml swagger.json && git commit -m "Generated source" && git push && mvn -B release:clean release:prepare release:perform',
-        options: {
-          execOptions: {
-            cwd: 'jaxrs-spec-generated'
-          }
-        }
-      },
-
-      'java-generate': {
-        command : 'mv java-generated/pom.xml java-generated/pom.xml.before && ' +
-          'java -jar swagger-codegen-cli.jar generate ' +
-          '-i ./swagger.yaml ' +
-          '-l java ' +
-          '--api-package fi.metatavu.metaform.client ' +
-          '--model-package fi.metatavu.metaform.client ' +
-          '--group-id fi.metatavu.metaform ' +
-          '--artifact-id metaform-api-client ' +
-          '--artifact-version `cat java-generated/pom.xml.before|grep version -m 1|sed -e \'s/.*<version>//\'|sed -e \'s/<.*//\'` ' +
-          '--template-dir java-templates ' +
-          '--additional-properties library=feign,dateLibrary=java8,sourceFolder=src/main/java ' +
-          '-o java-generated/'
-      },
-      'java-install': {
-        command : 'mvn install',
-        options: {
-          execOptions: {
-            cwd: 'java-generated'
-          }
-        }
-      },
-      'java-release': {
-        command : 'git add src pom.xml && git commit -m "Generated source" && git push && mvn -B release:clean release:prepare release:perform',
-        options: {
-          execOptions: {
-            cwd: 'java-generated'
-          }
-        }
-      },
-
-      'php-client-generate': {
-        command : 'java -jar swagger-codegen-cli.jar generate ' +
-          '-i ./swagger.yaml ' +
-          '-l php ' +
-          '--template-dir php-templates ' +
-          '-o php-generated ' +
-          '--additional-properties packagePath=metaform-api-client-php,composerVendorName=metatavu,composerProjectName=metaform-api-client-php,variableNamingConvention=camelCase,invokerPackage=Metatavu\\\\Metaform,apiPackage=Api,modelPackage=Api\\\\Model,artifactVersion=' + PHP_CLIENT_VERSION
-      },
-      'php-client-publish': {
-        command : 'sh git_push.sh',
-        options: {
-          execOptions: {
-            cwd: 'php-generated/metaform-api-client-php'
-          }
-        }
-      },
-
-      'javascript-generate': {
-        command : 'java -jar swagger-codegen-cli.jar generate ' +
-          '-i ./swagger.yaml ' +
-          '-l javascript ' +
-          '--template-dir javascript-templates ' +
-          '-o javascript-generated/ ' +
-          '--additional-properties useES6=false,usePromises=true,projectName=metaform-api-client,projectVersion='  + require('./javascript-generated/package.json').version
-      },
-      'javascript-bump-version': {
+      'typescript-client-bump-version': {
         command: 'npm version patch',
         options: {
           execOptions: {
-            cwd: 'javascript-generated'
+            cwd: 'typescript-client-generated'
           }
         }
       },
-      'javascript-push': {
-        command : 'git add . && git commit -m "Generated javascript source" ; git push',
+      'typescript-client-push': {
+        command : 'git add . && git commit -m "Generated javascript source" && git push',
         options: {
           execOptions: {
-            cwd: 'javascript-generated'
+            cwd: 'typescript-client-generated'
           }
         }
       },
-      'javascript-publish': {
-        command : 'npm publish',
+      "typescript-client-publish": {
+        command : 'npm install && npm run build && npm publish',
         options: {
           execOptions: {
-            cwd: 'javascript-generated'
+            cwd: 'typescript-client-generated'
           }
         }
-      }
+      },
     }
   });
-  
+
   grunt.registerTask('download-dependencies', 'if-missing:curl:swagger-codegen');
-  grunt.registerTask('jaxrs-gen', [ 'download-dependencies', 'clean:jaxrs-spec-sources', 'shell:jaxrs-spec-generate', 'clean:jaxrs-spec-cruft', 'shell:jaxrs-spec-install' ]);
-  grunt.registerTask('jaxrs-spec', [ 'jaxrs-gen', 'shell:jaxrs-spec-release' ]);
-  grunt.registerTask('java-gen', [ 'download-dependencies', 'clean:java-sources', 'shell:java-generate', 'shell:java-install' ]);
-  grunt.registerTask('java', [ 'java-gen', 'shell:java-release' ]);
-  grunt.registerTask('php-gen', [ "shell:php-client-generate" ]);
-  grunt.registerTask('php', [ "php-gen", "shell:php-client-publish" ]);
-
-  grunt.registerTask('javascript-gen', [ "shell:javascript-generate" ]);
-  grunt.registerTask('javascript', [ "javascript-gen", "shell:javascript-bump-version", "shell:javascript-push", "shell:javascript-publish" ]);
-
-  grunt.registerTask('default', [ "jaxrs-spec", "java", "php", "javascript" ]);
-
+  grunt.registerTask('typescript-client-gen', [ 'download-dependencies', 'shell:typescript-client-generate', 'typescript-client-reply-post-process:process', 'clean:typescript-client']);
+  grunt.registerTask('typescript-client', [ 'typescript-client-gen', "shell:typescript-client-bump-version", "shell:typescript-client-push", "shell:typescript-client-publish" ]);
+  
 };
