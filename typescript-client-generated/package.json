@@ -1,6 +1,6 @@
 {
   "name": "metaform-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "swagger client for metaform-api-client",
   "author": "Swagger Codegen Contributors",
   "keywords": [
