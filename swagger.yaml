@@ -1248,7 +1248,6 @@ paths:
       summary: Lists files of export theme
       description: Lists files of export theme
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
@@ -1302,7 +1301,6 @@ paths:
       summary: create new export theme file
       description: Creates new export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
@@ -1357,7 +1355,6 @@ paths:
       summary: Finds single export theme file
       description: Finds single export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
@@ -1416,7 +1413,6 @@ paths:
       summary: Updates export theme file
       description: Updates export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
@@ -1477,7 +1473,6 @@ paths:
       summary: Deletes an export theme file
       description: Deletes an export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
