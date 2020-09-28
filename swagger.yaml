@@ -1,28 +1,17 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Metaform REST API
   description: REST API for Metaform
-  version: 0.0.1
-schemes:
-  - https
-basePath: /
-consumes:
-  - application/json;charset=utf-8
-produces:
-  - application/json;charset=utf-8
-securityDefinitions:
-  bearer:
-    type: apiKey
-    name: Authorization
-    in: header
+  version: 2.0.0
 security:
   - bearer: []
 paths:
-  '/realms/{realmId}/metaforms':
+  "/realms/{realmId}/metaforms":
     get:
       operationId: listMetaforms
-      summary: Lists Metaforms 
-      description: Lists Metaforms from the realm. User receives only metaforms where he/she has permission to. 
+      summary: Lists Metaforms
+      description: Lists Metaforms from the realm. User receives only metaforms where
+        he/she has permission to.
       tags:
         - Metaforms
       parameters:
@@ -30,29 +19,38 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: A list of metaforms
-          schema:
-            type: "array"
-            items: 
-              $ref: '#/definitions/Metaform'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Metaform"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createMetaform
-      summary: create new Metaform 
+      summary: create new Metaform
       description: Creates new Metaform
       tags:
         - Metaforms
@@ -61,39 +59,45 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/Metaform'
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/Metaform"
       responses:
-        '200':
+        "200":
           description: Created Metaform
-          schema:
-            $ref: '#/definitions/Metaform'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Metaform"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  '/realms/{realmId}/metaforms/{metaformId}':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}":
     get:
       operationId: findMetaform
-      summary: Finds single Metaform 
+      summary: Finds single Metaform
       description: Finds a single Metaform
       tags:
         - Metaforms
@@ -102,37 +106,49 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: A metaform
-          schema:
-            $ref: '#/definitions/Metaform'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Metaform"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateMetaform
-      summary: Updates Metaform 
+      summary: Updates Metaform
       description: Updates a Metaform
       tags:
         - Metaforms
@@ -141,43 +157,51 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/Metaform'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Metaform"
       responses:
-        '200':
+        "200":
           description: Updated Metaform
-          schema:
-            $ref: '#/definitions/Metaform'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Metaform"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteMetaform
-      summary: Deletes Metaform 
+      summary: Deletes Metaform
       description: Deletes a Metaform
       tags:
         - Metaforms
@@ -186,37 +210,46 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '204':
+        "204":
           description: Empty content indicating a successful removal
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  '/realms/{realmId}/metaforms/{metaformId}/replies':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
-      summary: Lists form replies 
+      summary: Lists form replies
       description: Lists form replies
       tags:
         - Replies
@@ -225,83 +258,109 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: userId
           in: query
-          description: Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so
-          type: string
-          format: uuid
+          description: Filter results by user id. If this parameter is not specified all
+            replies are returned, this requires logged user to have proper
+            permission to do so
+          schema:
+            type: string
+            format: uuid
         - name: createdBefore
           description: Filter results created before specified time
           in: query
-          type: string
+          schema:
+            type: string
         - name: createdAfter
           description: Filter results created after specified time
           in: query
-          type: string
+          schema:
+            type: string
         - name: modifiedBefore
           description: Filter results modified before specified time
           in: query
-          type: string
+          schema:
+            type: string
         - name: modifiedAfter
           description: Filter results modified after specified time
           in: query
-          type: string
+          schema:
+            type: string
         - name: includeRevisions
           in: query
           description: Specifies that revisions should be included into response
-          type: boolean
+          schema:
+            type: boolean
         - name: fields
           in: query
-          type: array
-          collectionFormat: csv
-          description: Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
-          items:
-            type: string
+          description: Filter results by field values. Format is field:value, multiple
+            values can be added by using comma separator. E.g.
+            field1=value,field2=another
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
         - name: firstResult
           in: query
           description: First index of results to be returned
           required: false
-          type: integer
-          format: int32
+          schema:
+            type: integer
+            format: int32
         - name: maxResults
           in: query
           description: How many items to return at one time
           required: false
-          type: integer
-          format: int32
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: A list of replies
-          schema:
-            type: "array"
-            items: 
-              $ref: '#/definitions/Reply'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reply"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createReply
-      summary: create new form reply 
+      summary: create new form reply
       description: Creates new form reply
       tags:
         - Replies
@@ -310,53 +369,64 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: updateExisting
           in: query
-          description: specifies that existing reply should be updated. DEPRECATED, use replymode instead
-          type: boolean
+          description: specifies that existing reply should be updated. DEPRECATED, use
+            replymode instead
+          schema:
+            type: boolean
         - name: replyMode
           in: query
-          description: specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
-          type: string
-        - name: payload
-          in: body
-          description: Payload
-          required: true
+          description: specifies reply mode that will be used. possible values UPDATE,
+            REVISION, CUMULATIVE
           schema:
-            $ref: '#/definitions/Reply'
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/Reply"
       responses:
-        '200':
+        "200":
           description: Created reply
-          schema:
-            $ref: '#/definitions/Reply'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Reply"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-            
-  '/realms/{realmId}/metaforms/{metaformId}/export':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/export":
     get:
       operationId: export
-      summary: Exports metaform data 
+      summary: Exports metaform data
       description: Exports metaform data
       tags:
         - Replies
@@ -365,41 +435,54 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: format
           in: query
           description: Export results in specified format (XLSX)
-          type: string
           required: true
-      responses:
-        '200':
-          description: Exported Metaform
           schema:
             type: string
-            format: binary
-        '400':
+      responses:
+        "200":
+          description: Exported Metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+                format: binary
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-  '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}":
     get:
       operationId: findReply
       summary: Find a single reply
@@ -411,40 +494,53 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: replyId
           required: true
           in: path
           description: Reply id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: A reply
-          schema:
-            $ref: '#/definitions/Reply'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Reply"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateReply
       summary: Updates reply
@@ -456,47 +552,54 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: replyId
           required: true
           in: path
           description: Reply id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/Reply'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Reply"
       responses:
-        '204':
+        "204":
           description: Empty response indicating a succesful update
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteReply
-      summary: Deletes a reply 
+      summary: Deletes a reply
       description: Deletes a reply
       tags:
         - Replies
@@ -505,42 +608,53 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: replyId
           required: true
           in: path
           description: Reply id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '204':
+        "204":
           description: Empty content indicating a successful removal
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-  '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export":
     get:
       operationId: replyExport
-      summary: Exports reply data 
+      summary: Exports reply data
       description: Exports reply data
       tags:
         - Replies
@@ -549,50 +663,64 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: replyId
           required: true
           in: path
           description: Reply id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: format
           in: query
           description: Export results in specified format (PDF)
-          type: string
           required: true
-      responses:
-        '200':
-          description: Exported reply
           schema:
             type: string
-            format: binary
-        '400':
+      responses:
+        "200":
+          description: Exported reply
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+                format: binary
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-  '/realms/{realmId}/metaforms/{metaformId}/emailNotifications':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications":
     get:
       operationId: listEmailNotifications
-      summary: Lists form email notifications 
+      summary: Lists form email notifications
       description: Lists email notifications
       tags:
         - EmailNotifications
@@ -601,39 +729,51 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: A list of email notifications
-          schema:
-            type: "array"
-            items: 
-              $ref: '#/definitions/EmailNotification'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmailNotification"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createEmailNotification
-      summary: create new form email notification 
+      summary: create new form email notification
       description: Creates new form email notification
       tags:
         - EmailNotifications
@@ -642,42 +782,49 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/EmailNotification'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/EmailNotification"
       responses:
-        '200':
+        "200":
           description: Created email notification
-          schema:
-            $ref: '#/definitions/EmailNotification'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/EmailNotification"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-            
-  '/realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
     get:
       operationId: findEmailNotification
       summary: Find a single emai notification
@@ -689,40 +836,53 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: emailNotificationId
           required: true
           in: path
           description: EmailNotification id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: an email notification
-          schema:
-            $ref: '#/definitions/EmailNotification'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/EmailNotification"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateEmailNotification
       summary: Updates email notification
@@ -734,49 +894,58 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: emailNotificationId
           required: true
           in: path
           description: EmailNotification id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/EmailNotification'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/EmailNotification"
       responses:
-        '200':
+        "200":
           description: an email notification
-          schema:
-            $ref: '#/definitions/EmailNotification'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/EmailNotification"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteEmailNotification
-      summary: Deletes an email notification 
+      summary: Deletes an email notification
       description: Deletes an email notification
       tags:
         - EmailNotifications
@@ -785,43 +954,53 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: emailNotificationId
           required: true
           in: path
           description: Email notification id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '204':
+        "204":
           description: Empty response indicating a successful removal
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  '/realms/{realmId}/exportThemes':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/exportThemes":
     get:
       operationId: listExportThemes
-      summary: Lists form export themes 
+      summary: Lists form export themes
       description: Lists export themes
       tags:
         - ExportThemes
@@ -830,33 +1009,44 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: A list of export themes
-          schema:
-            type: "array"
-            items: 
-              $ref: '#/definitions/ExportTheme'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExportTheme"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createExportTheme
-      summary: create new form export theme 
+      summary: create new form export theme
       description: Creates new form export theme
       tags:
         - ExportThemes
@@ -865,36 +1055,42 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/ExportTheme'
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/ExportTheme"
       responses:
-        '200':
+        "200":
           description: Created export theme
-          schema:
-            $ref: '#/definitions/ExportTheme'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportTheme"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  '/realms/{realmId}/exportThemes/{exportThemeId}':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/exportThemes/{exportThemeId}":
     get:
       operationId: findExportTheme
       summary: Finds single export theme
@@ -906,34 +1102,46 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: single export theme
-          schema:
-            $ref: '#/definitions/ExportTheme'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportTheme"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateExportTheme
       summary: Updates export theme
@@ -945,40 +1153,48 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: ExportTheme id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/ExportTheme'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/ExportTheme"
       responses:
-        '200':
+        "200":
           description: an updated export theme
-          schema:
-            $ref: '#/definitions/ExportTheme'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportTheme"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteExportTheme
       summary: Deletes an export theme
@@ -990,267 +1206,323 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '204':
+        "204":
           description: Empty response indicating a successful removal
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-  '/realms/{realmId}/exportThemes/{exportThemeId}/files':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/exportThemes/{exportThemeId}/files":
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
       description: Lists files of export theme
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: A list of export theme files
-          schema:
-            type: "array"
-            items: 
-              $ref: '#/definitions/ExportThemeFile'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExportThemeFile"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createExportThemeFile
       summary: create new export theme file
       description: Creates new export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/ExportThemeFile'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/ExportThemeFile"
       responses:
-        '200':
+        "200":
           description: Created export theme file
-          schema:
-            $ref: '#/definitions/ExportThemeFile'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportThemeFile"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  '/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
       summary: Finds single export theme file
       description: Finds single export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: exportThemeFileId
           required: true
           in: path
           description: export theme file id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '200':
+        "200":
           description: single export theme file
-          schema:
-            $ref: '#/definitions/ExportThemeFile'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportThemeFile"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateExportThemeFile
       summary: Updates export theme file
       description: Updates export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: ExportTheme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: exportThemeFileId
           required: true
           in: path
           description: ExportThemeFile file id
-          type: string
-          format: uuid
-        - name: payload
-          in: body
-          description: Payload
-          required: true
           schema:
-            $ref: '#/definitions/ExportThemeFile'
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/ExportThemeFile"
       responses:
-        '200':
+        "200":
           description: an updated export theme file
-          schema:
-            $ref: '#/definitions/ExportThemeFile'
-        '400':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportThemeFile"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteExportThemeFile
-      summary: Deletes an export theme file 
+      summary: Deletes an export theme file
       description: Deletes an export theme file
       tags:
-        - ExportThemes
         - ExportThemeFiles
       parameters:
         - name: realmId
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: exportThemeId
           required: true
           in: path
           description: export theme id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: exportThemeFileId
           required: true
           in: path
           description: export theme file id
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
       responses:
-        '204':
+        "204":
           description: Empty response indicating a successful removal
-        '400':
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        '403':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        '404':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
           description: Attempted to make a call to an non existant metaform
-          schema:
-            $ref: '#/definitions/NotFound'
-        '500':
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-
-  /realms/{realmId}/attachments/{attachmentId}:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/attachments/{attachmentId}":
     get:
       operationId: findAttachment
       summary: Find a attachment by id
@@ -1260,34 +1532,43 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: attachmentId
           in: path
           description: Attachment id
-          type: string
-          format: uuid
           required: true
+          schema:
+            type: string
+            format: uuid
       tags:
         - Attachments
       responses:
-        200:
+        "200":
           description: an attachment
-          schema:
-            $ref: '#/definitions/Attachment'
-        400:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Attachment"
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        403:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        500:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-  
-  /realms/{realmId}/attachments/{attachmentId}/data:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/realms/{realmId}/attachments/{attachmentId}/data":
     get:
       operationId: findAttachmentData
       summary: Find a attachment data by id
@@ -1297,494 +1578,532 @@ paths:
           required: true
           in: path
           description: realm id
-          type: string
+          schema:
+            type: string
         - name: attachmentId
           in: path
           description: Attachment id
-          type: string
-          format: uuid
           required: true
+          schema:
+            type: string
+            format: uuid
       tags:
         - Attachments
       responses:
-        200:
+        "200":
           description: Returns an attachment data
-          schema:
-            type: string
-            format: binary
-        400:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: string
+                format: binary
+        "400":
           description: Invalid request was sent to the server
-          schema:
-            $ref: '#/definitions/BadRequest'
-        403:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
           description: Attempted to make a call with unauthorized client
-          schema:
-            $ref: '#/definitions/Forbidden'
-        500:
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
           description: Internal server error
-          schema:
-            $ref: '#/definitions/InternalServerError'
-            
-definitions:
-  Reply:
-    type: object
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      userId:
-        type: "string"
-        format: "uuid"
-      revision:
-        type: "string"
-        format: "date-time"
-      createdAt: 
-        type: "string"
-        format: "date-time"
-      modifiedAt: 
-        type: "string"
-        format: "date-time"
-      data:
-        $ref: '#/definitions/ReplyData'
-          
-  ReplyData:
-    type: object
-    additionalProperties:
-      type: object
-
-  Metaform:
-    type: object
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      replyStrategy:
-        type: "string"
-        enum:
-          - PUBLIC
-          - PRIVATE
-      exportThemeId:
-        type: "string"
-        format: "uuid"
-      allowAnonymous:
-        type: "boolean"
-        description: Are anonymous replies allowed or not
-      allowDrafts:
-        type: "boolean"
-        description: Are drafts allowed or not
-      title: 
-        type: "string"
-      sections: 
-        type: "array"
-        items: 
-          $ref: '#/definitions/MetaformSection'
-      scripts:
-        type: object
-        properties:
-          afterCreateReply:
-            type: "array"
-            description: List of scripts run after new reply is created
-            items: 
-              $ref: '#/definitions/MetaformScript'
-          afterUpdateReply:
-            type: "array"
-            description: List of scripts run after a reply is updated
-            items: 
-              $ref: '#/definitions/MetaformScript'
-
-  MetaformScript:
-    type: object
-    required:
-      - name
-      - language
-      - content
-    properties: 
-      name: 
-        type: string
-      language: 
-        type: string
-      content: 
-        type: string
-
-  MetaformSection:
-    type: "object"
-    properties: 
-      title: 
-        type: "string"
-      visible-if:
-        $ref: '#/definitions/MetaformVisibleIf'
-      fields: 
-        type: "array"
-        items: 
-          $ref: '#/definitions/MetaformField'
-          
-  MetaformField:
-    type: "object"
-    required:
-      - type
-    properties:
-      visible-if:
-        $ref: '#/definitions/MetaformVisibleIf' 
-      permission-contexts: 
-        type: object
-        properties:
-          view-group: 
-            type: boolean
-            description: Field value is used as security group with view permission
-            default: false
-          edit-group: 
-            type: boolean
-            description: Field value is used as security group with edit permission
-            default: false
-          notify-group: 
-            type: boolean
-            description: Field value is used as security group with notification permission
-            default: false
-      name: 
-        type: "string"
-        description: Field name
-      type:
-        $ref: '#/definitions/MetaformFieldType'
-      title: 
-        type: "string"
-      required: 
-        type: "boolean"
-      contexts:
-        type: "array"
-        items:
-          type: "string"
-      flags: 
-        $ref: '#/definitions/MetaformFieldFlags'
-      placeholder: 
-        type: "string"
-      class:
-        type: "string"
-      readonly:
-        type: "boolean"
-      help:
-        type: "string"
-      default:
-        description: a default value for a field
-        type: "string"
-      min:
-        type: "integer"
-        format: int32
-        description: Minimum value for a field. Only for number fields
-      max:
-        type: "integer"
-        format: int32
-        description: Maximum value for a field. Only for number fields
-      step:
-        type: "integer"
-        format: int32
-        description: Value step for a field. Only for number fields
-      checked:
-        type: "boolean"
-        description: Whether checkbox should be checked by default. Only for checkbox fields
-      printable:
-        type: "boolean"
-        description: Defines whether field is printable or not. Only for table fields        
-      options:
-        type: "array"
-        description: Options for radio, checklist, select fields
-        items: 
-          $ref: '#/definitions/MetaformFieldOption'
-      source-url:
-        type: "string"
-        description: Source url for autocomplete and autocomplete-multiple fields
-        format: "url"
-      upload-url:
-        type: "string"
-        description: Upload url for files field.
-        format: "url"
-      single-file:
-        type: "boolean"
-        description: Defines whether file fields allow multiple files or just one
-      only-images:
-        type: "boolean"
-        description: Defines whether file fields allow only images
-      max-file-size:
-        type: "integer"
-        format: int64
-        description: Maximum upload size for image filds
-      add-rows:
-        type: "boolean"
-        description: Defines whether user can add more table rows.
-      draggable:
-        type: "boolean"
-        description: Defines whether table rows should be draggable.
-      columns:
-        type: "array"
-        description: Columns for table fields
-        items:
-          $ref: '#/definitions/MetaformTableColumn'
-      src: 
-        type: "string"
-        description: Url for logo field.
-        format: "url"
-      text:
-        type: "string"
-        description: Text for small field.
-      html:
-        type: "string"
-        description: Html code for html field.
-        
-  MetaformFieldFlags:
-    type: "object"
-    properties:
-      managementEditable:
-        type: "boolean"
-        description: Field should be editable in management service
-        default: false
-    
-  MetaformFieldType:
-    type: "string"
-    enum:
-      - text
-      - url
-      - hidden
-      - email
-      - number
-      - memo
-      - boolean
-      - radio
-      - checklist
-      - date
-      - time
-      - date-time
-      - files
-      - table
-      - logo
-      - small-text
-      - html
-      - submit
-      - select
-      - autocomplete
-      - autocomplete-multiple 
-
-  MetaformTableColumn:
-    type: "object"
-    required:
-      - type
-      - name
-    properties:
-      type:
-        $ref: '#/definitions/MetaformTableColumnType'
-      name:
-        type: "string"
-        description: Column name
-      title:
-        type: "string"
-        description: Column title
-      calculate-sum:
-        type: "boolean"
-        description: Defines column should automatically calculate sum
-      sum-postfix:
-        type: "string"
-        description: Postfix for calculated sum
-      column-width:
-        type: "integer"
-        description: Defines column width
-        format: int32
-      placeholder:
-        type: "string"
-        description: Placeholder for column field
-      readonly:
-        type: "boolean"
-        description: Defines column as readonly
-      required:
-        type: "boolean"
-        description: Defines column as requires
-      source-url:
-        type: "string"
-        format: "url"
-        description: Defines source url for autocomplete columns
-      html:
-        type: "string"
-        description: Html code for html columns
-      action:
-        type: "string"
-        description: Action for button columns
-      values:
-        type: "object"
-        description: Values for enum columns
-        properties:
-          value: 
-            type: "string"
-          other:
-            type: "string"
-          text:
-            type: "string"
-
-  MetaformTableColumnType:
-    type: "string"
-    enum:
-      - hidden
-      - text
-      - url
-      - email
-      - autocomplete
-      - number
-      - enum
-      - date
-      - time
-      - html
-      - button
-        
-  MetaformFieldOption:
-    type: "object"
-    description: Option object for Metaform field
-    required:
-      - name
-      - text
-    properties:
-      name:
-        description: Option name
-        type: "string"
-      text:
-        description: Option text
-        type: "string"
-      checked:
-        description: Defines whether option should be checked by default.
-        type: boolean
-      selected:
-        description: Defines whether option should be selected by default.
-        type: boolean
-        
-  MetaformVisibleIf:
-    type: "object"
-    description: Rule that defines whether specified object is visible
-    properties:
-      field: 
-        type: "string"
-        description: Field where the visible if rule is relative to
-      equals:
-        type: "string"
-        description: Value must be equal to this value. If value is specified "true" field must have any value selected
-      not-equals:
-        type: "string"
-        description: Value must be not equal to this value.
-      and:
-        type: "array"
-        items: 
-          $ref: '#/definitions/MetaformVisibleIf'
-      or:
-        type: "array"
-        items: 
-          $ref: '#/definitions/MetaformVisibleIf'
-        
-  EmailNotification:
-    type: "object"
-    description: Email notification
-    required: 
-      - emails
-      - subjectTemplate
-      - contentTemplate
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      subjectTemplate:
-        type: "string"
-      contentTemplate:
-        type: "string"
-      emails:
-        type: "array"
-        items: 
-          type: "string"
-
-  Attachment:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uuid
-        description: Entity identifier
-      name:
-        description: Attachment's name
-        type: string
-      contentType:
-        description: Attachment's content type (e.g. application/pdf)
-        type: string
-
-  ExportTheme:
-    type: "object"
-    required: 
-      - name
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      name:
-        type: "string"
-      parentId:
-        type: "string"
-        format: "uuid"
-      locales:
-        type: "string"
-
-  ExportThemeFile:
-    type: "object"
-    required: 
-      - path
-      - themeId
-      - content
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      path:
-        type: "string"
-      themeId:
-        type: "string"
-        format: "uuid"
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+servers:
+  - url: /
+components:
+  requestBodies:
+    Reply:
       content:
-        type: "string"
-
-  ReplyExportFormat:
-    type: string
-    enum: [ XLSX, PDF ]
-  InternalServerError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-        
-  Forbidden:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-        
-  BadRequest:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-        
-  NotImplemented:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-        
-  NotFound:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Reply"
+      description: Payload
+      required: true
+    Metaform:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Metaform"
+      description: Payload
+      required: true
+    ExportThemeFile:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/ExportThemeFile"
+      description: Payload
+      required: true
+    EmailNotification:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/EmailNotification"
+      description: Payload
+      required: true
+    ExportTheme:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/ExportTheme"
+      description: Payload
+      required: true
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+  schemas:
+    Reply:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        revision:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+        data:
+          $ref: "#/components/schemas/ReplyData"
+    ReplyData:
+      type: object
+      additionalProperties:
+        type: object
+    Metaform:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        replyStrategy:
+          type: string
+          enum:
+            - PUBLIC
+            - PRIVATE
+        exportThemeId:
+          type: string
+          format: uuid
+        allowAnonymous:
+          type: boolean
+          description: Are anonymous replies allowed or not
+        allowDrafts:
+          type: boolean
+          description: Are drafts allowed or not
+        title:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformSection"
+        scripts:
+          type: object
+          properties:
+            afterCreateReply:
+              type: array
+              description: List of scripts run after new reply is created
+              items:
+                $ref: "#/components/schemas/MetaformScript"
+            afterUpdateReply:
+              type: array
+              description: List of scripts run after a reply is updated
+              items:
+                $ref: "#/components/schemas/MetaformScript"
+    MetaformScript:
+      type: object
+      required:
+        - name
+        - language
+        - content
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+        content:
+          type: string
+    MetaformSection:
+      type: object
+      properties:
+        title:
+          type: string
+        visible-if:
+          $ref: "#/components/schemas/MetaformVisibleIf"
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformField"
+    MetaformField:
+      type: object
+      required:
+        - type
+      properties:
+        visible-if:
+          $ref: "#/components/schemas/MetaformVisibleIf"
+        permission-contexts:
+          type: object
+          properties:
+            view-group:
+              type: boolean
+              description: Field value is used as security group with view permission
+              default: false
+            edit-group:
+              type: boolean
+              description: Field value is used as security group with edit permission
+              default: false
+            notify-group:
+              type: boolean
+              description: Field value is used as security group with notification
+                permission
+              default: false
+        name:
+          type: string
+          description: Field name
+        type:
+          $ref: "#/components/schemas/MetaformFieldType"
+        title:
+          type: string
+        required:
+          type: boolean
+        contexts:
+          type: array
+          items:
+            type: string
+        flags:
+          $ref: "#/components/schemas/MetaformFieldFlags"
+        placeholder:
+          type: string
+        class:
+          type: string
+        readonly:
+          type: boolean
+        help:
+          type: string
+        default:
+          description: a default value for a field
+          type: string
+        min:
+          type: integer
+          format: int32
+          description: Minimum value for a field. Only for number fields
+        max:
+          type: integer
+          format: int32
+          description: Maximum value for a field. Only for number fields
+        step:
+          type: integer
+          format: int32
+          description: Value step for a field. Only for number fields
+        checked:
+          type: boolean
+          description: Whether checkbox should be checked by default. Only for checkbox
+            fields
+        printable:
+          type: boolean
+          description: Defines whether field is printable or not. Only for table fields
+        options:
+          type: array
+          description: Options for radio, checklist, select fields
+          items:
+            $ref: "#/components/schemas/MetaformFieldOption"
+        source-url:
+          type: string
+          description: Source url for autocomplete and autocomplete-multiple fields
+          format: url
+        upload-url:
+          type: string
+          description: Upload url for files field.
+          format: url
+        single-file:
+          type: boolean
+          description: Defines whether file fields allow multiple files or just one
+        only-images:
+          type: boolean
+          description: Defines whether file fields allow only images
+        max-file-size:
+          type: integer
+          format: int64
+          description: Maximum upload size for image filds
+        add-rows:
+          type: boolean
+          description: Defines whether user can add more table rows.
+        draggable:
+          type: boolean
+          description: Defines whether table rows should be draggable.
+        columns:
+          type: array
+          description: Columns for table fields
+          items:
+            $ref: "#/components/schemas/MetaformTableColumn"
+        src:
+          type: string
+          description: Url for logo field.
+          format: url
+        text:
+          type: string
+          description: Text for small field.
+        html:
+          type: string
+          description: Html code for html field.
+    MetaformFieldFlags:
+      type: object
+      properties:
+        managementEditable:
+          type: boolean
+          description: Field should be editable in management service
+          default: false
+    MetaformFieldType:
+      type: string
+      enum:
+        - text
+        - url
+        - hidden
+        - email
+        - number
+        - memo
+        - boolean
+        - radio
+        - checklist
+        - date
+        - time
+        - date-time
+        - files
+        - table
+        - logo
+        - small-text
+        - html
+        - submit
+        - select
+        - autocomplete
+        - autocomplete-multiple
+    MetaformTableColumn:
+      type: object
+      required:
+        - type
+        - name
+      properties:
+        type:
+          $ref: "#/components/schemas/MetaformTableColumnType"
+        name:
+          type: string
+          description: Column name
+        title:
+          type: string
+          description: Column title
+        calculate-sum:
+          type: boolean
+          description: Defines column should automatically calculate sum
+        sum-postfix:
+          type: string
+          description: Postfix for calculated sum
+        column-width:
+          type: integer
+          description: Defines column width
+          format: int32
+        placeholder:
+          type: string
+          description: Placeholder for column field
+        readonly:
+          type: boolean
+          description: Defines column as readonly
+        required:
+          type: boolean
+          description: Defines column as requires
+        source-url:
+          type: string
+          format: url
+          description: Defines source url for autocomplete columns
+        html:
+          type: string
+          description: Html code for html columns
+        action:
+          type: string
+          description: Action for button columns
+        values:
+          type: object
+          description: Values for enum columns
+          properties:
+            value:
+              type: string
+            other:
+              type: string
+            text:
+              type: string
+    MetaformTableColumnType:
+      type: string
+      enum:
+        - hidden
+        - text
+        - url
+        - email
+        - autocomplete
+        - number
+        - enum
+        - date
+        - time
+        - html
+        - button
+    MetaformFieldOption:
+      type: object
+      description: Option object for Metaform field
+      required:
+        - name
+        - text
+      properties:
+        name:
+          description: Option name
+          type: string
+        text:
+          description: Option text
+          type: string
+        checked:
+          description: Defines whether option should be checked by default.
+          type: boolean
+        selected:
+          description: Defines whether option should be selected by default.
+          type: boolean
+    MetaformVisibleIf:
+      type: object
+      description: Rule that defines whether specified object is visible
+      properties:
+        field:
+          type: string
+          description: Field where the visible if rule is relative to
+        equals:
+          type: string
+          description: Value must be equal to this value. If value is specified "true"
+            field must have any value selected
+        not-equals:
+          type: string
+          description: Value must be not equal to this value.
+        and:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformVisibleIf"
+        or:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformVisibleIf"
+    EmailNotification:
+      type: object
+      description: Email notification
+      required:
+        - emails
+        - subjectTemplate
+        - contentTemplate
+      properties:
+        id:
+          type: string
+          format: uuid
+        subjectTemplate:
+          type: string
+        contentTemplate:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Entity identifier
+        name:
+          description: Attachment's name
+          type: string
+        contentType:
+          description: Attachment's content type (e.g. application/pdf)
+          type: string
+    ExportTheme:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+        locales:
+          type: string
+    ExportThemeFile:
+      type: object
+      required:
+        - path
+        - themeId
+        - content
+      properties:
+        id:
+          type: string
+          format: uuid
+        path:
+          type: string
+        themeId:
+          type: string
+          format: uuid
+        content:
+          type: string
+    ReplyExportFormat:
+      type: string
+      enum:
+        - XLSX
+        - PDF
+    InternalServerError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Forbidden:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    BadRequest:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    NotImplemented:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    NotFound:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
