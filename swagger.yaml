@@ -1731,13 +1731,19 @@ components:
     MetaformFilter:
       type: object
       required:
+        - id
         - name
         - filter
       properties:
+        id:
+          type: string
         name:
           type: string
-        filter:
-          type: string
+        fields:
+          type: array
+          description: Predefined list replies filter. Format is field:value
+          items:
+            type: string
                 
     MetaformScript:
       type: object
