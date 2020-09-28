@@ -1710,6 +1710,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MetaformSection"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformFilter"
         scripts:
           type: object
           properties:
@@ -1723,6 +1727,18 @@ components:
               description: List of scripts run after a reply is updated
               items:
                 $ref: "#/components/schemas/MetaformScript"
+                
+    MetaformFilter:
+      type: object
+      required:
+        - name
+        - filter
+      properties:
+        name:
+          type: string
+        filter:
+          type: string
+                
     MetaformScript:
       type: object
       required:
