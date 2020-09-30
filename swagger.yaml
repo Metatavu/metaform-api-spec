@@ -2,25 +2,18 @@ openapi: 3.0.0
 info:
   title: Metaform REST API
   description: REST API for Metaform
-  version: 2.0.0
+  version: 2.1.0
 security:
   - bearer: []
 paths:
-  "/realms/{realmId}/metaforms":
+  "/metaforms":
     get:
       operationId: listMetaforms
       summary: Lists Metaforms
-      description: Lists Metaforms from the realm. User receives only metaforms where
+      description: Lists Metaforms. User receives only metaforms where
         he/she has permission to.
       tags:
         - Metaforms
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       responses:
         "200":
           description: A list of metaforms
@@ -54,13 +47,6 @@ paths:
       description: Creates new Metaform
       tags:
         - Metaforms
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       requestBody:
         $ref: "#/components/requestBodies/Metaform"
       responses:
@@ -94,7 +80,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}":
+  "/metaforms/{metaformId}":
     get:
       operationId: findMetaform
       summary: Finds single Metaform
@@ -102,12 +88,6 @@ paths:
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -153,12 +133,6 @@ paths:
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -206,12 +180,6 @@ paths:
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -246,7 +214,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies":
+  "/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
       summary: Lists form replies
@@ -254,12 +222,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -365,12 +327,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -423,7 +379,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/export":
+  "/metaforms/{metaformId}/export":
     get:
       operationId: export
       summary: Exports metaform data
@@ -431,12 +387,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -482,7 +432,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}":
+  "/metaforms/{metaformId}/replies/{replyId}":
     get:
       operationId: findReply
       summary: Find a single reply
@@ -490,12 +440,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -548,12 +492,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -604,12 +542,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -651,7 +583,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export":
+  "/metaforms/{metaformId}/replies/{replyId}/export":
     get:
       operationId: replyExport
       summary: Exports reply data
@@ -659,12 +591,6 @@ paths:
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -717,7 +643,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications":
+  "/metaforms/{metaformId}/emailNotifications":
     get:
       operationId: listEmailNotifications
       summary: Lists form email notifications
@@ -725,12 +651,6 @@ paths:
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -778,12 +698,6 @@ paths:
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -824,7 +738,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
+  "/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
     get:
       operationId: findEmailNotification
       summary: Find a single emai notification
@@ -832,12 +746,6 @@ paths:
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -890,12 +798,6 @@ paths:
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -950,12 +852,6 @@ paths:
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -997,20 +893,13 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes":
+  "/exportThemes":
     get:
       operationId: listExportThemes
       summary: Lists form export themes
       description: Lists export themes
       tags:
         - ExportThemes
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       responses:
         "200":
           description: A list of export themes
@@ -1050,13 +939,6 @@ paths:
       description: Creates new form export theme
       tags:
         - ExportThemes
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       requestBody:
         $ref: "#/components/requestBodies/ExportTheme"
       responses:
@@ -1090,7 +972,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}":
+  "/exportThemes/{exportThemeId}":
     get:
       operationId: findExportTheme
       summary: Finds single export theme
@@ -1098,12 +980,6 @@ paths:
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1149,12 +1025,6 @@ paths:
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1202,12 +1072,6 @@ paths:
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1242,7 +1106,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}/files":
+  "/exportThemes/{exportThemeId}/files":
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
@@ -1250,12 +1114,6 @@ paths:
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1303,12 +1161,6 @@ paths:
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1349,7 +1201,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
+  "/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
       summary: Finds single export theme file
@@ -1357,12 +1209,6 @@ paths:
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1415,12 +1261,6 @@ paths:
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1475,12 +1315,6 @@ paths:
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1522,18 +1356,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/attachments/{attachmentId}":
+  "/attachments/{attachmentId}":
     get:
       operationId: findAttachment
       summary: Find a attachment by id
       description: Returns single attachment
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: attachmentId
           in: path
           description: Attachment id
@@ -1568,18 +1396,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/attachments/{attachmentId}/data":
+  "/attachments/{attachmentId}/data":
     get:
       operationId: findAttachmentData
       summary: Find a attachment data by id
       description: Returns attachment data
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: attachmentId
           in: path
           description: Attachment id
