@@ -1861,6 +1861,8 @@ components:
           type: array
           items:
             type: string
+        notifyIf:
+          $ref: "#/components/schemas/FieldRule"
     Attachment:
       type: object
       properties:
