@@ -1586,7 +1586,7 @@ components:
         title:
           type: string
         visible-if:
-          $ref: "#/components/schemas/MetaformVisibleIf"
+          $ref: "#/components/schemas/FieldRule"
         fields:
           type: array
           items:
@@ -1597,7 +1597,7 @@ components:
         - type
       properties:
         visible-if:
-          $ref: "#/components/schemas/MetaformVisibleIf"
+          $ref: "#/components/schemas/FieldRule"
         permission-contexts:
           type: object
           properties:
@@ -1820,9 +1820,9 @@ components:
         selected:
           description: Defines whether option should be selected by default.
           type: boolean
-    MetaformVisibleIf:
+    FieldRule:
       type: object
-      description: Rule that defines whether specified object is visible
+      description: Rule for determining field value. Used in visible if and email notify if rules
       properties:
         field:
           type: string
@@ -1837,11 +1837,11 @@ components:
         and:
           type: array
           items:
-            $ref: "#/components/schemas/MetaformVisibleIf"
+            $ref: "#/components/schemas/FieldRule"
         or:
           type: array
           items:
-            $ref: "#/components/schemas/MetaformVisibleIf"
+            $ref: "#/components/schemas/FieldRule"
     EmailNotification:
       type: object
       description: Email notification
@@ -1861,6 +1861,8 @@ components:
           type: array
           items:
             type: string
+        notifyIf:
+          $ref: "#/components/schemas/FieldRule"
     Attachment:
       type: object
       properties:
