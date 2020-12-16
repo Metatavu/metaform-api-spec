@@ -2077,18 +2077,23 @@ components:
         
     Draft:
       type: object
+      required:
+        - data 
       properties:
         id:
           type: string
           format: uuid
+          readOnly: true
         data:
           $ref: "#/components/schemas/DraftData"
         createdAt:
           type: string
           format: date-time
+          readOnly: true
         modifiedAt:
           type: string
           format: date-time
+          readOnly: true
     
     DraftData:
       type: object
