@@ -454,6 +454,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "200":
           description: A reply
@@ -506,6 +511,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       requestBody:
         $ref: "#/components/requestBodies/Reply"
       responses:
@@ -556,6 +566,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "204":
           description: Empty content indicating a successful removal
@@ -1704,6 +1719,12 @@ components:
         revision:
           type: string
           format: date-time
+        ownerKey:
+          type: string
+          readOnly: true
+          description: |
+            Reply owner key allows user to perform edit and delete operations on given reply.
+            Key is returned only once on creation time and will not be recorable afterwards.
         createdAt:
           type: string
           format: date-time
@@ -1736,6 +1757,9 @@ components:
         allowDrafts:
           type: boolean
           description: Are drafts allowed or not
+        allowReplyOwnerKeys:
+          type: boolean
+          description: Generate reply owner keys to replies.
         title:
           type: string
         sections:
