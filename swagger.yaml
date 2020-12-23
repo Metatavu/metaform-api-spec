@@ -1587,6 +1587,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       tags:
         - Attachments
       responses:
@@ -1627,6 +1632,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       tags:
         - Attachments
       responses:
