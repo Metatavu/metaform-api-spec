@@ -216,9 +216,9 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
   "/metaforms/{metaformId}/auditLogEntries":
     get:
-      operationId: findAuditLogEntries
-      summary: Finds all audit log entries for metaform
-      description: Finds all audit log entries for metaform
+      operationId: listAuditLogEntries
+      summary: Lists all audit log entries for metaform
+      description: Lists all audit log entries for metaform
       tags:
         - AuditLogEntries
       parameters:
@@ -237,6 +237,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: replyId
+          in: query
+          description: Filter results by reply id
+          schema:
+            type: string
+            format: uuid
         - name: createdBefore
           description: Filter results created before specified time
           in: query
@@ -244,16 +250,6 @@ paths:
             type: string
         - name: createdAfter
           description: Filter results created after specified time
-          in: query
-          schema:
-            type: string
-        - name: modifiedBefore
-          description: Filter results modified before specified time
-          in: query
-          schema:
-            type: string
-        - name: modifiedAfter
-          description: Filter results modified after specified time
           in: query
           schema:
             type: string
@@ -267,6 +263,47 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuditLogEntry"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteAuditLogEntry
+      summary: Deletes an audit log
+      description: Deletes an audit log
+      tags:
+        - Replies
+      parameters:
+        - name: auditLogId
+          required: true
+          in: path
+          description: audit log id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
         "400":
           description: Invalid request was sent to the server
           content:
@@ -2283,25 +2320,31 @@ components:
           type: string
           format: uuid
           readOnly: true
+          description: Entity identifier
         userId:
           type: string
           format: uuid
           readOnly: true
+          description: Id of creator user
         replyId:
           type: string
           format: uuid
           readOnly: true
+          description: Id of the reply
         attachmentId:
           type: string
           format: uuid
           readOnly: true
+          description: Id of the attachment
         time:
           type: string
           format: date-time
           readOnly: true
+          description: Time of accessing the reply
         message:
           type: string
           readOnly: true
+          description: Description of the event
         logEntryType:
           $ref: "#/components/schemas/AuditLogEntryType"
 
@@ -2309,6 +2352,7 @@ components:
       type: string
       enum:
         - VIEW_REPLY
+        - LIST_REPLY
         - MODIFY_REPLY
         - DELETE_REPLY
         - CREATE_REPLY
