@@ -231,9 +231,7 @@ paths:
             format: uuid
         - name: userId
           in: query
-          description: Filter results by user id. If this parameter is not specified all
-            replies are returned, this requires logged user to have proper
-            permission to do so
+          description: Filter results by user id.
           schema:
             type: string
             format: uuid
@@ -287,17 +285,25 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+  "/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
     delete:
       operationId: deleteAuditLogEntry
       summary: Deletes an audit log
       description: Deletes an audit log
       tags:
-        - Replies
+        - AuditLogEntries
       parameters:
-        - name: auditLogId
+        - name: metaformId
           required: true
           in: path
-          description: audit log id
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: auditLogEntryId
+          required: true
+          in: path
+          description: Audit log entry id
           schema:
             type: string
             format: uuid
@@ -2356,9 +2362,11 @@ components:
         - MODIFY_REPLY
         - DELETE_REPLY
         - CREATE_REPLY
-        - CREATE_REPLY_ATTACHMENT
-        - DELETE_REPLY_ATTACHMENT
         - VIEW_REPLY_ATTACHMENT
+        - DOWNLOAD_REPLY_ATTACHMENT
+        - EXPORT_REPLY_PDF
+        - EXPORT_REPLY_XLSX
+
 
 
     InternalServerError:
