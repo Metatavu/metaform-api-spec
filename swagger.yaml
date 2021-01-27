@@ -2342,7 +2342,7 @@ components:
           format: uuid
           readOnly: true
           description: Id of the attachment
-        time:
+        createdAt:
           type: string
           format: date-time
           readOnly: true
