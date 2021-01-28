@@ -227,6 +227,126 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+  "/metaforms/{metaformId}/auditLogEntries":
+    get:
+      operationId: listAuditLogEntries
+      summary: Lists all audit log entries for metaform
+      description: Lists all audit log entries for metaform
+      tags:
+        - AuditLogEntries
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: userId
+          in: query
+          description: Filter results by user id.
+          schema:
+            type: string
+            format: uuid
+        - name: replyId
+          in: query
+          description: Filter results by reply id
+          schema:
+            type: string
+            format: uuid
+        - name: createdBefore
+          description: Filter results created before specified time
+          in: query
+          schema:
+            type: string
+        - name: createdAfter
+          description: Filter results created after specified time
+          in: query
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: A list of log entries
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditLogEntry"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+  "/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
+    delete:
+      operationId: deleteAuditLogEntry
+      summary: Deletes an audit log
+      description: Deletes an audit log
+      tags:
+        - AuditLogEntries
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: auditLogEntryId
+          required: true
+          in: path
+          description: Audit log entry id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
   "/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
@@ -392,6 +512,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/metaforms/{metaformId}/export":
     get:
       operationId: export
@@ -1678,6 +1799,9 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
+
+
 servers:
   - url: /
 components:
@@ -1722,6 +1846,13 @@ components:
         application/json;charset=utf-8:
           schema:
             $ref: "#/components/schemas/ExportTheme"
+      description: Payload
+      required: true
+    AuditLogEntry:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/AuditLogEntry"
       description: Payload
       required: true
   securitySchemes:
@@ -1783,6 +1914,9 @@ components:
         allowReplyOwnerKeys:
           type: boolean
           description: Generate reply owner keys to replies.
+        allowInvitations:
+          type: boolean
+          description: Enable invitation functionality
         title:
           type: string
         sections:
@@ -1811,7 +1945,7 @@ components:
               description: List of scripts run when generating a metaform Excel export
               items:
                 $ref: "#/components/schemas/MetaformScript"
-                
+
     MetaformFilter:
       type: object
       required:
@@ -1828,7 +1962,7 @@ components:
           description: Predefined list replies filter. Format is field:value
           items:
             type: string
-                
+
     MetaformScript:
       type: object
       required:
@@ -2175,11 +2309,11 @@ components:
       enum:
         - XLSX
         - PDF
-        
+
     Draft:
       type: object
       required:
-        - data 
+        - data
       properties:
         id:
           type: string
@@ -2195,11 +2329,61 @@ components:
           type: string
           format: date-time
           readOnly: true
-    
+
     DraftData:
       type: object
       additionalProperties:
         type: object
+
+    AuditLogEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Entity identifier
+        userId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of creator user
+        replyId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the reply
+        attachmentId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the attachment
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Time of accessing the reply
+        message:
+          type: string
+          readOnly: true
+          description: Description of the event
+        logEntryType:
+          $ref: "#/components/schemas/AuditLogEntryType"
+
+    AuditLogEntryType:
+      type: string
+      enum:
+        - VIEW_REPLY
+        - LIST_REPLY
+        - MODIFY_REPLY
+        - DELETE_REPLY
+        - CREATE_REPLY
+        - VIEW_REPLY_ATTACHMENT
+        - DOWNLOAD_REPLY_ATTACHMENT
+        - EXPORT_REPLY_PDF
+        - EXPORT_REPLY_XLSX
+
+
 
     InternalServerError:
       type: object
