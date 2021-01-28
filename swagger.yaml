@@ -95,6 +95,19 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: replyId
+          in: query
+          description: |
+            Id of reply the form is loaded for. Reply id needs to be defined when
+            unanonymous form is authenticated with owner key
+          schema:
+            type: string
+            format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "200":
           description: A metaform
