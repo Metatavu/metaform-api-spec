@@ -1901,6 +1901,9 @@ components:
         allowReplyOwnerKeys:
           type: boolean
           description: Generate reply owner keys to replies.
+        allowInvitations:
+          type: boolean
+          description: Enable invitation functionality
         title:
           type: string
         sections:
