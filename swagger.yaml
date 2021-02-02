@@ -2114,6 +2114,7 @@ components:
         - hidden
         - email
         - number
+        - slider
         - memo
         - boolean
         - radio
