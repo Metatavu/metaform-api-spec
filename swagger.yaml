@@ -1919,7 +1919,7 @@ components:
           description: Enable invitation functionality
         autosave:
           type: boolean
-          description: Toggles the autosaving functionality on the form. When autosaving is enabled the form will same itself every time the form valid and form values have been changed
+          description: Toggles the autosaving functionality on the form. When autosaving is enabled the form will save automatically every time form values change
         title:
           type: string
         sections:
@@ -2386,8 +2386,6 @@ components:
         - DOWNLOAD_REPLY_ATTACHMENT
         - EXPORT_REPLY_PDF
         - EXPORT_REPLY_XLSX
-
-
 
     InternalServerError:
       type: object
