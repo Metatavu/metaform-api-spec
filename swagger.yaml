@@ -6,7 +6,7 @@ info:
 security:
   - bearer: []
 paths:
-  "/metaforms":
+  "/v1/metaforms":
     get:
       operationId: listMetaforms
       summary: Lists Metaforms
@@ -80,7 +80,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}":
+  "/v1/metaforms/{metaformId}":
     get:
       operationId: findMetaform
       summary: Finds single Metaform
@@ -227,7 +227,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/auditLogEntries":
+  "/v1/metaforms/{metaformId}/auditLogEntries":
     get:
       operationId: listAuditLogEntries
       summary: Lists all audit log entries for metaform
@@ -298,7 +298,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
+  "/v1/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
     delete:
       operationId: deleteAuditLogEntry
       summary: Deletes an audit log
@@ -347,7 +347,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/replies":
+  "/v1/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
       summary: Lists form replies
@@ -513,7 +513,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  "/metaforms/{metaformId}/export":
+  "/v1/metaforms/{metaformId}/export":
     get:
       operationId: export
       summary: Exports metaform data
@@ -566,7 +566,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/replies/{replyId}":
+  "/v1/metaforms/{metaformId}/replies/{replyId}":
     get:
       operationId: findReply
       summary: Find a single reply
@@ -732,7 +732,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/replies/{replyId}/export":
+  "/v1/metaforms/{metaformId}/replies/{replyId}/export":
     get:
       operationId: replyExport
       summary: Exports reply data
@@ -792,7 +792,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/drafts":
+  "/v1/metaforms/{metaformId}/drafts":
     post:
       operationId: createDraft
       summary: create new reply draft
@@ -840,7 +840,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/drafts/{draftId}":
+  "/v1/metaforms/{metaformId}/drafts/{draftId}":
     get:
       operationId: findDraft
       summary: Finds single draft
@@ -995,7 +995,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/emailNotifications":
+  "/v1/metaforms/{metaformId}/emailNotifications":
     get:
       operationId: listEmailNotifications
       summary: Lists form email notifications
@@ -1090,7 +1090,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
+  "/v1/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
     get:
       operationId: findEmailNotification
       summary: Find a single emai notification
@@ -1245,7 +1245,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/exportThemes":
+  "/v1/exportThemes":
     get:
       operationId: listExportThemes
       summary: Lists form export themes
@@ -1324,7 +1324,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/exportThemes/{exportThemeId}":
+  "/v1/exportThemes/{exportThemeId}":
     get:
       operationId: findExportTheme
       summary: Finds single export theme
@@ -1458,7 +1458,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/exportThemes/{exportThemeId}/files":
+  "/v1/exportThemes/{exportThemeId}/files":
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
@@ -1553,7 +1553,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
+  "/v1/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
       summary: Finds single export theme file
@@ -1708,7 +1708,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/attachments/{attachmentId}":
+  "/v1/attachments/{attachmentId}":
     get:
       operationId: findAttachment
       summary: Find a attachment by id
@@ -1753,7 +1753,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/attachments/{attachmentId}/data":
+  "/v1/attachments/{attachmentId}/data":
     get:
       operationId: findAttachmentData
       summary: Find a attachment data by id
@@ -1801,9 +1801,6 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
 
 
-
-servers:
-  - url: /
 components:
   requestBodies:
     Reply:
@@ -1856,10 +1853,10 @@ components:
       description: Payload
       required: true
   securitySchemes:
-    bearer:
-      type: apiKey
-      name: Authorization
-      in: header
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Reply:
       type: object
@@ -2124,16 +2121,16 @@ components:
         - checklist
         - date
         - time
-        - date-time
+        - dateTime
         - files
         - table
         - logo
-        - small-text
+        - smallText
         - html
         - submit
         - select
         - autocomplete
-        - autocomplete-multiple
+        - autocompleteMultiple
     MetaformTableColumn:
       type: object
       required:
@@ -2190,17 +2187,17 @@ components:
     MetaformTableColumnType:
       type: string
       enum:
-        - hidden
-        - text
-        - url
-        - email
-        - autocomplete
-        - number
-        - enum
-        - date
-        - time
-        - html
-        - button
+        - HIDDEN
+        - TEXT
+        - URL
+        - EMAIL
+        - AUTOCOMPLETE
+        - NUMBER
+        - DATE
+        - TIME
+        - HTML
+        - BUTTON
+        - ENUM
     MetaformFieldOption:
       type: object
       description: Option object for Metaform field
