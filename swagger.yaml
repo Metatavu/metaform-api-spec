@@ -2102,6 +2102,28 @@ components:
         html:
           type: string
           description: Html code for html field.
+        valueSource:
+          $ref: "#/components/schemas/MetaformFieldValueSource"
+
+    MetaformFieldValueSource:
+      type: string
+      description: |
+        Source for field value. This allows field value to be either retrieved from user's reply or generated automatically
+        using one of following stretegies:
+        * replyValue - field value is retrieved from user's reply (default)
+        * replyCreatedAt - field value is date-time when the reply was initially created
+        * replyModifiedAt - field value is date-time when reply was last time modified
+        * replyCreatorId - UUID of user who created the reply
+        * replyLastModifierId - UUID of user who made last modification to the reply
+
+        This is the preferred replacement for deprecated META-context fields
+      enum:
+        - replyValue
+        - replyCreatedAt
+        - replyModifiedAt
+        - replyCreatorId
+        - replyLastModifierId
+
     MetaformFieldFlags:
       type: object
       properties:
@@ -2109,6 +2131,7 @@ components:
           type: boolean
           description: Field should be editable in management service
           default: false
+
     MetaformFieldType:
       type: string
       enum:
