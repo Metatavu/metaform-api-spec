@@ -2121,16 +2121,16 @@ components:
         - checklist
         - date
         - time
-        - dateTime
+        - date-time
         - files
         - table
         - logo
-        - smallText
+        - small-text
         - html
         - submit
         - select
         - autocomplete
-        - autocompleteMultiple
+        - autocomplete-multiple
     MetaformTableColumn:
       type: object
       required:
@@ -2187,17 +2187,17 @@ components:
     MetaformTableColumnType:
       type: string
       enum:
-        - HIDDEN
-        - TEXT
-        - URL
-        - EMAIL
-        - AUTOCOMPLETE
-        - NUMBER
-        - DATE
-        - TIME
-        - HTML
-        - BUTTON
-        - ENUM
+        - hidden
+        - text
+        - url
+        - email
+        - autocomplete
+        - number
+        - date
+        - time
+        - html
+        - button
+        - enum
     MetaformFieldOption:
       type: object
       description: Option object for Metaform field
