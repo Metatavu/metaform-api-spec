@@ -2131,6 +2131,7 @@ components:
         - select
         - autocomplete
         - autocomplete-multiple
+        - codeserver-search
     MetaformTableColumn:
       type: object
       required:
