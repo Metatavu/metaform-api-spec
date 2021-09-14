@@ -2240,7 +2240,7 @@ components:
               type: string
 
     MetaformFieldSourceStrategy:
-      type: enum
+      type: string
       enum:
         - default
         - replyMeta
