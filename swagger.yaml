@@ -2099,6 +2099,9 @@ components:
         html:
           type: string
           description: Html code for html field.
+        source:
+          $ref: "#/components/schemas/MetaformFieldSource"
+          
     MetaformFieldFlags:
       type: object
       properties:
@@ -2131,7 +2134,7 @@ components:
         - select
         - autocomplete
         - autocomplete-multiple
-        - codeserver-search
+        - code-server-concept-code-search
     MetaformTableColumn:
       type: object
       required:
@@ -2218,6 +2221,32 @@ components:
         selected:
           description: Defines whether option should be selected by default.
           type: boolean
+
+    MetaformFieldSource:
+      type: object
+      description: Field value source. Defaults to using user's reply.
+      required:
+        - strategy
+      properties:
+        strategy:
+          $ref: "#/components/schemas/MetaformFieldSourceStrategy"
+        codeServer:
+          type: object
+          required:
+            - attributeName
+          properties:
+            attributeName: 
+              description: Attribute name
+              type: string
+
+    MetaformFieldSourceStrategy:
+      type: enum
+      enum:
+        - default
+        - replyMeta
+        - accessToken
+        - codeServerConceptCode
+
     FieldRule:
       type: object
       description: Rule for determining field value. Used in visible if and email notify if rules
