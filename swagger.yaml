@@ -1867,7 +1867,7 @@ components:
       description: Payload
       required: true
   securitySchemes:
-    bearerAuth:
+    bearer:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -2074,10 +2074,8 @@ components:
           description: Options for radio, checklist, select fields
           items:
             $ref: "#/components/schemas/MetaformFieldOption"
-        source-url:
-          type: string
-          description: Source url for autocomplete and autocomplete-multiple fields
-          format: url
+        autocomplete:
+          $ref: "#/components/schemas/MetaformFieldAutocomplete"
         upload-url:
           type: string
           description: Upload url for files field.
@@ -2115,7 +2113,31 @@ components:
           description: Html code for html field.
         source:
           $ref: "#/components/schemas/MetaformFieldSource"
-          
+
+    MetaformFieldAutocomplete:
+      type: object
+      required:
+        - service
+      properties:
+        service:
+          $ref: "#/components/schemas/MetaformFieldAutocompleteService"
+        options:
+          type: object
+          properties:
+            codeServerBaseUrl:
+              type: string
+              description: Base URL for code server based services
+              format: url
+            codeServerClassificationId:
+              type: string
+              description: Classification id for Code Server services
+
+    MetaformFieldAutocompleteService:
+      type: string
+      description: Service that provides the autocomplete values
+      enum:
+        - code-server-concept-code
+
     MetaformFieldFlags:
       type: object
       properties:
@@ -2123,6 +2145,7 @@ components:
           type: boolean
           description: Field should be editable in management service
           default: false
+
     MetaformFieldType:
       type: string
       enum:
@@ -2148,7 +2171,6 @@ components:
         - select
         - autocomplete
         - autocomplete-multiple
-        - code-server-concept-code-search
     MetaformTableColumn:
       type: object
       required:
@@ -2249,7 +2271,7 @@ components:
           required:
             - attributeName
           properties:
-            attributeName: 
+            attributeName:
               description: Attribute name
               type: string
 
