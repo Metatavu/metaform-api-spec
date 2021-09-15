@@ -2287,7 +2287,7 @@ components:
         - default
         - replyMeta
         - accessToken
-        - codeServerConceptCode
+        - autocomplete
 
     FieldRule:
       type: object
