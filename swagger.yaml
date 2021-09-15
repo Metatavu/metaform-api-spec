@@ -2278,17 +2278,19 @@ components:
           type: object
           properties:
             autocompleteField:
-              description: Source autocomplete field name. This option is used only when using autocomplete strategy
+              description: Source autocomplete field name. This option is used only when using source type autocomplete
               type: string
             autocompleteItemProperty:
-              description: Name of the autocomplete item property to be used as field value. This option is used only when using autocomplete strategy
+              description: Name of the autocomplete item property to be used as field value. This option is used only when using source type autocomplete
+              type: string
+            accessTokenAttribute:
+              description: Name of the user token attribute. This option is used only when using source type accessToken
               type: string
 
     MetaformFieldSourceType:
       type: string
       enum:
         - default
-        - replyMeta
         - accessToken
         - autocomplete
 
