@@ -2267,10 +2267,10 @@ components:
       type: object
       description: Field value source. Defaults to using user's reply.
       required:
-        - strategy
+        - type
       properties:
         strategy:
-          $ref: "#/components/schemas/MetaformFieldSourceStrategy"
+          $ref: "#/components/schemas/MetaformFieldSourceType"
         options:
           type: object
           properties:
@@ -2281,7 +2281,7 @@ components:
               description: Name of the autocomplete item property to be used as field value. This option is used only when using autocomplete strategy
               type: string
 
-    MetaformFieldSourceStrategy:
+    MetaformFieldSourceType:
       type: string
       enum:
         - default
