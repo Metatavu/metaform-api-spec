@@ -2136,6 +2136,9 @@ components:
             codeServerClassificationId:
               type: string
               description: Classification id for Code Server services
+            codeServerParentConceptCodeId:
+              type: string
+              description: Parent concept code id for Code Server services
 
     MetaformFieldAutocompleteService:
       type: string
