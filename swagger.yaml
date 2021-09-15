@@ -2269,7 +2269,7 @@ components:
       required:
         - type
       properties:
-        strategy:
+        type:
           $ref: "#/components/schemas/MetaformFieldSourceType"
         options:
           type: object
