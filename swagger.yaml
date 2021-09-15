@@ -2076,6 +2076,11 @@ components:
             $ref: "#/components/schemas/MetaformFieldOption"
         autocomplete:
           $ref: "#/components/schemas/MetaformFieldAutocomplete"
+        source-url:
+          type: string
+          description: Source url for autocomplete and autocomplete-multiple fields. This field is deprecated, use autocomplete instead.
+          format: url
+          deprecated: true
         upload-url:
           type: string
           description: Upload url for files field.
