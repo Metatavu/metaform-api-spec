@@ -1894,8 +1894,6 @@ components:
         id:
           type: string
           format: uuid
-        slug:
-          type: string
         replyStrategy:
           type: string
           enum:
@@ -1920,6 +1918,8 @@ components:
           type: boolean
           description: Toggles the autosaving functionality on the form. When autosaving is enabled the form will save automatically every time form values change
         title:
+          type: string
+        slug:
           type: string
         sections:
           type: array
