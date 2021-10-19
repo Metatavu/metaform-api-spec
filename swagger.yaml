@@ -1864,8 +1864,6 @@ components:
         id:
           type: string
           format: uuid
-        slug:
-          type: string
         userId:
           type: string
           format: uuid
@@ -1896,6 +1894,8 @@ components:
         id:
           type: string
           format: uuid
+        slug:
+          type: string
         replyStrategy:
           type: string
           enum:
