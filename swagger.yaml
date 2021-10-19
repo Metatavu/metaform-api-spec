@@ -1864,6 +1864,8 @@ components:
         id:
           type: string
           format: uuid
+        slug:
+          type: string
         userId:
           type: string
           format: uuid
