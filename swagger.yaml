@@ -74,6 +74,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
         "500":
           description: Internal server error
           content:
@@ -180,6 +186,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
         "500":
           description: Internal server error
           content:
@@ -2419,6 +2431,14 @@ components:
         message:
           type: string
     NotFound:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Conflict:
       type: object
       properties:
         code:
