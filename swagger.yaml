@@ -1800,6 +1800,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  /v1/system/ping:
+    get:
+      summary: System ping endpoint
+      operationId: ping
+      tags:
+        - system
+      responses:
+        '200':
+          description: System ping response
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Returns pong
 
 components:
   requestBodies:
@@ -1853,7 +1867,7 @@ components:
       description: Payload
       required: true
   securitySchemes:
-    bearerAuth:
+    bearer:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -2060,10 +2074,13 @@ components:
           description: Options for radio, checklist, select fields
           items:
             $ref: "#/components/schemas/MetaformFieldOption"
+        autocomplete:
+          $ref: "#/components/schemas/MetaformFieldAutocomplete"
         source-url:
           type: string
-          description: Source url for autocomplete and autocomplete-multiple fields
+          description: Source url for autocomplete and autocomplete-multiple fields. This field is deprecated, use autocomplete instead.
           format: url
+          deprecated: true
         upload-url:
           type: string
           description: Upload url for files field.
@@ -2099,6 +2116,36 @@ components:
         html:
           type: string
           description: Html code for html field.
+        source:
+          $ref: "#/components/schemas/MetaformFieldSource"
+
+    MetaformFieldAutocomplete:
+      type: object
+      required:
+        - service
+      properties:
+        service:
+          $ref: "#/components/schemas/MetaformFieldAutocompleteService"
+        options:
+          type: object
+          properties:
+            codeServerBaseUrl:
+              type: string
+              description: Base URL for code server based services
+              format: url
+            codeServerClassificationId:
+              type: string
+              description: Classification id for Code Server services
+            codeServerParentConceptCodeId:
+              type: string
+              description: Parent concept code id for Code Server services
+
+    MetaformFieldAutocompleteService:
+      type: string
+      description: Service that provides the autocomplete values
+      enum:
+        - code-server-concept-code
+
     MetaformFieldFlags:
       type: object
       properties:
@@ -2106,6 +2153,7 @@ components:
           type: boolean
           description: Field should be editable in management service
           default: false
+
     MetaformFieldType:
       type: string
       enum:
@@ -2217,6 +2265,35 @@ components:
         selected:
           description: Defines whether option should be selected by default.
           type: boolean
+
+    MetaformFieldSource:
+      type: object
+      description: Field value source. Defaults to using user's reply.
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/MetaformFieldSourceType"
+        options:
+          type: object
+          properties:
+            autocompleteField:
+              description: Source autocomplete field name. This option is used only when using source type autocomplete
+              type: string
+            autocompleteItemProperty:
+              description: Name of the autocomplete item property to be used as field value. This option is used only when using source type autocomplete
+              type: string
+            accessTokenAttribute:
+              description: Name of the user token attribute. This option is used only when using source type accessToken
+              type: string
+
+    MetaformFieldSourceType:
+      type: string
+      enum:
+        - default
+        - accessToken
+        - autocomplete
+
     FieldRule:
       type: object
       description: Rule for determining field value. Used in visible if and email notify if rules
