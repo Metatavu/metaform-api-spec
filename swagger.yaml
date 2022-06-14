@@ -292,7 +292,7 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createMetaformVersion
-      summary: create new Metaform version
+      summary: Creates new Metaform version
       description: Creates new Metaform version
       tags:
         - Versions
