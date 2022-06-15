@@ -292,7 +292,7 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createMetaformVersion
-      summary: Creates new Metaform version
+      summary: create new Metaform version
       description: Creates new Metaform version
       tags:
         - Versions
@@ -347,9 +347,9 @@ paths:
 
   "/v1/metaforms/{metaformId}/versions/{versionId}":
     get:
-      operationId: findMetaformVersion
-      summary: Finds Version of Metaform
-      description: Finds a specific version of a Metaform
+      operationId: getMetaformVersion
+      summary: Gets Version of Metaform
+      description: Gets Version of a Metaform
       tags:
         - Versions
       parameters:
@@ -2201,19 +2201,18 @@ components:
 
     MetaformVersion:
       type: object
+      required:
+        - type
+        - sections
       properties:
         id:
           type: string
           format: uuid
-        metaformId:
-          type: string
-          format: uuid
+          readOnly: true
         type:
           $ref: "#/components/schemas/MetaformVersionType"
-        sections:
-          type: array
-          items:
-            $ref: "#/components/schemas/MetaformSection"
+        data:
+          type: object
         creatorId:
           type: string
           format: uuid
