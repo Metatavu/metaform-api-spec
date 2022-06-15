@@ -348,8 +348,8 @@ paths:
   "/v1/metaforms/{metaformId}/versions/{versionId}":
     get:
       operationId: findMetaformVersion
-      summary: Gets Version of Metaform
-      description: Gets Version of a Metaform
+      summary: Finds Version of Metaform
+      description: Finds a specific version of a Metaform
       tags:
         - Versions
       parameters:
