@@ -86,6 +86,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/v1/metaforms/{metaformId}":
     get:
       operationId: findMetaform
@@ -239,6 +240,214 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
+
+  "/v1/metaforms/{metaformId}/versions":
+    get:
+      operationId: listMetaformVersions
+      summary: Lists all the versions of Metaform
+      description: Lists all the versions of a Metaform
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Metaform versions
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createMetaformVersion
+      summary: create new Metaform version
+      description: Creates new Metaform version
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformVersion"
+      responses:
+        "200":
+          description: Created Metaform version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+
+  "/v1/metaforms/{metaformId}/versions/{versionId}":
+    get:
+      operationId: getMetaformVersion
+      summary: Gets Version of Metaform
+      description: Gets Version of a Metaform
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Metaform version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteMetaformVersion
+      summary: Deletes Metaform version
+      description: Deletes a Metaform version
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+
   "/v1/metaforms/{metaformId}/auditLogEntries":
     get:
       operationId: listAuditLogEntries
@@ -310,6 +519,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/v1/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
     delete:
       operationId: deleteAuditLogEntry
@@ -359,6 +569,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/v1/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
@@ -1850,6 +2061,13 @@ components:
             $ref: "#/components/schemas/Metaform"
       description: Payload
       required: true
+    MetaformVersion:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/MetaformVersion"
+      description: Payload
+      required: true
     ExportThemeFile:
       content:
         application/json;charset=utf-8:
@@ -1914,6 +2132,7 @@ components:
       type: object
       additionalProperties:
         type: object
+
     Metaform:
       type: object
       properties:
@@ -1973,6 +2192,47 @@ components:
               description: List of scripts run when generating a metaform Excel export
               items:
                 $ref: "#/components/schemas/MetaformScript"
+
+    MetaformVersionType:
+      type: string
+      enum:
+        - ARCHIVED
+        - DRAFT
+
+    MetaformVersion:
+      type: object
+      required:
+        - type
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        type:
+          $ref: "#/components/schemas/MetaformVersionType"
+        data:
+          type: object
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: Id of last modifier
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Date modified
+          readOnly: true
 
     MetaformFilter:
       type: object
