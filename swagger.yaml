@@ -1962,7 +1962,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Forbidden"
         "404":
-          description: Attempted to make a call to an non existant metaform
+          description: Attempted to make a call to an non existant theme
           content:
             application/json;charset=utf-8:
               schema:
