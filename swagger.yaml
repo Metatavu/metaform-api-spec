@@ -1942,7 +1942,7 @@ paths:
         - PortalTheme
       responses:
         "200":
-          description: A list of portal files
+          description: A list of portal themes
           content:
             application/json;charset=utf-8:
               schema:
