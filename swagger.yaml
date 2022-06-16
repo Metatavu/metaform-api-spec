@@ -2077,7 +2077,7 @@ paths:
         $ref: "#/components/requestBodies/PortalTheme"
       responses:
         "200":
-          description: an updated export theme file
+          description: an updated portal theme
           content:
             application/json;charset=utf-8:
               schema:
