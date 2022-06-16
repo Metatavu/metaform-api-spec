@@ -1776,6 +1776,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/v1/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
@@ -1931,6 +1932,222 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/portalThemes":
+    get:
+      operationId: listPortalTheme
+      summary: Lists portal themes
+      description: Lists portal themes
+      tags:
+        - PortalTheme
+      responses:
+        "200":
+          description: A list of portal files
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortalTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createPortalTheme
+      summary: Create new portal theme
+      description: Creates a new portal theme
+      tags:
+        - PortalTheme
+      requestBody:
+        $ref: "#/components/requestBodies/PortalTheme"
+      responses:
+        "200":
+          description: Created export portal theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/PortalTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/portalThemes/{themeId}":
+    get:
+      operationId: findPortalTheme
+      summary: Finds portal theme
+      description: Finds a portal theme
+      tags:
+        - PortalTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: portal theme id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single portal theme file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/PortalTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updatePortalTheme
+      summary: Updates portal theme
+      description: Updates portal theme
+      tags:
+        - PortalTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: portal theme id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/PortalTheme"
+      responses:
+        "200":
+          description: an updated export theme file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ExportThemeFile"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deletePortalTheme
+      summary: Deletes portal theme
+      description: Deletes an portal theme
+      tags:
+        - PortalTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: portal theme id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   "/v1/attachments/{attachmentId}":
     get:
       operationId: findAttachment
@@ -2089,6 +2306,13 @@ components:
             $ref: "#/components/schemas/ExportTheme"
       description: Payload
       required: true
+    PortalTheme:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/PortalTheme"
+      description: Payload
+      required: true
     AuditLogEntry:
       content:
         application/json;charset=utf-8:
@@ -2192,6 +2416,38 @@ components:
               description: List of scripts run when generating a metaform Excel export
               items:
                 $ref: "#/components/schemas/MetaformScript"
+
+    PortalTheme:
+      type: object
+      required:
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        data:
+          type: object
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: Id of last modifier
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Date modified
+          readOnly: true
 
     MetaformVersionType:
       type: string
