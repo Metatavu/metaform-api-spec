@@ -2081,7 +2081,7 @@ paths:
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: "#/components/schemas/ExportThemeFile"
+                $ref: "#/components/schemas/AdminTheme"
         "400":
           description: Invalid request was sent to the server
           content:
