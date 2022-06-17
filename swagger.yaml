@@ -2428,6 +2428,10 @@ components:
           readOnly: true
         data:
           type: object
+        title:
+          type: string
+        slug:
+          type: string
         creatorId:
           type: string
           format: uuid
