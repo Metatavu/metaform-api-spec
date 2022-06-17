@@ -1983,7 +1983,7 @@ paths:
         $ref: "#/components/requestBodies/AdminTheme"
       responses:
         "200":
-          description: Created export admin theme
+          description: Created admin theme
           content:
             application/json;charset=utf-8:
               schema:
