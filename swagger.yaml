@@ -1933,22 +1933,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  "/v1/portalThemes":
+  "/v1/adminThemes":
     get:
-      operationId: listPortalTheme
-      summary: Lists portal themes
-      description: Lists portal themes
+      operationId: listAdminTheme
+      summary: Lists admin themes
+      description: Lists admin themes
       tags:
-        - PortalTheme
+        - AdminTheme
       responses:
         "200":
-          description: A list of portal themes
+          description: A list of admin themes
           content:
             application/json;charset=utf-8:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/PortalTheme"
+                  $ref: "#/components/schemas/AdminTheme"
         "400":
           description: Invalid request was sent to the server
           content:
@@ -1974,20 +1974,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
     post:
-      operationId: createPortalTheme
-      summary: Create new portal theme
-      description: Creates a new portal theme
+      operationId: createAdminTheme
+      summary: Create new admin theme
+      description: Creates a new admin theme
       tags:
-        - PortalTheme
+        - AdminTheme
       requestBody:
-        $ref: "#/components/requestBodies/PortalTheme"
+        $ref: "#/components/requestBodies/AdminTheme"
       responses:
         "200":
-          description: Created export portal theme
+          description: Created export admin theme
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: "#/components/schemas/PortalTheme"
+                $ref: "#/components/schemas/AdminTheme"
         "400":
           description: Invalid request was sent to the server
           content:
@@ -2013,28 +2013,28 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  "/v1/portalThemes/{themeId}":
+  "/v1/adminThemes/{themeId}":
     get:
-      operationId: findPortalTheme
-      summary: Finds portal theme
-      description: Finds a portal theme
+      operationId: findAdminTheme
+      summary: Finds admin theme
+      description: Finds a admin theme
       tags:
-        - PortalTheme
+        - AdminTheme
       parameters:
         - name: themeId
           required: true
           in: path
-          description: portal theme id
+          description: admin theme id
           schema:
             type: string
             format: uuid
       responses:
         "200":
-          description: single portal theme file
+          description: single admin theme file
           content:
             application/json;charset=utf-8:
               schema:
-                $ref: "#/components/schemas/PortalTheme"
+                $ref: "#/components/schemas/AdminTheme"
         "400":
           description: Invalid request was sent to the server
           content:
@@ -2060,24 +2060,24 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
     put:
-      operationId: updatePortalTheme
-      summary: Updates portal theme
-      description: Updates portal theme
+      operationId: updateAdminTheme
+      summary: Updates admin theme
+      description: Updates admin theme
       tags:
-        - PortalTheme
+        - AdminTheme
       parameters:
         - name: themeId
           required: true
           in: path
-          description: portal theme id
+          description: admin theme id
           schema:
             type: string
             format: uuid
       requestBody:
-        $ref: "#/components/requestBodies/PortalTheme"
+        $ref: "#/components/requestBodies/AdminTheme"
       responses:
         "200":
-          description: an updated portal theme
+          description: an updated admin theme
           content:
             application/json;charset=utf-8:
               schema:
@@ -2107,16 +2107,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
     delete:
-      operationId: deletePortalTheme
-      summary: Deletes portal theme
-      description: Deletes an portal theme
+      operationId: deleteAdminTheme
+      summary: Deletes admin theme
+      description: Deletes an admin theme
       tags:
-        - PortalTheme
+        - AdminTheme
       parameters:
         - name: themeId
           required: true
           in: path
-          description: portal theme id
+          description: admin theme id
           schema:
             type: string
             format: uuid
@@ -2306,11 +2306,11 @@ components:
             $ref: "#/components/schemas/ExportTheme"
       description: Payload
       required: true
-    PortalTheme:
+    AdminTheme:
       content:
         application/json;charset=utf-8:
           schema:
-            $ref: "#/components/schemas/PortalTheme"
+            $ref: "#/components/schemas/AdminTheme"
       description: Payload
       required: true
     AuditLogEntry:
@@ -2417,7 +2417,7 @@ components:
               items:
                 $ref: "#/components/schemas/MetaformScript"
 
-    PortalTheme:
+    AdminTheme:
       type: object
       required:
         - data
