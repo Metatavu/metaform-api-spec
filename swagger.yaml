@@ -2420,6 +2420,8 @@ components:
       type: object
       required:
         - data
+        - name
+        - slug
       properties:
         id:
           type: string
