@@ -2429,7 +2429,7 @@ components:
           format: uuid
           readOnly: true
         data:
-          type: object
+          type: string
         name:
           type: string
         slug:
