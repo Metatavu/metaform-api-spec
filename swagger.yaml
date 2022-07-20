@@ -2429,6 +2429,8 @@ components:
           readOnly: true
         data:
           type: object
+          additionalProperties:
+            type: object
         name:
           type: string
         slug:
@@ -2474,6 +2476,8 @@ components:
           $ref: "#/components/schemas/MetaformVersionType"
         data:
           type: object
+          additionalProperties:
+            type: object
         creatorId:
           type: string
           format: uuid
