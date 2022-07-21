@@ -27,7 +27,7 @@ paths:
         "200":
           description: A list of metaforms
           content:
-            application/json;charset=utf-8:
+            application/json:
               schema:
                 type: array
                 items:
@@ -2328,6 +2328,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
   "/v1/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
@@ -2492,7 +2493,226 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+<<<<<<< HEAD
                 
+=======
+
+  "/v1/adminThemes":
+    get:
+      operationId: listAdminTheme
+      summary: Lists admin themes
+      description: Lists admin themes
+      tags:
+        - AdminTheme
+      responses:
+        "200":
+          description: A list of admin themes
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createAdminTheme
+      summary: Create new admin theme
+      description: Creates a new admin theme
+      tags:
+        - AdminTheme
+      requestBody:
+        $ref: "#/components/requestBodies/AdminTheme"
+      responses:
+        "200":
+          description: Created admin theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/adminThemes/{themeId}":
+    get:
+      operationId: findAdminTheme
+      summary: Finds admin theme
+      description: Finds a admin theme
+      tags:
+        - AdminTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: admin theme id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single admin theme file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateAdminTheme
+      summary: Updates admin theme
+      description: Updates admin theme
+      tags:
+        - AdminTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: admin theme id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/AdminTheme"
+      responses:
+        "200":
+          description: an updated admin theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteAdminTheme
+      summary: Deletes admin theme
+      description: Deletes an admin theme
+      tags:
+        - AdminTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: admin theme id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+>>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
   "/v1/attachments/{attachmentId}":
     get:
       operationId: findAttachment
@@ -2680,6 +2900,13 @@ components:
             $ref: "#/components/schemas/ExportTheme"
       description: Payload
       required: true
+    AdminTheme:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/AdminTheme"
+      description: Payload
+      required: true
     AuditLogEntry:
       content:
         application/json;charset=utf-8:
@@ -2787,6 +3014,7 @@ components:
               items:
                 $ref: "#/components/schemas/MetaformScript"
 
+<<<<<<< HEAD
     MetaformMember:
       type: object
       description: Form member or manager user.
@@ -2795,11 +3023,19 @@ components:
         - firstName
         - lastName
         - role
+=======
+    AdminTheme:
+      type: object
+      required:
+        - data
+        - name
+>>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
+<<<<<<< HEAD
           description: Id of the form member or manager user in Keycloak.
         email:
           type: string
@@ -2839,6 +3075,36 @@ components:
           items:
             type: string
             format: uuid
+=======
+        data:
+          type: object
+          additionalProperties:
+            type: object
+        name:
+          type: string
+        slug:
+          type: string
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: Id of last modifier
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Date modified
+          readOnly: true
+>>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
 
     MetaformVersionType:
       type: string
@@ -2860,6 +3126,8 @@ components:
           $ref: "#/components/schemas/MetaformVersionType"
         data:
           type: object
+          additionalProperties:
+            type: object
         creatorId:
           type: string
           format: uuid
