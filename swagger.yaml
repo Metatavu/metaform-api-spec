@@ -12,8 +12,8 @@ paths:
       summary: Lists Metaforms
       description: |
         Lists Metaforms.
-        
-        Method lists all public metaforms for all users but private metaforms require that logged user is either 
+
+        Method lists all public metaforms for all users but private metaforms require that logged user is either
         metaform admin or metaform manager
       tags:
         - Metaforms
@@ -55,7 +55,7 @@ paths:
       summary: create new Metaform
       description: |
         Creates new Metaform
-        
+
         Method is allowed for system administrators and users with metaform administrators
       tags:
         - Metaforms
@@ -105,8 +105,8 @@ paths:
       summary: Finds single Metaform
       description: |
         Finds a Metaform
-        
-        Method allows public metaforms for all users but private metaforms require that logged user is either 
+
+        Method allows public metaforms for all users but private metaforms require that logged user is either
         metaform admin or metaform manager
       tags:
         - Metaforms
@@ -167,7 +167,7 @@ paths:
       summary: Updates Metaform
       description: |
         Updates Metaform
-        
+
         Method is allowed for system administrators and users with metaform administrators
       tags:
         - Metaforms
@@ -223,7 +223,7 @@ paths:
       summary: Deletes Metaform
       description: |
         Deletes Metaform
-        
+
         Method is allowed for system administrators and users with metaform administrators
       tags:
         - Metaforms
@@ -269,7 +269,7 @@ paths:
       summary: Lists all the versions of Metaform
       description: |
         Lists Metaform versions
-        
+
         Method requires that logged user is either system admin or metaform admin
       tags:
         - Versions
@@ -319,7 +319,7 @@ paths:
       summary: Create new Metaform version
       description: |
         Creates new Metaform version
-        
+
         Method requires that logged user is either system admin or metaform admin
       tags:
         - Versions
@@ -377,7 +377,7 @@ paths:
       summary: Finds Version of Metaform
       description: |
         Finds a Metaform version
-        
+
         Method requires that logged user is either system admin or metaform admin
       tags:
         - Versions
@@ -432,7 +432,7 @@ paths:
       summary: Deletes Metaform version
       description: |
         Deletes a Metaform version
-        
+
         Method requires that logged user is either system admin or metaform admin
       tags:
         - Versions
@@ -485,7 +485,7 @@ paths:
       summary: Lists audit log entries for metaform
       description: |
         Lists audit log entries for metaform
-        
+
         Method requires that logged user is metaform admin
       tags:
         - AuditLogEntries
@@ -611,7 +611,7 @@ paths:
       summary: Lists form replies
       description: |
         Lists form replies
-        
+
         Method allows system administrators and metaform administrators to list all replies. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
@@ -719,7 +719,7 @@ paths:
       summary: create new form reply
       description: |
         Creates new form reply
-        
+
         For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role in order to post the reply.
       tags:
         - Replies
@@ -783,7 +783,7 @@ paths:
       summary: Exports metaform data
       description: |
         Exports metaform data
-        
+
         Method requires that logged user is either system admin or metaform admin
       tags:
         - Replies
@@ -839,7 +839,7 @@ paths:
       summary: Find a single reply
       description: |
         Finds single reply
-        
+
         Method allows system administrators and metaform administrators find a reply. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
@@ -899,7 +899,7 @@ paths:
       summary: Updates reply
       description: |
         Updates reply
-        
+
         Method allows system administrators and metaform administrators to update a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
@@ -957,7 +957,7 @@ paths:
       summary: Deletes a reply
       description: |
         Deletes a reply
-        
+
         Method allows system administrators and metaform administrators to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
@@ -1008,14 +1008,14 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/metaforms/{metaformId}/replies/{replyId}/export":
     get:
       operationId: replyExport
       summary: Exports reply data
       description: |
         Exports reply data
-        
+
         Method allows system administrators and metaform administrators to export reply data. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
@@ -1072,16 +1072,16 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/metaforms/{metaformId}/drafts":
     post:
       operationId: createDraft
       summary: Create new reply draft
       description: |
         Create reply draft
-        
+
         Form needs to have allowDrafts flag on, otherwise method will return forbidden
-        
+
         For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role in order to create the draft.
       tags:
         - Drafts
@@ -1126,16 +1126,16 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/metaforms/{metaformId}/drafts/{draftId}":
     get:
       operationId: findDraft
       summary: Finds single draft
       description: |
         Finds reply draft
-        
+
         Form needs to have allowDrafts flag on, otherwise method will return forbidden.
-        
+
         For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
       tags:
         - Drafts
@@ -1190,9 +1190,9 @@ paths:
       summary: Updates draft
       description: |
         Updates reply draft
-        
+
         Form needs to have allowDrafts flag on, otherwise method will return forbidden
-        
+
         For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
       tags:
         - Drafts
@@ -1249,9 +1249,9 @@ paths:
       summary: Deletes an draft
       description: |
         Deletes reply draft
-        
+
         Form needs to have allowDrafts flag on, otherwise method will return forbidden
-        
+
         For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
       tags:
         - Drafts
@@ -1304,7 +1304,7 @@ paths:
       summary: create new metaform member
       description: |
         Creates new metaform member
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMembers
@@ -1362,7 +1362,7 @@ paths:
       summary: Finds a metaform member
       description: |
         Finds metaform member
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMembers
@@ -1417,7 +1417,7 @@ paths:
       summary: Updates metaform member
       description: |
         Updates metaform member
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMembers
@@ -1480,7 +1480,7 @@ paths:
       summary: Deletes metaform member
       description: |
         Deletes metaform member
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMembers
@@ -1533,7 +1533,7 @@ paths:
       summary: Create new metaform member group
       description: |
         Creates metaform member group
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMemberGroups
@@ -1585,7 +1585,7 @@ paths:
       summary: Finds single metaform member group
       description: |
         Find metaform member group
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMemberGroups
@@ -1640,7 +1640,7 @@ paths:
       summary: Updates metaform member group
       description: |
         Updates metaform member group
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMemberGroups
@@ -1697,7 +1697,7 @@ paths:
       summary: Deletes metaform manager group
       description: |
         Deletes metaform member group
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - MetaformMemberGroups
@@ -1750,7 +1750,7 @@ paths:
       summary: Lists form email notifications
       description: |
         Lists email notifications for the form
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
@@ -1800,7 +1800,7 @@ paths:
       summary: create new form email notification
       description: |
         Creates new email notification
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
@@ -1851,7 +1851,7 @@ paths:
       summary: Find a single emai notification
       description: |
         Finds email notification
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
@@ -1906,7 +1906,7 @@ paths:
       summary: Updates email notification
       description: |
         Updates email notification
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
@@ -1963,7 +1963,7 @@ paths:
       summary: Deletes an email notification
       description: |
         Deletes email notification
-        
+
         Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
@@ -2009,14 +2009,14 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/exportThemes":
     get:
       operationId: listExportThemes
       summary: Lists form export themes
       description: |
         Lists export themes
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemes
@@ -2058,7 +2058,7 @@ paths:
       summary: create new form export theme
       description: |
         Creates new export theme
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemes
@@ -2101,7 +2101,7 @@ paths:
       summary: Finds single export theme
       description: |
         Finds export theme
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemes
@@ -2149,7 +2149,7 @@ paths:
       summary: Updates export theme
       description: |
         Updates export theme
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemes
@@ -2199,7 +2199,7 @@ paths:
       summary: Deletes an export theme
       description: |
         Deletes export theme
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemes
@@ -2238,14 +2238,14 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/exportThemes/{exportThemeId}/files":
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
       description: |
         Lists export theme files
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
@@ -2295,7 +2295,7 @@ paths:
       summary: create new export theme file
       description: |
         Creates export theme file
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
@@ -2347,7 +2347,7 @@ paths:
       summary: Finds single export theme file
       description: |
         Finds export theme file
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
@@ -2402,7 +2402,7 @@ paths:
       summary: Updates export theme file
       description: |
         Updates export theme file
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
@@ -2459,7 +2459,7 @@ paths:
       summary: Deletes an export theme file
       description: |
         Deletes export theme file
-        
+
         Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
@@ -2505,15 +2505,15 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-<<<<<<< HEAD
-                
-=======
 
   "/v1/adminThemes":
     get:
       operationId: listAdminTheme
       summary: Lists admin themes
-      description: Lists admin themes
+      description: |
+        Lists admin themes
+
+        Method is allowed only for system administrators
       tags:
         - AdminTheme
       responses:
@@ -2552,7 +2552,10 @@ paths:
     post:
       operationId: createAdminTheme
       summary: Create new admin theme
-      description: Creates a new admin theme
+      description: |
+        Creates a new admin theme
+
+        Method is allowed only for system administrators
       tags:
         - AdminTheme
       requestBody:
@@ -2593,7 +2596,10 @@ paths:
     get:
       operationId: findAdminTheme
       summary: Finds admin theme
-      description: Finds a admin theme
+      description: |
+        Finds a admin theme
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - AdminTheme
       parameters:
@@ -2638,7 +2644,9 @@ paths:
     put:
       operationId: updateAdminTheme
       summary: Updates admin theme
-      description: Updates admin theme
+        Updates an admin theme
+
+        Method is allowed only for system administrators
       tags:
         - AdminTheme
       parameters:
@@ -2685,7 +2693,9 @@ paths:
     delete:
       operationId: deleteAdminTheme
       summary: Deletes admin theme
-      description: Deletes an admin theme
+        Deletes an admin theme
+
+        Method is allowed only for system administrators
       tags:
         - AdminTheme
       parameters:
@@ -2724,16 +2734,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
->>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
   "/v1/attachments/{attachmentId}":
     get:
       operationId: findAttachment
       summary: Find an attachment by id
       description: |
         Finds an attachment
-        
+
         Method allows system administrators and metaform administrators to find a attachment.
-        
+
         Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
       parameters:
         - name: attachmentId
@@ -2781,9 +2790,9 @@ paths:
       summary: Find a attachment data by id
       description: |
         Finds an attachment data
-        
+
         Method allows system administrators and metaform administrators to find a attachment data.
-        
+
         Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
       parameters:
         - name: attachmentId
@@ -2832,7 +2841,7 @@ paths:
       summary: System ping endpoint
       description: |
         Method returns pong. The method can be used to determine whether the API is up or not.
-      
+
         Method does not require any authentication.
       operationId: ping
       tags:
@@ -2845,7 +2854,7 @@ paths:
               schema:
                 type: string
                 description: Returns pong
-                
+
 
 components:
   requestBodies:
@@ -2962,7 +2971,7 @@ components:
       type: object
       additionalProperties:
         type: object
-        
+
     MetaformVisibility:
       type: string
       enum:
@@ -3026,7 +3035,6 @@ components:
               items:
                 $ref: "#/components/schemas/MetaformScript"
 
-<<<<<<< HEAD
     MetaformMember:
       type: object
       description: Form member or manager user.
@@ -3035,19 +3043,11 @@ components:
         - firstName
         - lastName
         - role
-=======
-    AdminTheme:
-      type: object
-      required:
-        - data
-        - name
->>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-<<<<<<< HEAD
           description: Id of the form member or manager user in Keycloak.
         email:
           type: string
@@ -3087,7 +3087,12 @@ components:
           items:
             type: string
             format: uuid
-=======
+
+      AdminTheme:
+        type: object
+        required:
+          - data
+          - name
         data:
           type: object
           additionalProperties:
@@ -3116,7 +3121,6 @@ components:
           format: date-time
           description: Date modified
           readOnly: true
->>>>>>> 773715f2aaca0302a73d652dfaa273b22a9bc229
 
     MetaformVersionType:
       type: string
