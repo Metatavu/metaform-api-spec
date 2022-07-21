@@ -1316,12 +1316,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: metaformMemberGroupId
-          in: query
-          description: membergroup id needed for manager user
-          schema:
-            type: string
-            format: uuid
       requestBody:
         $ref: "#/components/requestBodies/MetaformMember"
       responses:
@@ -1433,12 +1427,6 @@ paths:
           required: true
           in: path
           description: Metaform member id
-          schema:
-            type: string
-            format: uuid
-        - name: metaformMemberGroupId
-          in: query
-          description: membergroup id needed for manager user
           schema:
             type: string
             format: uuid
@@ -3088,11 +3076,15 @@ components:
             type: string
             format: uuid
 
-      AdminTheme:
-        type: object
-        required:
-          - data
-          - name
+    AdminTheme:
+      type: object
+      required:
+        - data
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
         data:
           type: object
           additionalProperties:
