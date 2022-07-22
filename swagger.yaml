@@ -2587,7 +2587,7 @@ paths:
       description: |
         Finds a admin theme
 
-        Method is allowed only for system administrators and metaform administrators
+        Method is allowed only for system administrators and metaform administrators / managers
       tags:
         - AdminTheme
       parameters:
