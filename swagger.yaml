@@ -1367,7 +1367,6 @@ paths:
             type: string
             format: uuid
         - name: role
-          required: true
           in: query
           description: Metaform member role
           schema:
