@@ -731,6 +731,18 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: orderBy
+          in: query
+          description: The criteria to order the replies by
+          required: false
+          schema:
+            $ref: '#/components/schemas/ReplyOrderCriteria'
+        - name: latestFirst
+          in: query
+          description: When using orderBy, return the latest reply first
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
           description: A list of replies
@@ -3812,6 +3824,12 @@ components:
         - DOWNLOAD_REPLY_ATTACHMENT
         - EXPORT_REPLY_PDF
         - EXPORT_REPLY_XLSX
+
+    ReplyOrderCriteria:
+      type: string
+      enum:
+        - CREATED
+        - MODIFIED
 
     InternalServerError:
       type: object
