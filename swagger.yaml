@@ -3195,13 +3195,10 @@ components:
         email:
           type: string
           format: email
-          readOnly: true
         firstName:
           type: string
-          readOnly: true
         lastName:
           type: string
-          readOnly: true
         role:
           $ref: "#/components/schemas/MetaformMemberRole"
 
