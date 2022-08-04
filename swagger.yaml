@@ -13,7 +13,7 @@ paths:
       description: |
         Lists Metaforms.
 
-        Method lists all public metaforms for all users but private metaforms require that logged user is either
+        Method lists all public metaforms for all users but private metaforms require that logged user is either system admin,
         metaform admin or metaform manager
       tags:
         - Metaforms
@@ -56,7 +56,7 @@ paths:
       description: |
         Creates new Metaform
 
-        Method is allowed for system administrators and users with metaform administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Metaforms
       requestBody:
@@ -106,8 +106,7 @@ paths:
       description: |
         Finds a Metaform by slug
 
-        Method allows public metaforms for all users but private metaforms require that logged user is either
-        metaform admin or metaform manager
+        Method allows public metaforms for all users but private metaforms require that logged user is either system admin, metaform admin or metaform manager
       tags:
         - Metaforms
       parameters:
@@ -157,7 +156,7 @@ paths:
         Finds a Metaform
 
         Method allows public metaforms for all users but private metaforms require that logged user is either
-        metaform admin or metaform manager
+        system admin, metaform admin or metaform manager
       tags:
         - Metaforms
       parameters:
@@ -172,7 +171,7 @@ paths:
           in: query
           description: |
             Id of reply the form is loaded for. Reply id needs to be defined when
-            unanonymous form is authenticated with owner key
+            anonymous form is authenticated with owner key
           schema:
             type: string
             format: uuid
@@ -218,7 +217,7 @@ paths:
       description: |
         Updates Metaform
 
-        Method is allowed for system administrators and users with metaform administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Metaforms
       parameters:
@@ -274,7 +273,7 @@ paths:
       description: |
         Deletes Metaform
 
-        Method is allowed for system administrators and users with metaform administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Metaforms
       parameters:
@@ -536,7 +535,7 @@ paths:
       description: |
         Lists audit log entries for metaform
 
-        Method requires that logged user is metaform admin
+        Method requires that logged user is system admin
       tags:
         - AuditLogEntries
       parameters:
@@ -662,7 +661,7 @@ paths:
       description: |
         Lists form replies
 
-        Method allows system administrators and metaform administrators to list all replies. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators, metaform administrators and metaform managers to list all replies. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
@@ -902,7 +901,7 @@ paths:
       description: |
         Finds single reply
 
-        Method allows system administrators and metaform administrators find a reply. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators, metaform administrators and metaform managers to find a reply. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
@@ -962,7 +961,7 @@ paths:
       description: |
         Updates reply
 
-        Method allows system administrators and metaform administrators to update a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators, metaform administrators and metaform managers to update a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
@@ -1020,7 +1019,7 @@ paths:
       description: |
         Deletes a reply
 
-        Method allows system administrators and metaform administrators to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators, metaform administrators and metaform managers to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
@@ -1078,7 +1077,7 @@ paths:
       description: |
         Exports reply data
 
-        Method allows system administrators and metaform administrators to export reply data. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators, metaform administrators and metaform managers to export reply data. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
@@ -2003,7 +2002,7 @@ paths:
   "/v1/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
     get:
       operationId: findEmailNotification
-      summary: Find a single emai notification
+      summary: Find a single email notification
       description: |
         Finds email notification
 
@@ -2896,7 +2895,7 @@ paths:
       description: |
         Finds an attachment
 
-        Method allows system administrators and metaform administrators to find a attachment.
+        Method allows system administrators, metaform administrators and metaform managers to find a attachment.
 
         Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
       parameters:
@@ -2946,7 +2945,7 @@ paths:
       description: |
         Finds an attachment data
 
-        Method allows system administrators and metaform administrators to find a attachment data.
+        Method allows system administrators, metaform administrators and metaform managers to find a attachment data.
 
         Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
       parameters:
