@@ -13,8 +13,7 @@ paths:
       description: |
         Lists Metaforms.
 
-        Method lists all public metaforms for all users but private metaforms require that logged user is either system admin,
-        metaform admin or metaform manager
+        Method allows public metaforms for all users but private metaforms require that user is logged in
       tags:
         - Metaforms
       parameters:
@@ -56,7 +55,7 @@ paths:
       description: |
         Creates new Metaform
 
-        Method is allowed for system administrators and metaform administrators
+        Method is allowed for system administrators
       tags:
         - Metaforms
       requestBody:
@@ -155,8 +154,7 @@ paths:
       description: |
         Finds a Metaform
 
-        Method allows public metaforms for all users but private metaforms require that logged user is either
-        system admin, metaform admin or metaform manager
+        Method allows public metaforms for all users but private metaforms require that user is logged in
       tags:
         - Metaforms
       parameters:
@@ -1019,7 +1017,7 @@ paths:
       description: |
         Deletes a reply
 
-        Method allows system administrators, metaform administrators and metaform managers to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
+        Method allows system administrators and metaform administrators to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
