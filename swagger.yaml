@@ -3016,7 +3016,6 @@ paths:
                 type: string
                 description: Returns pong
 
-
 components:
   requestBodies:
     Reply:
@@ -3195,6 +3194,14 @@ components:
               description: List of scripts run when generating a metaform Excel export
               items:
                 $ref: "#/components/schemas/MetaformScript"
+        defaultPermissionGroups:
+          description: |
+            Defines default permission groups for this form. This one is used if none of the fields override the 
+            permission groups. 
+            
+            It is possible to use default and option override at the same time. In that case the
+            default value is used when overriding field has no value (e.g. has been filtered out by visible-if rule).
+          $ref: "#/components/schemas/PermissionGroups"
 
     MetaformMember:
       type: object
@@ -3375,22 +3382,6 @@ components:
       properties:
         visible-if:
           $ref: "#/components/schemas/FieldRule"
-        permission-contexts:
-          type: object
-          properties:
-            view-group:
-              type: boolean
-              description: Field value is used as security group with view permission
-              default: false
-            edit-group:
-              type: boolean
-              description: Field value is used as security group with edit permission
-              default: false
-            notify-group:
-              type: boolean
-              description: Field value is used as security group with notification
-                permission
-              default: false
         name:
           type: string
           description: Field name
@@ -3632,6 +3623,42 @@ components:
         selected:
           description: Defines whether option should be selected by default.
           type: boolean
+        permissionGroups:
+          description: |
+            Defines permission groups for this option. This option overrides the default options defined by the 
+            defaultPermissionGroups of the form. There permission groups are actived only when the posted form has this
+            option selected in the reply data.
+          $ref: "#/components/schemas/PermissionGroups"
+
+    PermissionGroups:
+      type: object
+      description: |
+        Defines member groups for permissions. Object can be used either as default permission groups for single form or 
+        in a field option level. 
+        
+        More detailed descriptions of behaviours in Metaform and MetaformFieldOption objects.
+      properties:
+        viewGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:view permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
+        editGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:edit permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
+        notifyGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:notify permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
 
     MetaformFieldSource:
       type: object
