@@ -109,21 +109,28 @@ paths:
 
   "/v1/metaform":
     get:
-      operationId: findMetaformBySlug
-      summary: Finds single Metaform by slug
+      operationId: findMetaform
+      summary: Finds single Metaform by slug or id 
       description: |
-        Finds a Metaform by slug
+        Finds a Metaform by slug or id
 
         Method allows public metaforms for all users but private metaforms require that logged user is either system admin, metaform admin or metaform manager
       tags:
         - Metaforms
       parameters:
         - name: metaformSlug
-          required: true
+          required: false
           in: query
           description: Metaform slug
           schema:
             type: string
+        - name: metaformId
+          required: false
+          in: query
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
       responses:
         "200":
           description: A metaform
@@ -157,67 +164,6 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
 
   "/v1/metaforms/{metaformId}":
-    get:
-      operationId: findMetaform
-      summary: Finds single Metaform
-      description: |
-        Finds a Metaform
-
-        Method allows public metaforms for all users but private metaforms require that user is logged in
-      tags:
-        - Metaforms
-      parameters:
-        - name: metaformId
-          required: true
-          in: path
-          description: Metaform id
-          schema:
-            type: string
-            format: uuid
-        - name: replyId
-          in: query
-          description: |
-            Id of reply the form is loaded for. Reply id needs to be defined when
-            anonymous form is authenticated with owner key
-          schema:
-            type: string
-            format: uuid
-        - name: ownerKey
-          in: query
-          description: Reply owner key
-          schema:
-            type: string
-      responses:
-        "200":
-          description: A metaform
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: "#/components/schemas/Metaform"
-        "400":
-          description: Invalid request was sent to the server
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: "#/components/schemas/BadRequest"
-        "403":
-          description: Attempted to make a call with unauthorized client
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: "#/components/schemas/Forbidden"
-        "404":
-          description: Attempted to make a call to an non existant metaform
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: "#/components/schemas/NotFound"
-        "500":
-          description: Internal server error
-          content:
-            application/json;charset=utf-8:
-              schema:
-                $ref: "#/components/schemas/InternalServerError"
     put:
       operationId: updateMetaform
       summary: Updates Metaform
