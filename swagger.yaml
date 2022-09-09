@@ -442,6 +442,69 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateMetaformVersion
+      summary: Updates MetaformVersion
+      description: |
+        Updates a Metaform version
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformVersion"
+      responses:
+        "200":
+          description: Updated MetaformVersion
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to a make call to a non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
     delete:
       operationId: deleteMetaformVersion
       summary: Deletes Metaform version
