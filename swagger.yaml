@@ -3161,6 +3161,27 @@ components:
             It is possible to use default and option override at the same time. In that case the
             default value is used when overriding field has no value (e.g. has been filtered out by visible-if rule).
           $ref: "#/components/schemas/PermissionGroups"
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Modified data
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: ID of last modifier
+          readOnly: true
+
 
     MetaformMember:
       type: object
