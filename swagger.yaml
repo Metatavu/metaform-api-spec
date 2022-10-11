@@ -3523,7 +3523,6 @@ components:
           type: boolean
           description: Show workdays only for date/date-time field.
 
-
     MetaformFieldAutocomplete:
       type: object
       required:
