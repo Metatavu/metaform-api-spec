@@ -2193,6 +2193,243 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/users":
+    get:
+      operationId: listUsers
+      summary: Lists Users
+      description: |
+        Lists Users. When searching users the search will also search from configured federated sources. When user is found from a federated source but does not exist on the user database, user without id is returned.
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: search
+          in: query
+          description: Search users with free-text query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createUser
+      summary: create new User
+      description: |
+        Creates new User
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      requestBody:
+        $ref: "#/components/requestBodies/User"
+      responses:
+        "200":
+          description: Created User
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/users/{userId}":
+    get:
+      operationId: findUser
+      summary: Finds single user
+      description: |
+        Finds User by id.
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A found user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+    put:
+      operationId: updateUser
+      summary: Updates User
+      description: |
+        Updates User
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/User"
+      responses:
+        "200":
+          description: Updated User
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteUser
+      summary: Deletes User
+      description: |
+        Deletes User
+
+        Method is allowed for system administrators
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+                
   "/v1/exportThemes":
     get:
       operationId: listExportThemes
@@ -3075,6 +3312,13 @@ components:
             $ref: "#/components/schemas/MetaformMemberGroup"
       description: Payload
       required: true
+    User:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/User"
+      description: Payload
+      required: true
     MetaformVersion:
       content:
         application/json;charset=utf-8:
@@ -3245,6 +3489,55 @@ components:
           description: ID of last modifier
           readOnly: true
 
+    User:
+      type: object
+      description: Form member or manager user.
+      required:
+        - email
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the form member or manager user in Keycloak.
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        displayName:
+          type: string
+          readOnly: true
+          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name. 
+        federatedIdentities:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserFederatedIdentity"
+        
+    UserFederatedIdentity:
+      type: object
+      description: User federated identity
+      required:
+        - source
+        - userId
+        - userName
+        - identityProvider
+      properties:
+        source:
+          $ref: "#/components/schemas/UserFederationSource"
+        userId:
+          type: string
+        userName:
+          type: string
+          
+    UserFederationSource:
+      type: string
+      enum:
+        - CARD
 
     MetaformMember:
       type: object
