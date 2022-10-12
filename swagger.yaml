@@ -2209,20 +2209,6 @@ paths:
           description: Search users with free-text query
           schema:
             type: string
-        - name: firstResult
-          in: query
-          description: First index of results to be returned. Defaults to 0
-          required: false
-          schema:
-            type: integer
-            format: int32
-        - name: maxResults
-          in: query
-          description: How many items to return at one time. Defaults to 10
-          required: false
-          schema:
-            type: integer
-            format: int32
       responses:
         "200":
           description: A list of users
@@ -2302,9 +2288,9 @@ paths:
   "/v1/users/{userId}":
     get:
       operationId: findUser
-      summary: Finds sinlge user
+      summary: Finds single user
       description: |
-        Lists Users.
+        Finds User by id.
 
         Method is allowed for system administrators and administrators of any metaforms.
       tags:
