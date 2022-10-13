@@ -3466,7 +3466,7 @@ components:
             permission groups. 
             
             It is possible to use default and option override at the same time. In that case the
-            default value is used when overriding field has no value (e.g. has been filtered out by visible-if rule).
+            default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
           $ref: "#/components/schemas/PermissionGroups"
         createdAt:
           type: string
@@ -3705,7 +3705,7 @@ components:
       properties:
         title:
           type: string
-        visible-if:
+        visibleIf:
           $ref: "#/components/schemas/FieldRule"
         fields:
           type: array
@@ -3716,7 +3716,7 @@ components:
       required:
         - type
       properties:
-        visible-if:
+        visibleIf:
           $ref: "#/components/schemas/FieldRule"
         name:
           type: string
