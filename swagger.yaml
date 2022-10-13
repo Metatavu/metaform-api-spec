@@ -3812,6 +3812,9 @@ components:
           description: Html code for html field.
         source:
           $ref: "#/components/schemas/MetaformFieldSource"
+        workdaysOnly:
+          type: boolean
+          description: Show workdays only for date/date-time field.
 
     MetaformFieldAutocomplete:
       type: object
