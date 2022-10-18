@@ -3496,7 +3496,7 @@ components:
         - email
         - firstName
         - lastName
-        - userName
+        - username
       properties:
         id:
           type: string
@@ -3510,7 +3510,7 @@ components:
           type: string
         lastName:
           type: string
-        userName:
+        username:
           type: string
         displayName:
           type: string
