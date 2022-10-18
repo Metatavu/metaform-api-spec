@@ -3527,14 +3527,14 @@ components:
       required:
         - source
         - userId
-        - userName
+        - username
         - identityProvider
       properties:
         source:
           $ref: "#/components/schemas/UserFederationSource"
         userId:
           type: string
-        userName:
+        username:
           type: string
           
     UserFederationSource:
