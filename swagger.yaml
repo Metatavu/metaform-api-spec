@@ -3388,9 +3388,15 @@ components:
         createdAt:
           type: string
           format: date-time
+          readOnly: true
         modifiedAt:
           type: string
           format: date-time
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          readOnly: true
         data:
           $ref: "#/components/schemas/ReplyData"
     ReplyData:
