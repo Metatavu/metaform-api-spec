@@ -3391,6 +3391,9 @@ components:
         modifiedAt:
           type: string
           format: date-time
+        lastModifierId:
+          type: string
+          format: uuid
         data:
           $ref: "#/components/schemas/ReplyData"
     ReplyData:
