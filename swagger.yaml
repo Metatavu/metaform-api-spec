@@ -3824,6 +3824,9 @@ components:
         workdaysOnly:
           type: boolean
           description: Show workdays only for date/date-time field.
+        allowPastDays:
+          type: boolean
+          description: Allow past days for date/date-time field.
 
     MetaformFieldAutocomplete:
       type: object
