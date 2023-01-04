@@ -34,6 +34,27 @@ paths:
       responses:
         "200":
           description: A list of metaforms
+          headers:
+            X-Latest-Reply-Dates:
+              schema:
+                type: object
+                additionalProperties:
+                  type: date-time
+            X-Waiting-Replies-Counts:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+            X-Average-Replies-Per-Month-Counts:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+            X-Average-Reply-Process-Delays:
+              schema:
+                type: object
+                additionalProperties:
+                  type: date-time
           content:
             application/json:
               schema:
