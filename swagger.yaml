@@ -54,7 +54,7 @@ paths:
               schema:
                 type: object
                 additionalProperties:
-                  type: date-time
+                  type: integer
           content:
             application/json:
               schema:
