@@ -2198,6 +2198,7 @@ paths:
       operationId: getStatistics
       summary: Gets statistics for given Metaform
       description: |
+        This method is allowed for Metaform administrators.
         Gets Statistics about given Metaform.  
         Statistics are: 
           - Date Time of latest Reply
