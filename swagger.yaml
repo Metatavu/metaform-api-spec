@@ -2216,7 +2216,7 @@ paths:
             format: uuid
       responses:
         "200":
-          description: Last reply stats for given Metaform
+          description: Statistics for given Metaform
           content:
             application/json;charset=utf-8:
               schema:
