@@ -3311,7 +3311,9 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
 
   "/v1/system/billingReport":
-    get:
+    post:
+      security:
+        - cronKey: []
       operationId: sendBillingReport
       summary: Sends Billing Report
       description: |
@@ -3319,28 +3321,8 @@ paths:
         Constructs Billing Report PDF and sends it via email.
       tags:
         - System
-      parameters:
-        - name: period
-          in: query
-          schema:
-            type: integer
-            format: int32
-          required: true
-          description: Billing period
-        - name: recipientEmail
-          in: query
-          schema:
-            type: string
-            format: email
-          required: true
-          description: Email to send Billing Report to
-        - name: cronKey
-          in: query
-          schema:
-            type: string
-            format: uuid
-          required: true
-          description: Key used to authenticate the request
+      requestBody:
+        $ref: "#/components/requestBodies/BillingReportRequest"
       responses:
         "200":
           description: Billing Report was successfully constructed and sent
@@ -3372,7 +3354,7 @@ paths:
         Method does not require any authentication.
       operationId: ping
       tags:
-        - system
+        - System
       responses:
         '200':
           description: System ping response
@@ -3468,11 +3450,20 @@ components:
             $ref: "#/components/schemas/AuditLogEntry"
       description: Payload
       required: true
+    BillingReportRequest:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/BillingReportRequest"
   securitySchemes:
     bearer:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cronKey:
+      type: apiKey
+      in: header
+      name: X-CRON-KEY
   schemas:
     MetaformStatistics:
       type: object
@@ -4327,12 +4318,25 @@ components:
         - DOWNLOAD_REPLY_ATTACHMENT
         - EXPORT_REPLY_PDF
         - EXPORT_REPLY_XLSX
+    
+    BillingReportRequest:
+      type: object
+      properties:
+        period:
+          type: integer
+          format: int32
+          description: Time period for billing report
+        recipientEmail:
+          type: string
+          format: email
+          description: Email address to send billing report to
 
     ReplyOrderCriteria:
       type: string
       enum:
         - CREATED
         - MODIFIED
+        
 
     InternalServerError:
       type: object
