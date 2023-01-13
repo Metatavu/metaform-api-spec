@@ -3324,7 +3324,7 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/BillingReportRequest"
       responses:
-        "200":
+        "204":
           description: Billing Report was successfully constructed and sent
         "400":
           description: Invalid request was sent to the server
