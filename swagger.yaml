@@ -3322,6 +3322,7 @@ paths:
       tags:
         - System
       requestBody:
+        required: true
         $ref: "#/components/requestBodies/BillingReportRequest"
       responses:
         "204":
@@ -3591,11 +3592,11 @@ components:
           type: string
           format: date-time
           description: Date when Metaform was published
-          readonly: true
+          readOnly: true
         nonBillable:
           type: boolean
           description: Whether Metaform is non nonBillable
-          readonly: true
+          readOnly: true
         createdAt:
           type: string
           format: date-time
