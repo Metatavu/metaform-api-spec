@@ -3587,6 +3587,15 @@ components:
             It is possible to use default and option override at the same time. In that case the
             default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
           $ref: "#/components/schemas/PermissionGroups"
+        publishedAt:
+          type: string
+          format: date-time
+          description: Date when Metaform was published
+          readonly: true
+        nonBillable:
+          type: boolean
+          description: Whether Metaform is non nonBillable
+          readonly: true
         createdAt:
           type: string
           format: date-time
