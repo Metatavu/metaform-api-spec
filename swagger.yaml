@@ -3813,8 +3813,6 @@ components:
           $ref: "#/components/schemas/MetaformFieldFlags"
         placeholder:
           type: string
-        class:
-          type: string
         readonly:
           type: boolean
         help:
@@ -3838,9 +3836,6 @@ components:
           type: boolean
           description: Whether checkbox should be checked by default. Only for checkbox
             fields
-        printable:
-          type: boolean
-          description: Defines whether field is printable or not. Only for table fields
         options:
           type: array
           description: Options for radio, checklist, select fields
@@ -3848,40 +3843,8 @@ components:
             $ref: "#/components/schemas/MetaformFieldOption"
         autocomplete:
           $ref: "#/components/schemas/MetaformFieldAutocomplete"
-        source-url:
-          type: string
-          description: Source url for autocomplete and autocomplete-multiple fields. This field is deprecated, use autocomplete instead.
-          format: url
-          deprecated: true
-        upload-url:
-          type: string
-          description: Upload url for files field.
-          format: url
-        single-file:
-          type: boolean
-          description: Defines whether file fields allow multiple files or just one
-        only-images:
-          type: boolean
-          description: Defines whether file fields allow only images
-        max-file-size:
-          type: integer
-          format: int64
-          description: Maximum upload size for image filds
-        add-rows:
-          type: boolean
-          description: Defines whether user can add more table rows.
-        draggable:
-          type: boolean
-          description: Defines whether table rows should be draggable.
-        columns:
-          type: array
-          description: Columns for table fields
-          items:
-            $ref: "#/components/schemas/MetaformTableColumn"
-        src:
-          type: string
-          description: Url for logo field.
-          format: url
+        table:
+          $ref: "#/components/schemas/MetaformFieldTable"
         text:
           type: string
           description: Text for small field.
@@ -3917,6 +3880,19 @@ components:
             codeServerParentConceptCodeId:
               type: string
               description: Parent concept code id for Code Server services
+
+    MetaformFieldTable:
+      type: object
+      description: Table field options 
+      properties:
+          addRows:
+            type: boolean
+            description: Defines whether user can add more table rows.
+          columns:
+            type: array
+            description: Columns for table fields
+            items:
+              $ref: "#/components/schemas/MetaformTableColumn"
 
     MetaformFieldAutocompleteService:
       type: string
