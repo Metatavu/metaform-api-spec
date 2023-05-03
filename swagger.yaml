@@ -3896,6 +3896,10 @@ components:
         allowPastDays:
           type: boolean
           description: Allow past days for date/date-time field.
+        classifiers:
+          type: array
+          items:
+            type: string
 
     MetaformFieldAutocomplete:
       type: object
