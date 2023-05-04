@@ -3992,7 +3992,6 @@ components:
     Script:
       type: object
       required:
-        - id
         - name
         - language
         - content
