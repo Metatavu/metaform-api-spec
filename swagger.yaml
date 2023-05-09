@@ -3310,6 +3310,234 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/scripts":
+    get:
+      operationId: listScripts
+      summary: Lists scripts
+      description: |
+        Lists scripts
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      responses:
+        "200":
+          description: A list of scripts
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createScript
+      summary: Create new script
+      description: |
+        Creates a new script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: Created script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/scripts/{scriptId}":
+    get:
+      operationId: findScript
+      summary: Finds script
+      description: |
+        Finds a script
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single script file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateScript
+      summary: Updates script
+        Updates an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: an updated script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteScript
+      summary: Deletes script
+        Deletes an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   /v1/system/ping:
     get:
       summary: System ping endpoint
@@ -3415,6 +3643,14 @@ components:
             $ref: "#/components/schemas/AuditLogEntry"
       description: Payload
       required: true
+    Script:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Script"
+      description: Payload
+      required: true
+      
   securitySchemes:
     bearer:
       type: http
@@ -3518,23 +3754,11 @@ components:
           items:
             $ref: "#/components/schemas/MetaformFilter"
         scripts:
-          type: object
-          properties:
-            afterCreateReply:
-              type: array
-              description: List of scripts run after new reply is created
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-            afterUpdateReply:
-              type: array
-              description: List of scripts run after a reply is updated
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-            metaformExportXlsx:
-              type: array
-              description: List of scripts run when generating a metaform Excel export
-              items:
-                $ref: "#/components/schemas/MetaformScript"
+          type: array
+          items:
+            type: string
+            format: uuid
+            
         defaultPermissionGroups:
           description: |
             Defines default permission groups for this form. This one is used if none of the fields override the 
@@ -3765,19 +3989,33 @@ components:
           items:
             type: string
 
-    MetaformScript:
+    Script:
       type: object
       required:
         - name
         - language
         - content
+        - type
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         language:
           type: string
         content:
           type: string
+        type:
+          $ref: "#/components/schemas/ScriptType"
+    
+    ScriptType:
+      type: string
+      enum:
+        - AFTER_CREATE_REPLY
+        - AFTER_UPDATE_REPLY
+        - EXPORT_XSLX
+          
     MetaformSection:
       type: object
       properties:
