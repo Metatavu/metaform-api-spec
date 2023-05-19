@@ -4014,7 +4014,7 @@ components:
       enum:
         - AFTER_CREATE_REPLY
         - AFTER_UPDATE_REPLY
-        - EXPORT_XSLX
+        - EXPORT_XLSX
           
     MetaformSection:
       type: object
