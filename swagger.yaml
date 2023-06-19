@@ -4228,6 +4228,10 @@ components:
               type: string
             text:
               type: string
+        classifiers:
+          type: array
+          items:
+            type: string
     MetaformTableColumnType:
       type: string
       enum:
