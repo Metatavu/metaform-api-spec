@@ -278,6 +278,249 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/templates":
+    get:
+      operationId: listTemplates
+      summary: Lists Templates
+      description: |
+        Lists Templates.
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: visibility
+          in: query
+          description: Filter templates by visibility
+          schema:
+            $ref: "#/components/schemas/TemplateVisibility"
+      responses:
+        "200":
+          description: A list of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createTemplate
+      summary: create new Template
+      description: |
+        Creates new Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Created Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/templates/{templateId}":
+    get:
+      operationId: findTemplate
+      summary: Finds single Template
+      description: |
+        Finds a Template by slug or id
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+    put:
+      operationId: updateTemplate
+      summary: Updates Template
+      description: |
+        Updates Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Updated Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteTemplate
+      summary: Deletes Template
+      description: |
+        Deletes Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   "/v1/metaforms/{metaformId}/versions":
     get:
       operationId: listMetaformVersions
@@ -2192,7 +2435,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/metaforms/{metaformId}/statistics":
     get:
       operationId: getStatistics
@@ -2204,7 +2447,7 @@ paths:
           - Date Time of latest Reply
           - Amount of unprocessed Replies
           - Average Replies per month
-          - Average process delay for Replies 
+          - Average process delay for Replies
       tags:
         - MetaformStatistics
       parameters:
@@ -2483,7 +2726,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/exportThemes":
     get:
       operationId: listExportThemes
@@ -3580,6 +3823,13 @@ components:
             $ref: "#/components/schemas/Metaform"
       description: Payload
       required: true
+    Template:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Template"
+      description: Payload
+      required: true
     MetaformMember:
       content:
         application/json;charset=utf-8:
@@ -3650,7 +3900,7 @@ components:
             $ref: "#/components/schemas/Script"
       description: Payload
       required: true
-      
+
   securitySchemes:
     bearer:
       type: http
@@ -3758,7 +4008,7 @@ components:
           items:
             type: string
             format: uuid
-            
+
         defaultPermissionGroups:
           description: |
             Defines default permission groups for this form. This one is used if none of the fields override the 
@@ -3788,6 +4038,58 @@ components:
           description: ID of last modifier
           readOnly: true
 
+    Template:
+      type: object
+      required:
+        - data
+        - visibility
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/TemplateData"
+        visibility:
+          $ref: "#/components/schemas/TemplateVisibility"
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Modified data
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: ID of last modifier
+          readOnly: true
+
+    TemplateData:
+      type: object
+      properties:
+        exportThemeId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformSection"
+    TemplateVisibility:
+      type: string
+      enum:
+        - PUBLIC
+        - PRIVATE
+
     User:
       type: object
       description: Form member or manager user.
@@ -3814,12 +4116,12 @@ components:
         displayName:
           type: string
           readOnly: true
-          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name. 
+          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name.
         federatedIdentities:
           type: array
           items:
             $ref: "#/components/schemas/UserFederatedIdentity"
-        
+
     UserFederatedIdentity:
       type: object
       description: User federated identity
@@ -3835,7 +4137,7 @@ components:
           type: string
         username:
           type: string
-          
+
     UserFederationSource:
       type: string
       enum:
@@ -4008,14 +4310,14 @@ components:
           type: string
         type:
           $ref: "#/components/schemas/ScriptType"
-    
+
     ScriptType:
       type: string
       enum:
         - AFTER_CREATE_REPLY
         - AFTER_UPDATE_REPLY
         - EXPORT_XLSX
-          
+
     MetaformSection:
       type: object
       properties:
@@ -4125,16 +4427,16 @@ components:
 
     MetaformFieldTable:
       type: object
-      description: Table field options 
+      description: Table field options
       properties:
-          addRows:
-            type: boolean
-            description: Defines whether user can add more table rows.
-          columns:
-            type: array
-            description: Columns for table fields
-            items:
-              $ref: "#/components/schemas/MetaformTableColumn"
+        addRows:
+          type: boolean
+          description: Defines whether user can add more table rows.
+        columns:
+          type: array
+          description: Columns for table fields
+          items:
+            $ref: "#/components/schemas/MetaformTableColumn"
 
     MetaformFieldAutocompleteService:
       type: string
