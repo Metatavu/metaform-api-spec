@@ -285,7 +285,7 @@ paths:
       description: |
         Lists Templates.
         
-        Method allows public templates for all users but private templates require that user is logged in
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Templates
       parameters:
@@ -327,7 +327,7 @@ paths:
       description: |
         Creates new Template
         
-        Method is allowed for system administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Templates
       requestBody:
@@ -377,7 +377,7 @@ paths:
       description: |
         Finds a Template by slug or id
         
-        Method allows public templates for all users but private templates require that logged user is either system admin, template admin or template manager
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Templates
       parameters:
@@ -426,7 +426,7 @@ paths:
       description: |
         Updates Template
         
-        Method is allowed for system administrators and template administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Templates
       parameters:
@@ -482,7 +482,7 @@ paths:
       description: |
         Deletes Template
         
-        Method is allowed for system administrators and template administrators
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Templates
       parameters:
@@ -4040,6 +4040,9 @@ components:
 
     Template:
       type: object
+      required:
+        - data
+        - visibility
       properties:
         id:
           type: string
@@ -4075,24 +4078,12 @@ components:
         exportThemeId:
           type: string
           format: uuid
-        allowAnonymous:
-          type: boolean
-          description: Are anonymous replies allowed or not
         title:
           type: string
         sections:
           type: array
           items:
             $ref: "#/components/schemas/MetaformSection"
-        defaultPermissionGroups:
-          description: |
-            Defines default permission groups for this form. This one is used if none of the fields override the 
-            permission groups. 
-
-            It is possible to use default and option override at the same time. In that case the
-            default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
-          $ref: "#/components/schemas/PermissionGroups"
-
     TemplateVisibility:
       type: string
       enum:
