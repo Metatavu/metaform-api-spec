@@ -4403,6 +4403,18 @@ components:
           type: array
           items:
             type: string
+        schedule:
+          $ref: "#/components/schemas/MetaformFieldSchedule"
+
+    MetaformFieldSchedule:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
 
     MetaformFieldAutocomplete:
       type: object
