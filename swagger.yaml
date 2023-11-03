@@ -4017,6 +4017,10 @@ components:
             It is possible to use default and option override at the same time. In that case the
             default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
           $ref: "#/components/schemas/PermissionGroups"
+
+        replyDelivery:
+          $ref: "#/components/schemas/MetaformReplyDelivery"
+
         createdAt:
           type: string
           format: date-time
@@ -4037,6 +4041,19 @@ components:
           format: uuid
           description: ID of last modifier
           readOnly: true
+
+    MetaformReplyDelivery:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          $ref: "#/components/schemas/MetaformReplyDeliveryMethod"
+
+    MetaformReplyDeliveryMethod:
+      type: string
+      enum:
+        - PDF_TO_EMAIL
 
     Template:
       type: object
@@ -4236,7 +4253,6 @@ components:
       enum:
         - ARCHIVED
         - DRAFT
-
     MetaformVersion:
       type: object
       required:
