@@ -278,6 +278,249 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/templates":
+    get:
+      operationId: listTemplates
+      summary: Lists Templates
+      description: |
+        Lists Templates.
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: visibility
+          in: query
+          description: Filter templates by visibility
+          schema:
+            $ref: "#/components/schemas/TemplateVisibility"
+      responses:
+        "200":
+          description: A list of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createTemplate
+      summary: create new Template
+      description: |
+        Creates new Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Created Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/templates/{templateId}":
+    get:
+      operationId: findTemplate
+      summary: Finds single Template
+      description: |
+        Finds a Template by slug or id
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+    put:
+      operationId: updateTemplate
+      summary: Updates Template
+      description: |
+        Updates Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Updated Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteTemplate
+      summary: Deletes Template
+      description: |
+        Deletes Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   "/v1/metaforms/{metaformId}/versions":
     get:
       operationId: listMetaformVersions
@@ -2192,7 +2435,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/metaforms/{metaformId}/statistics":
     get:
       operationId: getStatistics
@@ -2204,7 +2447,7 @@ paths:
           - Date Time of latest Reply
           - Amount of unprocessed Replies
           - Average Replies per month
-          - Average process delay for Replies 
+          - Average process delay for Replies
       tags:
         - MetaformStatistics
       parameters:
@@ -2483,7 +2726,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-                
+
   "/v1/exportThemes":
     get:
       operationId: listExportThemes
@@ -3310,6 +3553,234 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/scripts":
+    get:
+      operationId: listScripts
+      summary: Lists scripts
+      description: |
+        Lists scripts
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      responses:
+        "200":
+          description: A list of scripts
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createScript
+      summary: Create new script
+      description: |
+        Creates a new script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: Created script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/scripts/{scriptId}":
+    get:
+      operationId: findScript
+      summary: Finds script
+      description: |
+        Finds a script
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single script file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateScript
+      summary: Updates script
+        Updates an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: an updated script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteScript
+      summary: Deletes script
+        Deletes an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   "/v1/system/billingReport":
     post:
       security:
@@ -3345,7 +3816,7 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-        
+
   /v1/system/ping:
     get:
       summary: System ping endpoint
@@ -3386,6 +3857,13 @@ components:
         application/json;charset=utf-8:
           schema:
             $ref: "#/components/schemas/Metaform"
+      description: Payload
+      required: true
+    Template:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Template"
       description: Payload
       required: true
     MetaformMember:
@@ -3456,6 +3934,14 @@ components:
         application/json;charset=utf-8:
           schema:
             $ref: "#/components/schemas/BillingReportRequest"
+    Script:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Script"
+      description: Payload
+      required: true
+
   securitySchemes:
     bearer:
       type: http
@@ -3563,23 +4049,11 @@ components:
           items:
             $ref: "#/components/schemas/MetaformFilter"
         scripts:
-          type: object
-          properties:
-            afterCreateReply:
-              type: array
-              description: List of scripts run after new reply is created
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-            afterUpdateReply:
-              type: array
-              description: List of scripts run after a reply is updated
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-            metaformExportXlsx:
-              type: array
-              description: List of scripts run when generating a metaform Excel export
-              items:
-                $ref: "#/components/schemas/MetaformScript"
+          type: array
+          items:
+            type: string
+            format: uuid
+
         defaultPermissionGroups:
           description: |
             Defines default permission groups for this form. This one is used if none of the fields override the 
@@ -3618,6 +4092,58 @@ components:
           description: ID of last modifier
           readOnly: true
 
+    Template:
+      type: object
+      required:
+        - data
+        - visibility
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/TemplateData"
+        visibility:
+          $ref: "#/components/schemas/TemplateVisibility"
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Modified data
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: ID of last modifier
+          readOnly: true
+
+    TemplateData:
+      type: object
+      properties:
+        exportThemeId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformSection"
+    TemplateVisibility:
+      type: string
+      enum:
+        - PUBLIC
+        - PRIVATE
+
     User:
       type: object
       description: Form member or manager user.
@@ -3644,12 +4170,12 @@ components:
         displayName:
           type: string
           readOnly: true
-          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name. 
+          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name.
         federatedIdentities:
           type: array
           items:
             $ref: "#/components/schemas/UserFederatedIdentity"
-        
+
     UserFederatedIdentity:
       type: object
       description: User federated identity
@@ -3665,7 +4191,7 @@ components:
           type: string
         username:
           type: string
-          
+
     UserFederationSource:
       type: string
       enum:
@@ -3819,19 +4345,33 @@ components:
           items:
             type: string
 
-    MetaformScript:
+    Script:
       type: object
       required:
         - name
         - language
         - content
+        - type
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         language:
           type: string
         content:
           type: string
+        type:
+          $ref: "#/components/schemas/ScriptType"
+
+    ScriptType:
+      type: string
+      enum:
+        - AFTER_CREATE_REPLY
+        - AFTER_UPDATE_REPLY
+        - EXPORT_XLSX
+
     MetaformSection:
       type: object
       properties:
@@ -3867,8 +4407,6 @@ components:
           $ref: "#/components/schemas/MetaformFieldFlags"
         placeholder:
           type: string
-        class:
-          type: string
         readonly:
           type: boolean
         help:
@@ -3892,9 +4430,6 @@ components:
           type: boolean
           description: Whether checkbox should be checked by default. Only for checkbox
             fields
-        printable:
-          type: boolean
-          description: Defines whether field is printable or not. Only for table fields
         options:
           type: array
           description: Options for radio, checklist, select fields
@@ -3902,40 +4437,8 @@ components:
             $ref: "#/components/schemas/MetaformFieldOption"
         autocomplete:
           $ref: "#/components/schemas/MetaformFieldAutocomplete"
-        source-url:
-          type: string
-          description: Source url for autocomplete and autocomplete-multiple fields. This field is deprecated, use autocomplete instead.
-          format: url
-          deprecated: true
-        upload-url:
-          type: string
-          description: Upload url for files field.
-          format: url
-        single-file:
-          type: boolean
-          description: Defines whether file fields allow multiple files or just one
-        only-images:
-          type: boolean
-          description: Defines whether file fields allow only images
-        max-file-size:
-          type: integer
-          format: int64
-          description: Maximum upload size for image filds
-        add-rows:
-          type: boolean
-          description: Defines whether user can add more table rows.
-        draggable:
-          type: boolean
-          description: Defines whether table rows should be draggable.
-        columns:
-          type: array
-          description: Columns for table fields
-          items:
-            $ref: "#/components/schemas/MetaformTableColumn"
-        src:
-          type: string
-          description: Url for logo field.
-          format: url
+        table:
+          $ref: "#/components/schemas/MetaformFieldTable"
         text:
           type: string
           description: Text for small field.
@@ -3950,6 +4453,22 @@ components:
         allowPastDays:
           type: boolean
           description: Allow past days for date/date-time field.
+        classifiers:
+          type: array
+          items:
+            type: string
+        schedule:
+          $ref: "#/components/schemas/MetaformFieldSchedule"
+
+    MetaformFieldSchedule:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
 
     MetaformFieldAutocomplete:
       type: object
@@ -3971,6 +4490,19 @@ components:
             codeServerParentConceptCodeId:
               type: string
               description: Parent concept code id for Code Server services
+
+    MetaformFieldTable:
+      type: object
+      description: Table field options
+      properties:
+        addRows:
+          type: boolean
+          description: Defines whether user can add more table rows.
+        columns:
+          type: array
+          description: Columns for table fields
+          items:
+            $ref: "#/components/schemas/MetaformTableColumn"
 
     MetaformFieldAutocompleteService:
       type: string
@@ -4328,7 +4860,7 @@ components:
         - DOWNLOAD_REPLY_ATTACHMENT
         - EXPORT_REPLY_PDF
         - EXPORT_REPLY_XLSX
-    
+
     BillingReportRequest:
       type: object
       properties:
@@ -4346,7 +4878,7 @@ components:
       enum:
         - CREATED
         - MODIFIED
-        
+
 
     InternalServerError:
       type: object
