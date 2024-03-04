@@ -4062,15 +4062,9 @@ components:
             It is possible to use default and option override at the same time. In that case the
             default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
           $ref: "#/components/schemas/PermissionGroups"
-        publishedAt:
-          type: string
-          format: date-time
-          description: Date when Metaform was published
-          readOnly: true
-        nonBillable:
+        active:
           type: boolean
-          description: Whether Metaform is non nonBillable
-          readOnly: true
+          description: Whether Metaform is active right now
         createdAt:
           type: string
           format: date-time
@@ -4864,10 +4858,14 @@ components:
     BillingReportRequest:
       type: object
       properties:
-        period:
-          type: integer
-          format: int32
-          description: Time period for billing report
+        startDate:
+          type: string
+          format: date-time
+          description: Start date for billing report
+        endDate:
+          type: string
+          format: date-time
+          description: End date for billing report
         recipientEmail:
           type: string
           format: email
