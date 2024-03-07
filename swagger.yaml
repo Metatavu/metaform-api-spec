@@ -3781,6 +3781,42 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
+  "/v1/system/billingReport":
+    post:
+      security:
+        - cronKey: []
+      operationId: sendBillingReport
+      summary: Sends Billing Report
+      description: |
+        Requires CRON key to use.
+        Constructs Billing Report PDF and sends it via email.
+      tags:
+        - System
+      requestBody:
+        required: true
+        $ref: "#/components/requestBodies/BillingReportRequest"
+      responses:
+        "204":
+          description: Billing Report was successfully constructed and sent
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
   /v1/system/ping:
     get:
       summary: System ping endpoint
@@ -3790,7 +3826,7 @@ paths:
         Method does not require any authentication.
       operationId: ping
       tags:
-        - system
+        - System
       responses:
         '200':
           description: System ping response
@@ -3893,6 +3929,11 @@ components:
             $ref: "#/components/schemas/AuditLogEntry"
       description: Payload
       required: true
+    BillingReportRequest:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/BillingReportRequest"
     Script:
       content:
         application/json;charset=utf-8:
@@ -3906,6 +3947,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cronKey:
+      type: apiKey
+      in: header
+      name: X-CRON-KEY
   schemas:
     MetaformStatistics:
       type: object
@@ -4017,6 +4062,9 @@ components:
             It is possible to use default and option override at the same time. In that case the
             default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
           $ref: "#/components/schemas/PermissionGroups"
+        active:
+          type: boolean
+          description: Whether Metaform is active right now
         createdAt:
           type: string
           format: date-time
@@ -4807,11 +4855,28 @@ components:
         - EXPORT_REPLY_PDF
         - EXPORT_REPLY_XLSX
 
+    BillingReportRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          description: Start date for billing report
+        endDate:
+          type: string
+          format: date-time
+          description: End date for billing report
+        recipientEmail:
+          type: string
+          format: email
+          description: Email address to send billing report to
+
     ReplyOrderCriteria:
       type: string
       enum:
         - CREATED
         - MODIFIED
+
 
     InternalServerError:
       type: object
