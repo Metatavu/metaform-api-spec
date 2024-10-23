@@ -4860,11 +4860,11 @@ components:
       properties:
         startDate:
           type: string
-          format: date-time
+          format: date
           description: Start date for billing report
         endDate:
           type: string
-          format: date-time
+          format: date
           description: End date for billing report
         recipientEmail:
           type: string
