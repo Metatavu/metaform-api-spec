@@ -3784,11 +3784,11 @@ paths:
   "/v1/system/billingReport":
     post:
       security:
-        - cronKey: []
+        - apiKey: []
       operationId: sendBillingReport
       summary: Sends Billing Report
       description: |
-        Requires CRON key to use.
+        Requires key to use.
         Constructs Billing Report PDF and sends it via email.
       tags:
         - System
@@ -3947,10 +3947,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-    cronKey:
+    apiKey:
       type: apiKey
       in: header
-      name: X-CRON-KEY
+      name: X-API-KEY
   schemas:
     MetaformStatistics:
       type: object
