@@ -3967,10 +3967,14 @@ components:
 
     Metaform:
       type: object
+      required:
+        - deleted
       properties:
         id:
           type: string
           format: uuid
+        deleted:
+          type: boolean
         visibility:
           $ref: "#/components/schemas/MetaformVisibility"
         exportThemeId:
