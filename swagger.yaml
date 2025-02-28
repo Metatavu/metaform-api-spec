@@ -1415,7 +1415,7 @@ paths:
   "/v1/metaforms/{metaformId}/drafts":
     get:
       operationId: listDrafts
-      summary: List metaform drafts
+      summary: List metaform drafts. Used only in testing environments.
       tags:
         - Drafts
       parameters:
