@@ -250,6 +250,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: immediate
+          required: false
+          in: query
+          description: deleteImmediately
+          schema:
+            type: boolean
       responses:
         "204":
           description: Empty content indicating a successful removal
@@ -1407,6 +1413,52 @@ paths:
                 $ref: "#/components/schemas/InternalServerError"
 
   "/v1/metaforms/{metaformId}/drafts":
+    get:
+      operationId: listDrafts
+      summary: List metaform drafts. Used only in testing environments.
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+          "200":
+            description: Drafts
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Draft"
+          "400":
+            description: Invalid request was sent to the server
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/BadRequest"
+          "403":
+            description: Attempted to make a call with unauthorized client
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/Forbidden"
+          "404":
+            description: Attempted to make a call to an non existant metaform
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/NotFound"
+          "500":
+            description: Internal server error
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/InternalServerError"
     post:
       operationId: createDraft
       summary: Create new reply draft
