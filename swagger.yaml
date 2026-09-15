@@ -1,31 +1,41 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: Metaform REST API
   description: REST API for Metaform
-  version: 2.0.0
+  version: 2.1.0
 security:
   - bearer: []
 paths:
-  "/realms/{realmId}/metaforms":
+  "/v1/metaforms":
     get:
       operationId: listMetaforms
       summary: Lists Metaforms
-      description: Lists Metaforms from the realm. User receives only metaforms where
-        he/she has permission to.
+      description: |
+        Lists Metaforms.
+
+        Method allows public metaforms for all users but private metaforms require that user is logged in
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
+        - name: visibility
+          in: query
+          description: Filter metaforms by visibility
           schema:
-            type: string
+            $ref: "#/components/schemas/MetaformVisibility"
+        - name: memberRole
+          in: query
+          description: |
+            Filter results by logged user's role in the form. 
+            
+            User's role has to be either the one specified or higher, so for example when filtering by manager, 
+            metaform administrator and system administrator roles are also included.
+          schema:
+            $ref: "#/components/schemas/MetaformMemberRole"
       responses:
         "200":
           description: A list of metaforms
           content:
-            application/json;charset=utf-8:
+            application/json:
               schema:
                 type: array
                 items:
@@ -51,16 +61,12 @@ paths:
     post:
       operationId: createMetaform
       summary: create new Metaform
-      description: Creates new Metaform
+      description: |
+        Creates new Metaform
+
+        Method is allowed for system administrators
       tags:
         - Metaforms
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       requestBody:
         $ref: "#/components/requestBodies/Metaform"
       responses:
@@ -88,33 +94,56 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
         "500":
           description: Internal server error
           content:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}":
+
+  "/v1/metaform":
     get:
       operationId: findMetaform
       summary: Finds single Metaform
-      description: Finds a single Metaform
+      description: |
+        Finds a Metaform by slug or id
+
+        Method allows public metaforms for all users but private metaforms require that logged user is either system admin, metaform admin or metaform manager
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
+        - name: metaformSlug
+          required: false
+          in: query
+          description: Metaform slug
           schema:
             type: string
         - name: metaformId
-          required: true
-          in: path
+          required: false
+          in: query
           description: Metaform id
           schema:
             type: string
             format: uuid
+        - name: replyId
+          in: query
+          description: |
+            Id of reply the form is loaded for. Reply id needs to be defined when
+            anonymous form is authenticated with owner key
+          schema:
+            type: string
+            format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "200":
           description: A metaform
@@ -146,19 +175,18 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}":
     put:
       operationId: updateMetaform
       summary: Updates Metaform
-      description: Updates a Metaform
+      description: |
+        Updates Metaform
+
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -193,6 +221,12 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
         "500":
           description: Internal server error
           content:
@@ -202,20 +236,545 @@ paths:
     delete:
       operationId: deleteMetaform
       summary: Deletes Metaform
-      description: Deletes a Metaform
+      description: |
+        Deletes Metaform
+
+        Method is allowed for system administrators and metaform administrators
       tags:
         - Metaforms
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
           description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: immediate
+          required: false
+          in: query
+          description: deleteImmediately
+          schema:
+            type: boolean
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/templates":
+    get:
+      operationId: listTemplates
+      summary: Lists Templates
+      description: |
+        Lists Templates.
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: visibility
+          in: query
+          description: Filter templates by visibility
+          schema:
+            $ref: "#/components/schemas/TemplateVisibility"
+      responses:
+        "200":
+          description: A list of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createTemplate
+      summary: create new Template
+      description: |
+        Creates new Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Created Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/templates/{templateId}":
+    get:
+      operationId: findTemplate
+      summary: Finds single Template
+      description: |
+        Finds a Template by slug or id
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+    put:
+      operationId: updateTemplate
+      summary: Updates Template
+      description: |
+        Updates Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Template"
+      responses:
+        "200":
+          description: Updated Template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteTemplate
+      summary: Deletes Template
+      description: |
+        Deletes Template
+        
+        Method is allowed for system administrators and metaform administrators
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          required: true
+          in: path
+          description: Template id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant template
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/versions":
+    get:
+      operationId: listMetaformVersions
+      summary: Lists all the versions of Metaform
+      description: |
+        Lists Metaform versions
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Metaform versions
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createMetaformVersion
+      summary: Create new Metaform version
+      description: |
+        Creates new Metaform version
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformVersion"
+      responses:
+        "200":
+          description: Created Metaform version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/versions/{versionId}":
+    get:
+      operationId: findMetaformVersion
+      summary: Finds Version of Metaform
+      description: |
+        Finds a Metaform version
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Metaform version
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateMetaformVersion
+      summary: Updates MetaformVersion
+      description: |
+        Updates a Metaform version
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformVersion"
+      responses:
+        "200":
+          description: Updated MetaformVersion
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformVersion"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to a make call to a non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteMetaformVersion
+      summary: Deletes Metaform version
+      description: |
+        Deletes a Metaform version
+
+        Method requires that logged user is either system admin or metaform admin
+      tags:
+        - Versions
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: versionId
+          required: true
+          in: path
+          description: Metaform version id
           schema:
             type: string
             format: uuid
@@ -246,20 +805,144 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies":
+
+  "/v1/metaforms/{metaformId}/auditLogEntries":
+    get:
+      operationId: listAuditLogEntries
+      summary: Lists audit log entries for metaform
+      description: |
+        Lists audit log entries for metaform
+
+        Method requires that logged user is system admin
+      tags:
+        - AuditLogEntries
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: userId
+          in: query
+          description: Filter results by user id.
+          schema:
+            type: string
+            format: uuid
+        - name: replyId
+          in: query
+          description: Filter results by reply id
+          schema:
+            type: string
+            format: uuid
+        - name: createdBefore
+          description: Filter results created before specified time
+          in: query
+          schema:
+            type: string
+        - name: createdAfter
+          description: Filter results created after specified time
+          in: query
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: A list of log entries
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditLogEntry"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/auditLogEntries/{auditLogEntryId}":
+    delete:
+      operationId: deleteAuditLogEntry
+      summary: Deletes an audit log
+      description: |
+        Deletes an audit log. Method is allowed only when system is running in test mode
+      tags:
+        - AuditLogEntries
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: auditLogEntryId
+          required: true
+          in: path
+          description: Audit log entry id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/replies":
     get:
       operationId: listReplies
       summary: Lists form replies
-      description: Lists form replies
+      description: |
+        Lists form replies
+
+        Method allows system administrators, metaform administrators and metaform managers to list all replies. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -325,6 +1008,18 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: orderBy
+          in: query
+          description: The criteria to order the replies by
+          required: false
+          schema:
+            $ref: '#/components/schemas/ReplyOrderCriteria'
+        - name: latestFirst
+          in: query
+          description: When using orderBy, return the latest reply first
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
           description: A list of replies
@@ -361,16 +1056,13 @@ paths:
     post:
       operationId: createReply
       summary: create new form reply
-      description: Creates new form reply
+      description: |
+        Creates new form reply
+
+        For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role in order to post the reply.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -423,20 +1115,18 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/export":
+
+  "/v1/metaforms/{metaformId}/export":
     get:
       operationId: export
       summary: Exports metaform data
-      description: Exports metaform data
+      description: |
+        Exports metaform data
+
+        Method requires that logged user is either system admin or metaform admin
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -482,20 +1172,17 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}":
+  "/v1/metaforms/{metaformId}/replies/{replyId}":
     get:
       operationId: findReply
       summary: Find a single reply
-      description: Finds single reply by id
+      description: |
+        Finds single reply
+
+        Method allows system administrators, metaform administrators and metaform managers to find a reply. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -510,6 +1197,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "200":
           description: A reply
@@ -544,16 +1236,13 @@ paths:
     put:
       operationId: updateReply
       summary: Updates reply
-      description: Updates reply
+      description: |
+        Updates reply
+
+        Method allows system administrators, metaform administrators and metaform managers to update a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -568,6 +1257,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       requestBody:
         $ref: "#/components/requestBodies/Reply"
       responses:
@@ -600,16 +1294,13 @@ paths:
     delete:
       operationId: deleteReply
       summary: Deletes a reply
-      description: Deletes a reply
+      description: |
+        Deletes a reply
+
+        Method allows system administrators and metaform administrators to delete a reply. Otherwise user must have reply:edit scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -624,6 +1315,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       responses:
         "204":
           description: Empty content indicating a successful removal
@@ -651,20 +1347,18 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/export":
+
+  "/v1/metaforms/{metaformId}/replies/{replyId}/export":
     get:
       operationId: replyExport
       summary: Exports reply data
-      description: Exports reply data
+      description: |
+        Exports reply data
+
+        Method allows system administrators, metaform administrators and metaform managers to export reply data. Otherwise user must have reply:view scope permission for given reply. Permissions are handled by the Keycloak authorization system.
       tags:
         - Replies
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -717,20 +1411,828 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications":
+
+  "/v1/metaforms/{metaformId}/drafts":
+    get:
+      operationId: listDrafts
+      summary: List metaform drafts. Used only in testing environments.
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+          "200":
+            description: Drafts
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Draft"
+          "400":
+            description: Invalid request was sent to the server
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/BadRequest"
+          "403":
+            description: Attempted to make a call with unauthorized client
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/Forbidden"
+          "404":
+            description: Attempted to make a call to an non existant metaform
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/NotFound"
+          "500":
+            description: Internal server error
+            content:
+              application/json;charset=utf-8:
+                schema:
+                  $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createDraft
+      summary: Create new reply draft
+      description: |
+        Create reply draft
+
+        Form needs to have allowDrafts flag on, otherwise method will return forbidden
+
+        For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role in order to create the draft.
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Draft"
+      responses:
+        "200":
+          description: Created draft
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/drafts/{draftId}":
+    get:
+      operationId: findDraft
+      summary: Finds single draft
+      description: |
+        Finds reply draft
+
+        Form needs to have allowDrafts flag on, otherwise method will return forbidden.
+
+        For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: draftId
+          required: true
+          in: path
+          description: draft id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single draft
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateDraft
+      summary: Updates draft
+      description: |
+        Updates reply draft
+
+        Form needs to have allowDrafts flag on, otherwise method will return forbidden
+
+        For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: draftId
+          required: true
+          in: path
+          description: draft id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Draft"
+      responses:
+        "200":
+          description: updated draft
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteDraft
+      summary: Deletes an draft
+      description: |
+        Deletes reply draft
+
+        Form needs to have allowDrafts flag on, otherwise method will return forbidden
+
+        For public forms that have allowAnonymous flag on, method requires that user is logged in for forms without the allowAnonymous flag, user needs to have "user" role and the creator of the draft must match the logged user id
+      tags:
+        - Drafts
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: draftId
+          required: true
+          in: path
+          description: draft id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/members":
+    post:
+      operationId: createMetaformMember
+      summary: create new metaform member
+      description: |
+        Creates new metaform member
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMembers
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformMember"
+      responses:
+        "200":
+          description: Created metaform member
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMember"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    get:
+      operationId: listMetaformMembers
+      summary: list all metaform members
+      description: |
+        Lists all metaform members
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMembers
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: role
+          in: query
+          description: Metaform member role
+          schema:
+            $ref: "#/components/schemas/MetaformMemberRole"
+      responses:
+        "200":
+          description: Listed metaform members
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetaformMember"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/members/{metaformMemberId}":
+    get:
+      operationId: findMetaformMember
+      summary: Finds a metaform member
+      description: |
+        Finds metaform member
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMembers
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberId
+          required: true
+          in: path
+          description: member id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single metaform member
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMember"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateMetaformMember
+      summary: Updates metaform member
+      description: |
+        Updates metaform member
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMembers
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberId
+          required: true
+          in: path
+          description: Metaform member id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformMember"
+      responses:
+        "200":
+          description: updated metaform member
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMember"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteMetaformMember
+      summary: Deletes metaform member
+      description: |
+        Deletes metaform member
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMembers
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberId
+          required: true
+          in: path
+          description: member id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/memberGroups":
+    post:
+      operationId: createMetaformMemberGroup
+      summary: Create new metaform member group
+      description: |
+        Creates metaform member group
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMemberGroups
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformMemberGroup"
+      responses:
+        "200":
+          description: Created metaform manager group
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMemberGroup"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    get:
+      operationId: listMetaformMemberGroups
+      summary: list all metaform member groups
+      description: |
+        Lists all metaform member groups
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMemberGroups
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Listed metaform member groups
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetaformMemberGroup"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/memberGroups/{metaformMemberGroupId}":
+    get:
+      operationId: findMetaformMemberGroup
+      summary: Finds single metaform member group
+      description: |
+        Find metaform member group
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMemberGroups
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberGroupId
+          required: true
+          in: path
+          description: membergroup id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Single metaform manager group
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMemberGroup"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateMetaformMemberGroup
+      summary: Updates metaform member group
+      description: |
+        Updates metaform member group
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMemberGroups
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberGroupId
+          required: true
+          in: path
+          description: Metaform manager group id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/MetaformMemberGroup"
+      responses:
+        "200":
+          description: updated metaform manager group
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformMemberGroup"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteMetaformMemberGroup
+      summary: Deletes metaform manager group
+      description: |
+        Deletes metaform member group
+
+        Method is allowed only for system administrators and metaform administrators
+      tags:
+        - MetaformMemberGroups
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+        - name: metaformMemberGroupId
+          required: true
+          in: path
+          description: membergroup id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/metaforms/{metaformId}/emailNotifications":
     get:
       operationId: listEmailNotifications
       summary: Lists form email notifications
-      description: Lists email notifications
+      description: |
+        Lists email notifications for the form
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -774,16 +2276,13 @@ paths:
     post:
       operationId: createEmailNotification
       summary: create new form email notification
-      description: Creates new form email notification
+      description: |
+        Creates new email notification
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -824,20 +2323,17 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
+  "/v1/metaforms/{metaformId}/emailNotifications/{emailNotificationId}":
     get:
       operationId: findEmailNotification
-      summary: Find a single emai notification
-      description: Finds single email notification by id
+      summary: Find a single email notification
+      description: |
+        Finds email notification
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -886,16 +2382,13 @@ paths:
     put:
       operationId: updateEmailNotification
       summary: Updates email notification
-      description: Updates email notification
+      description: |
+        Updates email notification
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -946,16 +2439,13 @@ paths:
     delete:
       operationId: deleteEmailNotification
       summary: Deletes an email notification
-      description: Deletes an email notification
+      description: |
+        Deletes email notification
+
+        Method is allowed only for system administrators and metaform administrators
       tags:
         - EmailNotifications
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: metaformId
           required: true
           in: path
@@ -997,20 +2487,308 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes":
+
+  "/v1/metaforms/{metaformId}/statistics":
+    get:
+      operationId: getStatistics
+      summary: Gets statistics for given Metaform
+      description: |
+        This method is allowed for Metaform administrators.
+        Gets Statistics about given Metaform.  
+        Statistics are: 
+          - Date Time of latest Reply
+          - Amount of unprocessed Replies
+          - Average Replies per month
+          - Average process delay for Replies
+      tags:
+        - MetaformStatistics
+      parameters:
+        - name: metaformId
+          required: true
+          in: path
+          description: Metaform id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Statistics for given Metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/MetaformStatistics"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/users":
+    get:
+      operationId: listUsers
+      summary: Lists Users
+      description: |
+        Lists Users. When searching users the search will also search from configured federated sources. When user is found from a federated source but does not exist on the user database, user without id is returned.
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: search
+          in: query
+          description: Search users with free-text query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createUser
+      summary: create new User
+      description: |
+        Creates new User
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      requestBody:
+        $ref: "#/components/requestBodies/User"
+      responses:
+        "200":
+          description: Created User
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/users/{userId}":
+    get:
+      operationId: findUser
+      summary: Finds single user
+      description: |
+        Finds User by id.
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A found user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+    put:
+      operationId: updateUser
+      summary: Updates User
+      description: |
+        Updates User
+
+        Method is allowed for system administrators and administrators of any metaforms.
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/User"
+      responses:
+        "200":
+          description: Updated User
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "409":
+          description: Conflicted request was sent to server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Conflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteUser
+      summary: Deletes User
+      description: |
+        Deletes User
+
+        Method is allowed for system administrators
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: User id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty content indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant user
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/exportThemes":
     get:
       operationId: listExportThemes
       summary: Lists form export themes
-      description: Lists export themes
+      description: |
+        Lists export themes
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemes
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       responses:
         "200":
           description: A list of export themes
@@ -1047,16 +2825,12 @@ paths:
     post:
       operationId: createExportTheme
       summary: create new form export theme
-      description: Creates new form export theme
+      description: |
+        Creates new export theme
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemes
-      parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
       requestBody:
         $ref: "#/components/requestBodies/ExportTheme"
       responses:
@@ -1090,20 +2864,17 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}":
+  "/v1/exportThemes/{exportThemeId}":
     get:
       operationId: findExportTheme
       summary: Finds single export theme
-      description: Finds single export theme
+      description: |
+        Finds export theme
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1145,16 +2916,13 @@ paths:
     put:
       operationId: updateExportTheme
       summary: Updates export theme
-      description: Updates export theme
+      description: |
+        Updates export theme
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1198,16 +2966,13 @@ paths:
     delete:
       operationId: deleteExportTheme
       summary: Deletes an export theme
-      description: Deletes an export theme
+      description: |
+        Deletes export theme
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemes
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1242,20 +3007,18 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}/files":
+
+  "/v1/exportThemes/{exportThemeId}/files":
     get:
       operationId: listExportThemeFiles
       summary: Lists files of export theme
-      description: Lists files of export theme
+      description: |
+        Lists export theme files
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1299,16 +3062,13 @@ paths:
     post:
       operationId: createExportThemeFile
       summary: create new export theme file
-      description: Creates new export theme file
+      description: |
+        Creates export theme file
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1349,20 +3109,18 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
+
+  "/v1/exportThemes/{exportThemeId}/files/{exportThemeFileId}":
     get:
       operationId: findExportThemeFile
       summary: Finds single export theme file
-      description: Finds single export theme file
+      description: |
+        Finds export theme file
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1411,16 +3169,13 @@ paths:
     put:
       operationId: updateExportThemeFile
       summary: Updates export theme file
-      description: Updates export theme file
+      description: |
+        Updates export theme file
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1471,16 +3226,13 @@ paths:
     delete:
       operationId: deleteExportThemeFile
       summary: Deletes an export theme file
-      description: Deletes an export theme file
+      description: |
+        Deletes export theme file
+
+        Method is allowed only for system administrators
       tags:
         - ExportThemeFiles
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: exportThemeId
           required: true
           in: path
@@ -1522,18 +3274,246 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/attachments/{attachmentId}":
+
+  "/v1/adminThemes":
     get:
-      operationId: findAttachment
-      summary: Find a attachment by id
-      description: Returns single attachment
+      operationId: listAdminTheme
+      summary: Lists admin themes
+      description: |
+        Lists admin themes
+
+        Method is allowed only for system administrators
+      tags:
+        - AdminTheme
+      responses:
+        "200":
+          description: A list of admin themes
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createAdminTheme
+      summary: Create new admin theme
+      description: |
+        Creates a new admin theme
+
+        Method is allowed only for system administrators
+      tags:
+        - AdminTheme
+      requestBody:
+        $ref: "#/components/requestBodies/AdminTheme"
+      responses:
+        "200":
+          description: Created admin theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/adminThemes/{themeId}":
+    get:
+      operationId: findAdminTheme
+      summary: Finds admin theme
+      description: |
+        Finds a admin theme
+
+        Method is allowed only for system administrators and metaform administrators / managers
+      tags:
+        - AdminTheme
       parameters:
-        - name: realmId
+        - name: themeId
           required: true
           in: path
-          description: realm id
+          description: admin theme id
           schema:
             type: string
+            format: uuid
+      responses:
+        "200":
+          description: single admin theme file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateAdminTheme
+      summary: Updates admin theme
+        Updates an admin theme
+
+        Method is allowed only for system administrators
+      tags:
+        - AdminTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: admin theme id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/AdminTheme"
+      responses:
+        "200":
+          description: an updated admin theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/AdminTheme"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteAdminTheme
+      summary: Deletes admin theme
+        Deletes an admin theme
+
+        Method is allowed only for system administrators
+      tags:
+        - AdminTheme
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          description: admin theme id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/attachments/{attachmentId}":
+    get:
+      operationId: findAttachment
+      summary: Find an attachment by id
+      description: |
+        Finds an attachment
+
+        Method allows system administrators, metaform administrators and metaform managers to find a attachment.
+
+        Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
+      parameters:
         - name: attachmentId
           in: path
           description: Attachment id
@@ -1541,6 +3521,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       tags:
         - Attachments
       responses:
@@ -1568,18 +3553,17 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-  "/realms/{realmId}/attachments/{attachmentId}/data":
+  "/v1/attachments/{attachmentId}/data":
     get:
       operationId: findAttachmentData
       summary: Find a attachment data by id
-      description: Returns attachment data
+      description: |
+        Finds an attachment data
+
+        Method allows system administrators, metaform administrators and metaform managers to find a attachment data.
+
+        Otherwise user must have reply:view scope permission for the reply associated with the attachment. Permissions are handled by the Keycloak authorization system.
       parameters:
-        - name: realmId
-          required: true
-          in: path
-          description: realm id
-          schema:
-            type: string
         - name: attachmentId
           in: path
           description: Attachment id
@@ -1587,6 +3571,11 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: ownerKey
+          in: query
+          description: Reply owner key
+          schema:
+            type: string
       tags:
         - Attachments
       responses:
@@ -1615,8 +3604,254 @@ paths:
             application/json;charset=utf-8:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
-servers:
-  - url: /
+
+  "/v1/scripts":
+    get:
+      operationId: listScripts
+      summary: Lists scripts
+      description: |
+        Lists scripts
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      responses:
+        "200":
+          description: A list of scripts
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    post:
+      operationId: createScript
+      summary: Create new script
+      description: |
+        Creates a new script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: Created script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  "/v1/scripts/{scriptId}":
+    get:
+      operationId: findScript
+      summary: Finds script
+      description: |
+        Finds a script
+
+        Method is allowed only for system and metaform administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: single script file
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant metaform
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    put:
+      operationId: updateScript
+      summary: Updates script
+        Updates an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: "#/components/requestBodies/Script"
+      responses:
+        "200":
+          description: an updated script
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Script"
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+    delete:
+      operationId: deleteScript
+      summary: Deletes script
+        Deletes an script
+
+        Method is allowed only for system administrators
+      tags:
+        - Scripts
+      parameters:
+        - name: scriptId
+          required: true
+          in: path
+          description: script id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Empty response indicating a successful removal
+        "400":
+          description: Invalid request was sent to the server
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        "403":
+          description: Attempted to make a call with unauthorized client
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        "404":
+          description: Attempted to make a call to an non existant theme
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/InternalServerError"
+
+  /v1/system/ping:
+    get:
+      summary: System ping endpoint
+      description: |
+        Method returns pong. The method can be used to determine whether the API is up or not.
+
+        Method does not require any authentication.
+      operationId: ping
+      tags:
+        - system
+      responses:
+        '200':
+          description: System ping response
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Returns pong
+
 components:
   requestBodies:
     Reply:
@@ -1626,11 +3861,53 @@ components:
             $ref: "#/components/schemas/Reply"
       description: Payload
       required: true
+    Draft:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Draft"
+      description: Payload
+      required: true
     Metaform:
       content:
         application/json;charset=utf-8:
           schema:
             $ref: "#/components/schemas/Metaform"
+      description: Payload
+      required: true
+    Template:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Template"
+      description: Payload
+      required: true
+    MetaformMember:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/MetaformMember"
+      description: Payload
+      required: true
+    MetaformMemberGroup:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/MetaformMemberGroup"
+      description: Payload
+      required: true
+    User:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/User"
+      description: Payload
+      required: true
+    MetaformVersion:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/MetaformVersion"
       description: Payload
       required: true
     ExportThemeFile:
@@ -1654,12 +3931,49 @@ components:
             $ref: "#/components/schemas/ExportTheme"
       description: Payload
       required: true
+    AdminTheme:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/AdminTheme"
+      description: Payload
+      required: true
+    AuditLogEntry:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/AuditLogEntry"
+      description: Payload
+      required: true
+    Script:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: "#/components/schemas/Script"
+      description: Payload
+      required: true
+
   securitySchemes:
     bearer:
-      type: apiKey
-      name: Authorization
-      in: header
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+    MetaformStatistics:
+      type: object
+      properties:
+        metaformId:
+          type: string
+          format: uuid
+        lastReplyDate:
+          type: string
+          format: date-time
+        unprocessedReplies:
+          type: integer
+        averageMonthlyReplies:
+          type: integer
+        averageReplyProcessDelay:
+          type: integer
     Reply:
       type: object
       properties:
@@ -1672,29 +3986,45 @@ components:
         revision:
           type: string
           format: date-time
+        ownerKey:
+          type: string
+          readOnly: true
+          description: |
+            Reply owner key allows user to perform edit and delete operations on given reply.
+            Key is returned only once on creation time and will not be recorable afterwards.
         createdAt:
           type: string
           format: date-time
+          readOnly: true
         modifiedAt:
           type: string
           format: date-time
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          readOnly: true
         data:
           $ref: "#/components/schemas/ReplyData"
     ReplyData:
       type: object
       additionalProperties:
         type: object
+
+    MetaformVisibility:
+      type: string
+      enum:
+        - PUBLIC
+        - PRIVATE
+
     Metaform:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        replyStrategy:
-          type: string
-          enum:
-            - PUBLIC
-            - PRIVATE
+        visibility:
+          $ref: "#/components/schemas/MetaformVisibility"
         exportThemeId:
           type: string
           format: uuid
@@ -1704,45 +4034,349 @@ components:
         allowDrafts:
           type: boolean
           description: Are drafts allowed or not
+        allowReplyOwnerKeys:
+          type: boolean
+          description: Generate reply owner keys to replies.
+        allowInvitations:
+          type: boolean
+          description: Enable invitation functionality
+        autosave:
+          type: boolean
+          description: Toggles the autosaving functionality on the form. When autosaving is enabled the form will save automatically every time form values change
+        title:
+          type: string
+        slug:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformSection"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetaformFilter"
+        scripts:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+        defaultPermissionGroups:
+          description: |
+            Defines default permission groups for this form. This one is used if none of the fields override the 
+            permission groups. 
+            
+            It is possible to use default and option override at the same time. In that case the
+            default value is used when overriding field has no value (e.g. has been filtered out by visibleIf rule).
+          $ref: "#/components/schemas/PermissionGroups"
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Modified data
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: ID of last modifier
+          readOnly: true
+
+    Template:
+      type: object
+      required:
+        - data
+        - visibility
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/TemplateData"
+        visibility:
+          $ref: "#/components/schemas/TemplateVisibility"
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Modified data
+          readOnly: true
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: ID of last modifier
+          readOnly: true
+
+    TemplateData:
+      type: object
+      properties:
+        exportThemeId:
+          type: string
+          format: uuid
         title:
           type: string
         sections:
           type: array
           items:
             $ref: "#/components/schemas/MetaformSection"
-        scripts:
+    TemplateVisibility:
+      type: string
+      enum:
+        - PUBLIC
+        - PRIVATE
+
+    User:
+      type: object
+      description: Form member or manager user.
+      required:
+        - email
+        - firstName
+        - lastName
+        - username
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the form member or manager user in Keycloak.
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        displayName:
+          type: string
+          readOnly: true
+          description: Human readable name for user. Display name is customized for each fededated identity. For example card authentication sources usually display card serial numbers as part of the name.
+        federatedIdentities:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserFederatedIdentity"
+
+    UserFederatedIdentity:
+      type: object
+      description: User federated identity
+      required:
+        - source
+        - userId
+        - username
+        - identityProvider
+      properties:
+        source:
+          $ref: "#/components/schemas/UserFederationSource"
+        userId:
+          type: string
+        username:
+          type: string
+
+    UserFederationSource:
+      type: string
+      enum:
+        - CARD
+
+    MetaformMember:
+      type: object
+      description: Form member or manager user.
+      required:
+        - email
+        - firstName
+        - lastName
+        - role
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the form member or manager user in Keycloak.
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        role:
+          $ref: "#/components/schemas/MetaformMemberRole"
+
+    MetaformMemberRole:
+      type: string
+      enum:
+        - MANAGER
+        - ADMINISTRATOR
+
+    MetaformMemberGroup:
+      type: object
+      description: Form manager user group.
+      required:
+        - memberIds
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the manager group in the Keycloak
+        displayName:
+          type: string
+          description: Display of the manager group
+        memberIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    AdminTheme:
+      type: object
+      required:
+        - data
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
           type: object
-          properties:
-            afterCreateReply:
-              type: array
-              description: List of scripts run after new reply is created
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-            afterUpdateReply:
-              type: array
-              description: List of scripts run after a reply is updated
-              items:
-                $ref: "#/components/schemas/MetaformScript"
-    MetaformScript:
+          additionalProperties:
+            type: object
+        name:
+          type: string
+        slug:
+          type: string
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: Id of last modifier
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Date modified
+          readOnly: true
+
+    MetaformVersionType:
+      type: string
+      enum:
+        - ARCHIVED
+        - DRAFT
+
+    MetaformVersion:
+      type: object
+      required:
+        - type
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        type:
+          $ref: "#/components/schemas/MetaformVersionType"
+        data:
+          type: object
+          additionalProperties:
+            type: object
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of creator
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created date
+          readOnly: true
+        lastModifierId:
+          type: string
+          format: uuid
+          description: Id of last modifier
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Date modified
+          readOnly: true
+
+    MetaformFilter:
+      type: object
+      required:
+        - id
+        - name
+        - filter
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fields:
+          type: array
+          description: Predefined list replies filter. Format is field:value
+          items:
+            type: string
+
+    Script:
       type: object
       required:
         - name
         - language
         - content
+        - type
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         language:
           type: string
         content:
           type: string
+        type:
+          $ref: "#/components/schemas/ScriptType"
+
+    ScriptType:
+      type: string
+      enum:
+        - AFTER_CREATE_REPLY
+        - AFTER_UPDATE_REPLY
+        - EXPORT_XLSX
+
     MetaformSection:
       type: object
       properties:
         title:
           type: string
-        visible-if:
-          $ref: "#/components/schemas/MetaformVisibleIf"
+        visibleIf:
+          $ref: "#/components/schemas/FieldRule"
         fields:
           type: array
           items:
@@ -1752,24 +4386,8 @@ components:
       required:
         - type
       properties:
-        visible-if:
-          $ref: "#/components/schemas/MetaformVisibleIf"
-        permission-contexts:
-          type: object
-          properties:
-            view-group:
-              type: boolean
-              description: Field value is used as security group with view permission
-              default: false
-            edit-group:
-              type: boolean
-              description: Field value is used as security group with edit permission
-              default: false
-            notify-group:
-              type: boolean
-              description: Field value is used as security group with notification
-                permission
-              default: false
+        visibleIf:
+          $ref: "#/components/schemas/FieldRule"
         name:
           type: string
           description: Field name
@@ -1786,8 +4404,6 @@ components:
         flags:
           $ref: "#/components/schemas/MetaformFieldFlags"
         placeholder:
-          type: string
-        class:
           type: string
         readonly:
           type: boolean
@@ -1812,53 +4428,86 @@ components:
           type: boolean
           description: Whether checkbox should be checked by default. Only for checkbox
             fields
-        printable:
-          type: boolean
-          description: Defines whether field is printable or not. Only for table fields
         options:
           type: array
           description: Options for radio, checklist, select fields
           items:
             $ref: "#/components/schemas/MetaformFieldOption"
-        source-url:
-          type: string
-          description: Source url for autocomplete and autocomplete-multiple fields
-          format: url
-        upload-url:
-          type: string
-          description: Upload url for files field.
-          format: url
-        single-file:
-          type: boolean
-          description: Defines whether file fields allow multiple files or just one
-        only-images:
-          type: boolean
-          description: Defines whether file fields allow only images
-        max-file-size:
-          type: integer
-          format: int64
-          description: Maximum upload size for image filds
-        add-rows:
-          type: boolean
-          description: Defines whether user can add more table rows.
-        draggable:
-          type: boolean
-          description: Defines whether table rows should be draggable.
-        columns:
-          type: array
-          description: Columns for table fields
-          items:
-            $ref: "#/components/schemas/MetaformTableColumn"
-        src:
-          type: string
-          description: Url for logo field.
-          format: url
+        autocomplete:
+          $ref: "#/components/schemas/MetaformFieldAutocomplete"
+        table:
+          $ref: "#/components/schemas/MetaformFieldTable"
         text:
           type: string
           description: Text for small field.
         html:
           type: string
           description: Html code for html field.
+        source:
+          $ref: "#/components/schemas/MetaformFieldSource"
+        workdaysOnly:
+          type: boolean
+          description: Show workdays only for date/date-time field.
+        allowPastDays:
+          type: boolean
+          description: Allow past days for date/date-time field.
+        classifiers:
+          type: array
+          items:
+            type: string
+        schedule:
+          $ref: "#/components/schemas/MetaformFieldSchedule"
+
+    MetaformFieldSchedule:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+
+    MetaformFieldAutocomplete:
+      type: object
+      required:
+        - service
+      properties:
+        service:
+          $ref: "#/components/schemas/MetaformFieldAutocompleteService"
+        options:
+          type: object
+          properties:
+            codeServerBaseUrl:
+              type: string
+              description: Base URL for code server based services
+              format: url
+            codeServerClassificationId:
+              type: string
+              description: Classification id for Code Server services
+            codeServerParentConceptCodeId:
+              type: string
+              description: Parent concept code id for Code Server services
+
+    MetaformFieldTable:
+      type: object
+      description: Table field options
+      properties:
+        addRows:
+          type: boolean
+          description: Defines whether user can add more table rows.
+        columns:
+          type: array
+          description: Columns for table fields
+          items:
+            $ref: "#/components/schemas/MetaformTableColumn"
+
+    MetaformFieldAutocompleteService:
+      type: string
+      description: Service that provides the autocomplete values
+      enum:
+        - code-server-concept-code
+
     MetaformFieldFlags:
       type: object
       properties:
@@ -1866,6 +4515,7 @@ components:
           type: boolean
           description: Field should be editable in management service
           default: false
+
     MetaformFieldType:
       type: string
       enum:
@@ -1874,6 +4524,7 @@ components:
         - hidden
         - email
         - number
+        - slider
         - memo
         - boolean
         - radio
@@ -1952,11 +4603,11 @@ components:
         - email
         - autocomplete
         - number
-        - enum
         - date
         - time
         - html
         - button
+        - enum
     MetaformFieldOption:
       type: object
       description: Option object for Metaform field
@@ -1976,9 +4627,74 @@ components:
         selected:
           description: Defines whether option should be selected by default.
           type: boolean
-    MetaformVisibleIf:
+        permissionGroups:
+          description: |
+            Defines permission groups for this option. This option overrides the default options defined by the 
+            defaultPermissionGroups of the form. There permission groups are actived only when the posted form has this
+            option selected in the reply data.
+          $ref: "#/components/schemas/PermissionGroups"
+
+    PermissionGroups:
       type: object
-      description: Rule that defines whether specified object is visible
+      description: |
+        Defines member groups for permissions. Object can be used either as default permission groups for single form or 
+        in a field option level. 
+        
+        More detailed descriptions of behaviours in Metaform and MetaformFieldOption objects.
+      properties:
+        viewGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:view permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
+        editGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:edit permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
+        notifyGroupIds:
+          description: |
+            Member group ids of groups that will receive reply:notify permission to the posted reply.
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    MetaformFieldSource:
+      type: object
+      description: Field value source. Defaults to using user's reply.
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/MetaformFieldSourceType"
+        options:
+          type: object
+          properties:
+            autocompleteField:
+              description: Source autocomplete field name. This option is used only when using source type autocomplete
+              type: string
+            autocompleteItemProperty:
+              description: Name of the autocomplete item property to be used as field value. This option is used only when using source type autocomplete
+              type: string
+            accessTokenAttribute:
+              description: Name of the user token attribute. This option is used only when using source type accessToken
+              type: string
+
+    MetaformFieldSourceType:
+      type: string
+      enum:
+        - default
+        - accessToken
+        - autocomplete
+
+    FieldRule:
+      type: object
+      description: Rule for determining field value. Used in visible if and email notify if rules
       properties:
         field:
           type: string
@@ -1993,11 +4709,11 @@ components:
         and:
           type: array
           items:
-            $ref: "#/components/schemas/MetaformVisibleIf"
+            $ref: "#/components/schemas/FieldRule"
         or:
           type: array
           items:
-            $ref: "#/components/schemas/MetaformVisibleIf"
+            $ref: "#/components/schemas/FieldRule"
     EmailNotification:
       type: object
       description: Email notification
@@ -2017,6 +4733,8 @@ components:
           type: array
           items:
             type: string
+        notifyIf:
+          $ref: "#/components/schemas/FieldRule"
     Attachment:
       type: object
       properties:
@@ -2067,6 +4785,86 @@ components:
       enum:
         - XLSX
         - PDF
+
+    Draft:
+      type: object
+      required:
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        data:
+          $ref: "#/components/schemas/DraftData"
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          readOnly: true
+
+    DraftData:
+      type: object
+      additionalProperties:
+        type: object
+
+    AuditLogEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Entity identifier
+        userId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of creator user
+        replyId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the reply
+        attachmentId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Id of the attachment
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Time of accessing the reply
+        message:
+          type: string
+          readOnly: true
+          description: Description of the event
+        logEntryType:
+          $ref: "#/components/schemas/AuditLogEntryType"
+
+    AuditLogEntryType:
+      type: string
+      enum:
+        - VIEW_REPLY
+        - LIST_REPLY
+        - MODIFY_REPLY
+        - DELETE_REPLY
+        - CREATE_REPLY
+        - VIEW_REPLY_ATTACHMENT
+        - DOWNLOAD_REPLY_ATTACHMENT
+        - EXPORT_REPLY_PDF
+        - EXPORT_REPLY_XLSX
+
+    ReplyOrderCriteria:
+      type: string
+      enum:
+        - CREATED
+        - MODIFIED
+
     InternalServerError:
       type: object
       properties:
@@ -2100,6 +4898,14 @@ components:
         message:
           type: string
     NotFound:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Conflict:
       type: object
       properties:
         code:
